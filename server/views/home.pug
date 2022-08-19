@@ -1,5 +1,32 @@
 extends htmlHeader
 
 block content 
-    h1= 'Bienvenue!'
+    
+    .container-fluid.py-3
+        h1.text-primary Chapitres
+        hr
+        each chapter in data
+            .card.text-dark.bg-light.mb-3.w-50.mx-5.my-3(title=chapter.description)
+                if chapter.access
+                    .card-header.text-light.rounded.py-1.px-4.d-flex.justify-content-between.align-items-center.bg-success= chapter.chapterName
+                        div.d-flex.gap-2.align-items-center
+                            a.link.text-light(href=`/chapter:${chapter._id}`)
+                                i.bi.bi-gear-fill
+                            .form-check.form-switch.m-0.py-0(class="access-input", data-chapter=`${chapter._id}`)
+                                input(id=`chapter_access_toggle_${chapter._id}`, type="checkbox", value="", data-toggle="toggle", data-on="Accessible", data-off="Innaccessible", data-onstyle="success", data-offstyle="danger")
+                        script.
+                            $(`#chapter_access_toggle_#{chapter._id}`).bootstrapToggle('on');
+
+                
+                else
+                    .card-header.text-light.rounded.py-1.px-4.d-flex.justify-content-between.align-items-center.bg-secondary= chapter.chapterName
+                        div.d-flex.gap-2.align-items-center
+                            a.link.text-light(href=`/chapter:${chapter._id}`)
+                                i.bi.bi-gear-fill
+                            .form-check.form-switch.m-0.py-0(class="access-input", data-chapter=`${chapter._id}`)
+                                input(id=`chapter_access_toggle_${chapter._id}`, type="checkbox", value="", data-toggle="toggle", data-on="Accessible", data-off="Innaccessible", data-onstyle="success", data-offstyle="danger")
+                        script.
+                            $(`#chapter_access_toggle_#{chapter._id}`).bootstrapToggle('off');
+    
+    script(type="text/javascript", src="scripts/chapterAccess.js") 
     

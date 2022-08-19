@@ -1,19 +1,20 @@
 nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.shadow
-          a.navbar-brand(href='#') Navbar w/ text
+          a.navbar-brand.LEARN-LOGO(href='/') LEARN manager
+            sup.text-danger.ms-1 alpha
           button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
             span.navbar-toggler-icon
           #navbarText.collapse.navbar-collapse
             ul.navbar-nav.mr-auto
-              li.nav-item.active
-                a.nav-link(href='#')
-                  | Home 
-                  span.sr-only (current)
               li.nav-item
-                a.nav-link(href='#') Features
+                a.nav-link.disabled(href='#') Chapitres
+                  sup.text-primary.ms-1="soon" 
               li.nav-item
-                a.nav-link(href='#') Pricing
-            span.navbar-text
-              | Navbar text with an inline element
+                a.nav-link.disabled(href='#') Exercices
+                  sup.text-primary.ms-1="soon"
+              li.nav-item
+                a.nav-link.disabled(href='#') Evaluations
+                  sup.text-primary.ms-1="soon"
+            
             // Button trigger modal
-            button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#chapterModal')
-                | Launch demo modal
+            button.btn.btn-primary(type='button' data-toggle='modal' data-target='#chapterModal')
+                | Nouveau chapitre

@@ -7,6 +7,10 @@ const postChapter = require('./post/postChapter');
 const postSubChapter = require('./post/postSubChapter');
 const postExercise = require('./post/postExercise');
 
+const updateChapterAccess = require('./put/updateChapterAccess');
+const updateSubChapterAccess = require('./put/updateSubChapterAccess');
+const updateExerciseAccess = require('./put/updateExerciseAccess');
+
 module.exports = {
   postChapter,
   postSubChapter,
@@ -15,4 +19,7 @@ module.exports = {
   getChapter,
   getSubChapter,
   getExercise,
+  updateChapterAccess,
+  updateSubChapterAccess,
+  updateExerciseAccess,
 };

@@ -22,6 +22,11 @@ app.use(
   express.static(path.join(__dirname, '/views/styles'))
   // add some others
 );
+app.use(
+  '/res',
+  express.static(path.join(__dirname, '/public'))
+  // add some others
+);
 
 //Database
 const mongoose = require('mongoose'); //MongoDB
@@ -72,12 +77,13 @@ server.listen(PORT, () => {
 //------- ROUTES --------
 require('./API');
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   if (!req.session.isConnected) {
     res.redirect('/auth');
     return;
   }
-  res.render('home', {});
+  let data = await collections.Chapter.find().lean();
+  res.render('home', { data });
 });
 
 app.get('/auth', (req, res) => {
@@ -112,6 +118,10 @@ app.get('/api/getExercise:id?', api.getExercise);
 app.post('/api/postChapter', api.postChapter);
 app.post('/api/postSubChapter', api.postSubChapter);
 app.post('/api/postExercise', api.postExercise);
+
+app.put('/api/updateChapterAccess:id?', api.updateChapterAccess);
+app.put('/api/updateSubChapterAccess:id?', api.updateSubChapterAccess);
+app.put('/api/updateExerciseAccess:id?', api.updateExerciseAccess);
 
 //----------- Errors ------------
 
