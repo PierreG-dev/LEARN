@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 var schema = new Schema({
   chapterId: String,
-  subPartName: String,
+  subChapterName: String,
   access: Boolean,
 });
 

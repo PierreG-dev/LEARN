@@ -15,7 +15,7 @@ module.exports = (req, res) => {
       res.status(200).send('well received !');
     })
     .catch((error) => {
-      console.error('ERROR 500 when creating a Chapter', error);
+      console.error('ERROR 500 when creating a subChapter', error);
       res.status(500).send('Error when creating entry.');
     });
 };

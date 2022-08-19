@@ -1,6 +1,8 @@
 const collections = require('../../collections');
 module.exports = (req, res) => {
-  collections.Chapter.find()
+  collections.SubChapter.find(
+    req.params.id ? { chapterId: req.params.id.slice(1) } : {}
+  )
     .lean()
     .then((data) => res.status(200).send({ data }))
     .catch((error) => {
