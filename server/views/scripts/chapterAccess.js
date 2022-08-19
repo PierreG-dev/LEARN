@@ -15,6 +15,23 @@ const updateChapter = (id) => {
 document.querySelectorAll('.access-input').forEach((toggle) => {
   toggle.onclick = () => {
     updateChapter(toggle.dataset.chapter);
-    location.reload();
+    switch (
+      toggle.parentElement.parentElement.classList.contains('bg-success')
+    ) {
+      case true:
+        toggle.parentElement.parentElement.classList.replace(
+          'bg-success',
+          'bg-secondary'
+        );
+        break;
+      case false:
+        toggle.parentElement.parentElement.classList.replace(
+          'bg-secondary',
+          'bg-success'
+        );
+        break;
+      default:
+        throw 'error switch';
+    }
   };
 });

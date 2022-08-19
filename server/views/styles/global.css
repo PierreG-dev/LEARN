@@ -17,3 +17,17 @@ h5 {
   vertical-align: 0.23em;
   margin-bottom: calc(-0.125em / 2);
 }
+
+.card-header {
+  transition: 0.2s;
+}
+
+.card {
+  opacity: 0.9;
+  transition: 0.2s;
+}
+
+.card:hover {
+  opacity: 1;
+  cursor: help;
+}
