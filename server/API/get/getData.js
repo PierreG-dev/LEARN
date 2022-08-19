@@ -1,13 +1,32 @@
 const collections = require('../../collections');
-module.exports = (req, res) => {
-  collections.Chapter.find()
-    .lean()
-    .then((data) => res.status(200).send({ data }))
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send({
-        errNo: 500,
-        errName: 'Error when retrieving data',
-      });
-    });
+module.exports = async (req, res) => {
+  const chapters = await collections.Chapter.find().lean();
+
+  const data = await Promise.all(
+    chapters.map(async (chapter) => {
+      let subChapterList = await collections.SubChapter.find({
+        chapterId: chapter._id,
+      }).lean();
+
+      subChapterList = await Promise.all(
+        subChapterList.map(async (subChapter) => {
+          const exerciceList = await collections.Exercise.find({
+            subChapterId: subChapter._id,
+          }).lean();
+
+          return {
+            ...subChapter,
+            exerciceList,
+          };
+        })
+      );
+
+      return {
+        ...chapter,
+        subChapterList,
+      };
+    })
+  );
+
+  res.status(200).send(data);
 };
