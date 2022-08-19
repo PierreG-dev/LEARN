@@ -1,0 +1,17 @@
+// Modal
+#chapterModal.modal.fade(tabindex='-1' aria-labelledby='chapterModal' aria-hidden='true')
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h5#chapterModal.modal-title Nouveau Chapitre
+                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+            .modal-body
+                div(class="container form gap-2 d-flex flex-column align-items-start")
+                  label(for="chapterName")= "Nom"
+                  input(type="text", name="chapterName", id="chapter_name" class="form-control")
+                  label(for="description")= "Description"
+                  textarea(name="description", cols="30", rows="10", id="chapter_description" class="form-control")
+            .modal-footer.position-relative
+                span.text-success.text-sm.position-absolute.start-0.d-none#chapterSuccessSpan="Créé avec succès !"
+                button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Fermer
+                button.btn.btn-primary(type='button', id="chapter_button") Créer

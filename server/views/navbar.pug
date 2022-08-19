@@ -1,0 +1,19 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.shadow
+          a.navbar-brand(href='#') Navbar w/ text
+          button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
+            span.navbar-toggler-icon
+          #navbarText.collapse.navbar-collapse
+            ul.navbar-nav.mr-auto
+              li.nav-item.active
+                a.nav-link(href='#')
+                  | Home 
+                  span.sr-only (current)
+              li.nav-item
+                a.nav-link(href='#') Features
+              li.nav-item
+                a.nav-link(href='#') Pricing
+            span.navbar-text
+              | Navbar text with an inline element
+            // Button trigger modal
+            button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#chapterModal')
+                | Launch demo modal

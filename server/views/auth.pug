@@ -1,0 +1,7 @@
+extends htmlHeader 
+
+block content 
+        h1= 'Non connecté.'
+        form(action="/auth", method="post") 
+            input(type="password", name="password")
+            button(type="submit")= 'Se connecter'
