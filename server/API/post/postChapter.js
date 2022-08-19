@@ -7,9 +7,9 @@ module.exports = (req, res) => {
     throw 'Empty parameters';
   }
   collections.Chapter.create({
-    access: false,
     chapterName: req.body.chapterName,
     description: req.body.description,
+    access: false,
   })
     .then(() => {
       res.status(200).send('well received !');
