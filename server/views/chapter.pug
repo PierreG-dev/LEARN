@@ -1,8 +1,9 @@
 extends htmlHeader
 
 block content
-    include utilities/subChapterModal 
     
+    include utilities/subChapterModal 
+
     .d-flex.justify-content-between.p-3
         h1= `Chapitre ${chapter.chapterName}`
         button.btn.btn-primary(type='button' data-toggle='modal' data-target='#subChapterModal')
@@ -10,11 +11,26 @@ block content
 
     .list-group
     each subChapter in chapter.subChapterList
-        .list-group-item
-            h4= subChapter.subChapterName
-            .list-group
-                each exo in subChapter.exerciceList 
-                    .list-group-item
-                        h5= exo.instructions
+        .list-group-item(class=`${subChapter.access ? 'bg-success' : 'bg-secondary'}`)
+            .d-flex.justify-content-between
+                h4.text-light= subChapter.subChapterName
+                .form-check.form-switch.m-0.py-0(class="access-input", data-chapter=`${chapter._id}`)
+                                input(id=`chapter_access_toggle_${chapter._id}`, type="checkbox", value="", data-toggle="toggle", data-on="Accessible", data-off="Innaccessible", data-onstyle="success", data-offstyle="danger")
+            .list-group.p-2
+                each exo, key in subChapter.exerciceList 
+                    .list-group-item.border-0.rounded.mb-2
+                        .d-flex.justify-content-between
+                            h4= `Exercice ${key}`
+                            button.btn(type='button' data-toggle='collapse' data-target=`#exo-card-${exo._id}` aria-expanded='false' aria-controls='collapseExample')
+                                i.bi.bi-chevron-down
+                        .collapse(id=`exo-card-${exo._id}`)
+                            div
+                                p= exo.data
+                                p= exo.instructions
+                                p= exo.solution
+
+
+
+
 
     script(type="text/javascript", src="scripts/chapterScript.js") 
