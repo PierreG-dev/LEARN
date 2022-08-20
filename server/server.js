@@ -109,6 +109,45 @@ app.post('/auth', (req, res, next) => {
   req.session.isConnected ? res.redirect('/') : res.render('auth');
 });
 
+app.get('/chapter:id', async (req, res) => {
+  if (!req.session.isConnected) {
+    res.redirect('/auth');
+    return;
+  }
+
+  const chapters = await collections.Chapter.find({
+    _id: req.params['id'].slice(1),
+  }).lean();
+
+  const data = await Promise.all(
+    chapters.map(async (chapter) => {
+      let subChapterList = await collections.SubChapter.find({
+        chapterId: chapter._id,
+      }).lean();
+
+      subChapterList = await Promise.all(
+        subChapterList.map(async (subChapter) => {
+          const exerciceList = await collections.Exercise.find({
+            subChapterId: subChapter._id,
+          }).lean();
+
+          return {
+            ...subChapter,
+            exerciceList,
+          };
+        })
+      );
+
+      return {
+        ...chapter,
+        subChapterList,
+      };
+    })
+  );
+
+  res.status(200).render('chapter', { chapter: data[0] });
+});
+
 //----------- API ------------
 app.get('/api/getData', api.getData);
 app.get('/api/getChapter:id?', api.getChapter);

@@ -1,0 +1,17 @@
+// Modal
+#subChapterModal.modal.fade(tabindex='-1' aria-labelledby='subChapterModal' aria-hidden='true')
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h5#chapterModal.modal-title Nouvelle section du cours
+                    i.ml-2= chapter.chapterName
+                button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+            .modal-body
+                div(class="container form gap-2 d-flex flex-column align-items-start")
+                label(for="subChapterName") Nom de la section
+                  input(type="text", name="subChapterName", id="subChapter_name" class="form-control")
+            .modal-footer.position-relative
+                span.text-success.text-sm.position-absolute.start-0.d-none#subChapterSuccessSpan="Créé avec succès !"
+                button.btn.btn-secondary(type='button' data-dismiss='modal') Fermer
+                button.btn.btn-primary(type='button', id="subChapter_button" data-chapter-id=`${chapter._id}`) Créer
