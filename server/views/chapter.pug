@@ -18,17 +18,35 @@ block content
                                 input(id=`chapter_access_toggle_${chapter._id}`, type="checkbox", value="", data-toggle="toggle", data-on="Accessible", data-off="Innaccessible", data-onstyle="success", data-offstyle="danger")
             .list-group.p-2
                 each exo, key in subChapter.exerciceList 
-                    .list-group-item.border-0.rounded.mb-2
+                    .list-group-item.border-0.rounded.mb-3.shadow
                         .d-flex.justify-content-between
-                            h4= `Exercice ${key}`
+                            h4= `Exercice ${key + 1}`
                             button.btn(type='button' data-toggle='collapse' data-target=`#exo-card-${exo._id}` aria-expanded='false' aria-controls='collapseExample')
                                 i.bi.bi-chevron-down
-                        .collapse(id=`exo-card-${exo._id}`)
+                        .collapse.my-3(id=`exo-card-${exo._id}`)
                             div
-                                p= exo.data
+                                pre
+                                    code.hljs(source=`${exo.data}`, lang='javascript')= exo.data        
                                 p= exo.instructions
-                                p= exo.solution
-
+                                pre
+                                    code.hljs(source=`${exo.data}`, lang='javascript')= exo.solution
+                                .d-flex.gap-2
+                                    .form-check.form-switch.m-0.py-0(data-exo-id=`${exo._id}`, class="exo_access_button")
+                                        input(id=`exo_access_toggle_${exo._id}`, type="checkbox", value="", data-toggle="toggle", data-on="🔓", data-off="🔒", data-onstyle="success", data-offstyle="danger")
+                                    .form-check.form-switch.m-0.py-0(data-exo-id=`${exo._id}`, class="exo_solutionAccess_button")
+                                        input(id=`exo_solution_toggle_${exo._id}`, type="checkbox", value="", data-toggle="toggle", data-on="✅", data-off="🚫", data-onstyle="success", data-offstyle="danger")
+                    if exo.access
+                        script.
+                            $(`#exo_access_toggle_#{exo._id}`).bootstrapToggle('on')
+                    else 
+                        script.
+                            $(`#exo_access_toggle_#{exo._id}`).bootstrapToggle('off')
+                    if exo.solutionAccess
+                        script.
+                            $(`#exo_solution_toggle_#{exo._id}`).bootstrapToggle('on')
+                    else
+                        script.
+                            $(`#exo_solution_toggle_#{exo._id}`).bootstrapToggle('off')
 
 
 

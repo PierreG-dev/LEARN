@@ -161,6 +161,10 @@ app.post('/api/postExercise', api.postExercise);
 app.put('/api/updateChapterAccess:id?', api.updateChapterAccess);
 app.put('/api/updateSubChapterAccess:id?', api.updateSubChapterAccess);
 app.put('/api/updateExerciseAccess:id?', api.updateExerciseAccess);
+app.put(
+  '/api/updateExerciseSolutionAccess:id?',
+  api.updateExerciceSolutionAccess
+);
 
 //----------- Errors ------------
 

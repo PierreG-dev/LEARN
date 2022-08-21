@@ -10,6 +10,7 @@ const postExercise = require('./post/postExercise');
 const updateChapterAccess = require('./put/updateChapterAccess');
 const updateSubChapterAccess = require('./put/updateSubChapterAccess');
 const updateExerciseAccess = require('./put/updateExerciseAccess');
+const updateExerciceSolutionAccess = require('./put/updateExerciceSolutionAccess');
 
 module.exports = {
   postChapter,
@@ -22,4 +23,5 @@ module.exports = {
   updateChapterAccess,
   updateSubChapterAccess,
   updateExerciseAccess,
+  updateExerciceSolutionAccess,
 };
