@@ -2,20 +2,28 @@ extends htmlHeader
 
 block content
     
-    include utilities/subChapterModal 
+    include utilities/subChapterModal
+    include utilities/exerciseModal
+
+    span.d-none.memorySpan
 
     .d-flex.justify-content-between.p-3
         h1= `Chapitre ${chapter.chapterName}`
-        button.btn.btn-primary(type='button' data-toggle='modal' data-target='#subChapterModal')
-            | Nouvelle section
+        button.btn.btn-primary.rounded(type='button' data-toggle='modal' data-target='#subChapterModal')
+            i.bi.bi-plus
+            i.bi.bi-book-half
 
     .list-group
     each subChapter in chapter.subChapterList
         .list-group-item(class=`${subChapter.access ? 'bg-success' : 'bg-secondary'}`)
             .d-flex.justify-content-between
                 h4.text-light= subChapter.subChapterName
-                .form-check.form-switch.m-0.py-0(class="access-input", data-chapter=`${chapter._id}`)
-                                input(id=`chapter_access_toggle_${chapter._id}`, type="checkbox", value="", data-toggle="toggle", data-on="Accessible", data-off="Innaccessible", data-onstyle="success", data-offstyle="danger")
+                .d-flex
+                    button.btn.btn-primary(class='exercise-creation-button' type='button' data-toggle='modal' data-target='#exerciseModal' data-subChapter-id=`${subChapter._id}`)
+                        i.bi.bi-plus
+                        i.bi.bi-pencil-square
+                    .form-check.form-switch.m-0.py-0(class="access-input", data-subChapter=`${subChapter._id}`)
+                                input(id=`subChapter_access_toggle_${subChapter._id}`, type="checkbox", value="", data-toggle="toggle", data-on="Accessible", data-off="Innaccessible", data-onstyle="success", data-offstyle="danger")
             .list-group.p-2
                 each exo, key in subChapter.exerciceList 
                     .list-group-item.border-0.rounded.mb-3.shadow
@@ -32,7 +40,7 @@ block content
                                     code.hljs(source=`${exo.data}`, lang='javascript')= exo.solution
                                 .d-flex.gap-2
                                     .form-check.form-switch.m-0.py-0(data-exo-id=`${exo._id}`, class="exo_access_button")
-                                        input(id=`exo_access_toggle_${exo._id}`, type="checkbox", value="", data-toggle="toggle", data-on="🔓", data-off="🔒", data-onstyle="success", data-offstyle="danger")
+                                        input(id=`exo_access_toggle_${exo._id}`, type="checkbox", value="", data-toggle="toggle", data-on="🔓", data-off="🔒", data-onstyle="success", data-offstyle="warning")
                                     .form-check.form-switch.m-0.py-0(data-exo-id=`${exo._id}`, class="exo_solutionAccess_button")
                                         input(id=`exo_solution_toggle_${exo._id}`, type="checkbox", value="", data-toggle="toggle", data-on="✅", data-off="🚫", data-onstyle="success", data-offstyle="danger")
                     if exo.access

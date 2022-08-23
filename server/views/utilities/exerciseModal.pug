@@ -1,0 +1,20 @@
+// Modal
+#exerciseModal.modal.fade(tabindex='-1' aria-labelledby='exerciseModal' aria-hidden='true')
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h5#exerciseModal.modal-title Nouvel exercice
+                button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+            .modal-body
+                div(class="container form gap-2 d-flex flex-column align-items-start")
+                label(for="exerciseInstructions")= "Données"
+                    input(type="text", name="exerciseInstructions", id="exercise_data" class="form-control")
+                    label(for="exerciseData")= "Instructions"
+                    textarea(name="exerciseData", cols="30", rows="2", id="exercise_instructions" class="form-control")
+                    label(for="exerciseSolution")= "Solution"
+                    textarea(name="exerciseSolution", cols="30", rows="5", id="exercise_solution" class="form-control")
+            .modal-footer.position-relative
+                span.text-success.text-sm.position-absolute.start-0.d-none#exerciseSuccessSpan="Créé avec succès !"
+                button.btn.btn-secondary(type='button' data-dismiss='modal') Fermer
+                button.btn.btn-primary(type='button', id="exercise_button") Créer
