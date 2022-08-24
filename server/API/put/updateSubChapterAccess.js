@@ -11,5 +11,5 @@ module.exports = async (req, res) => {
     { access: !subChapter[0].access }
   );
 
-  res.status(200).send(updated);
+  res.status(200).send(!subChapter[0].access);
 };

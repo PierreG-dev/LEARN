@@ -15,7 +15,7 @@ block content
 
     .list-group
     each subChapter in chapter.subChapterList
-        .list-group-item(class=`${subChapter.access ? 'bg-success' : 'bg-secondary'}`)
+        .list-group-item.m-3.rounded.shadow(id=`subChapter-container-${subChapter._id}`, class=`${subChapter.access ? 'bg-success' : 'bg-secondary'}`, style='transition: 0.2s')
             .d-flex.justify-content-between
                 h4.text-light= subChapter.subChapterName
                 .d-flex

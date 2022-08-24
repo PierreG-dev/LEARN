@@ -7,8 +7,14 @@ const updateSubChapter = (id) => {
     credentials: 'same-origin', // include, *same-origin, omit
     redirect: 'manual',
   })
-    .then((response) => response.text())
-    .then((data) => console.log(data))
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      let container = document.querySelector('#subChapter-container-' + id);
+      if (data === true)
+        container.classList.replace('bg-secondary', 'bg-success');
+      else container.classList.replace('bg-success', 'bg-secondary');
+    })
     .catch((error) => console.error(error));
 };
 
