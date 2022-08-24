@@ -40,6 +40,12 @@ const updateExerciceSolution = (id) => {
     .catch((error) => console.error(error));
 };
 
+document.querySelectorAll('.subChapter_access_button').forEach((button) => {
+  button.onclick = () => {
+    updateSubChapter(button.dataset.subchapter);
+  };
+});
+
 document.querySelectorAll('.exo_access_button').forEach((button) => {
   button.onclick = () => {
     updateExercice(button.dataset.exoId);

@@ -158,13 +158,13 @@ app.post('/api/postChapter', api.postChapter);
 app.post('/api/postSubChapter', api.postSubChapter);
 app.post('/api/postExercise', api.postExercise);
 
-app.put('/api/updateChapterAccess:id?', api.updateChapterAccess);
-app.put('/api/updateSubChapterAccess:id?', api.updateSubChapterAccess);
-app.put('/api/updateExerciseAccess:id?', api.updateExerciseAccess);
+app.put('/api/updateChapterAccess:id?', api.updateChapterAccess); //Changer access d'un Chapter
+app.put('/api/updateSubChapterAccess:id?', api.updateSubChapterAccess); //Changer access d'un subChapter
+app.put('/api/updateExerciseAccess:id?', api.updateExerciseAccess); //Changer access d'un Exercise
 app.put(
   '/api/updateExerciseSolutionAccess:id?',
   api.updateExerciceSolutionAccess
-);
+); //Changer solutionAccess d'un Exercise
 
 //----------- Errors ------------
 

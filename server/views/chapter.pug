@@ -22,8 +22,14 @@ block content
                     button.btn.btn-primary(class='exercise-creation-button' type='button' data-toggle='modal' data-target='#exerciseModal' data-subChapter-id=`${subChapter._id}`)
                         i.bi.bi-plus
                         i.bi.bi-pencil-square
-                    .form-check.form-switch.m-0.py-0(class="access-input", data-subChapter=`${subChapter._id}`)
+                    .form-check.form-switch.m-0.py-0(class="subChapter_access_button", data-subChapter=`${subChapter._id}`)
                                 input(id=`subChapter_access_toggle_${subChapter._id}`, type="checkbox", value="", data-toggle="toggle", data-on="Accessible", data-off="Innaccessible", data-onstyle="success", data-offstyle="danger")
+                    if subChapter.access
+                        script.
+                            $(`#subChapter_access_toggle_#{subChapter._id}`).bootstrapToggle('on')
+                    else 
+                        script.
+                            $(`#subChapter_access_toggle_#{subChapter._id}`).bootstrapToggle('off')            
             .list-group.p-2
                 each exo, key in subChapter.exerciceList 
                     .list-group-item.border-0.rounded.mb-3.shadow
