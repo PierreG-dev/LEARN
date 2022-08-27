@@ -16,9 +16,9 @@ function tryConnect() {
 
 tryConnect();
 
-const Chapter = require('./Chapter')(connection);
-const SubChapter = require('./SubChapter')(connection);
-const Exercise = require('./Exercise')(connection);
+const Chapter = require('./chapter.js')(connection);
+const SubChapter = require('./subChapter.js')(connection);
+const Exercise = require('./exercise.js')(connection);
 
 const collections = {
   Chapter,
