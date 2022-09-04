@@ -1,0 +1,16 @@
+#loader {
+  opacity: 1;
+  transition: 0.4s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0)
+    linear-gradient(to right bottom, rgb(0, 127, 255), rgb(0, 78, 156) 120%)
+    repeat scroll 0% 0%;
+  justify-content: center;
+  align-items: center;
+}

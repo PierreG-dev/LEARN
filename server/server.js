@@ -35,14 +35,20 @@ const api = require('./API');
 
 //Additionnal packages
 var session = require('express-session'); //Session management
-const cors = require('cors'); //CORS management
+
 const morgan = require('morgan'); //HTTP verbs management
 const bodyParser = require('body-parser'); //Request's body parser
 const multer = require('multer');
 const forms = multer();
+const cors = require('cors'); //CORS management
 
 app.use(morgan('combined'));
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(forms.array());
@@ -58,8 +64,13 @@ app.use(
 );
 
 //SocketIO
-const { Server } = require('socket.io');
-const io = new Server(server, {
+// const { Server } = require('socket.io');
+// const io = new Server(server, {
+//   cors: {
+//     origin: '*',
+//   },
+// });
+const io = require('socket.io')(server, {
   cors: {
     origin: '*',
   },
@@ -76,6 +87,20 @@ server.listen(PORT, () => {
 
 //------- ROUTES --------
 require('./API');
+
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
+//   );
+//   res.setHeader(
+//     'Access-Control-Allow-Methods',
+//     'GET, POST, PUT, DELETE, PATCH, OPTIONS'
+//   );
+//   console.log('cors set');
+//   next();
+// });
 
 app.get('/', async (req, res) => {
   if (!req.session.isConnected) {
@@ -165,7 +190,6 @@ app.put(
   '/api/updateExerciseSolutionAccess:id?',
   api.updateExerciceSolutionAccess
 ); //Changer solutionAccess d'un Exercise
-
 //----------- Errors ------------
 
 app.get('/blocked', (req, res) => {
@@ -180,12 +204,15 @@ app.get('*', (req, res) => {
 //            SOCKETS            //
 //==============================//
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
+io.on('connect', (socket) => {
+  console.log(`Client with ID of ${socket.id} connected!`);
+});
+io.on('disconnect', (socket) => {
+  socket.removeAllListeners();
+  console.log(`Client with ID of ${socket.id} disconnected!`);
+});
+/*
 
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
 
   socket.on('chat_message', (msg) => {
     console.log(msg);
@@ -196,4 +223,4 @@ io.on('connection', (socket) => {
     let now = new Date();
     socket.emit('chat_message', msg + ' | ' + now.getTime());
   });
-});
+*/

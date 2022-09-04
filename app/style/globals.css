@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Silkscreen:wght@400;700&display=swap');
+
+.logo-typo {
+  font-family: 'Silkscreen', cursive !important;
+}
+.logo-beta {
+  color: lightblue;
+  font-size: 0.7rem;
+}
+.header {
+  background: red !important;
+}
+
+* {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+h1,
+h2,
+h3 H4,
+h5 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400 !important;
+  color: #373737 !important;
+}
