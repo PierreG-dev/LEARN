@@ -238,10 +238,17 @@ app.get('/api/cda062022', (req, res) => {
       'Stéphane',
     ]);
 });
-app.get('/api/myIP', (req, res) => {
-  var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+app.get('/api/myIP', async (req, res) => {
+  let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  let location;
+  await fetch(`http://ip-api.com/json/${ip}`)
+    .then((response) => response.json())
+    .then((data) => {
+      location = data;
+    });
   res.status(200).send({
     ip: ip,
+    location: location,
   });
 });
 
