@@ -5,6 +5,7 @@ const db_url = process.env.DB_URL || 'mongodb://localhost/LEARN';
 
 var connection;
 function tryConnect() {
+  console.log('trying ' + db_url);
   connection = mongoose.createConnection(db_url, (err) => {
     if (err) {
       console.error('MongoDB connection error: ', err);

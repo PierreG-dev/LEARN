@@ -196,10 +196,6 @@ app.get('/blocked', (req, res) => {
   res.render('errors/blocked', { error: 401, cause: 'Too many trials.' });
 });
 
-app.get('*', (req, res) => {
-  res.status(404).render('errors/404');
-});
-
 ////==============================//
 //            SOCKETS            //
 //==============================//
@@ -224,3 +220,32 @@ io.on('disconnect', (socket) => {
     socket.emit('chat_message', msg + ' | ' + now.getTime());
   });
 */
+
+//============== FOR MY STUDENTS ===============//
+app.get('/api/toto', (req, res) => {
+  res.status(200).send('Hello world!');
+});
+app.get('/api/cda062022', (req, res) => {
+  res
+    .status(200)
+    .send([
+      'Noémie',
+      'Valentin',
+      'Guillaume',
+      'Quiterie',
+      'Abdou',
+      'Jason',
+      'Stéphane',
+    ]);
+});
+app.get('/api/myIP', (req, res) => {
+  var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  res.status(200).send({
+    ip: ip,
+  });
+});
+
+//======== 404 ========//
+app.get('*', (req, res) => {
+  res.status(404).render('errors/404');
+});
