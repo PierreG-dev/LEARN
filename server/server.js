@@ -35,7 +35,7 @@ const api = require('./API');
 
 //Additionnal packages
 var session = require('express-session'); //Session management
-
+const fetch = require('node-fetch');
 const morgan = require('morgan'); //HTTP verbs management
 const bodyParser = require('body-parser'); //Request's body parser
 const multer = require('multer');
