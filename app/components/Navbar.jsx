@@ -13,8 +13,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import CircleIcon from '@mui/icons-material/Circle';
+import Link from 'next/link';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Cours', 'Exercices'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = ({ children, isConnected }) => {
@@ -125,13 +126,13 @@ const ResponsiveAppBar = ({ children, isConnected }) => {
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
-                <Button
+                <Link
+                  href={`/${page}`}
                   key={page}
-                  onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   {page}
-                </Button>
+                </Link>
               ))}
             </Box>
 

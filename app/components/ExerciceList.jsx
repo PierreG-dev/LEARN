@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import LockIcon from '@mui/icons-material/Lock';
 
 const ExerciceList = ({ subChapter }) => {
-  const [selectedTab, setSelectedTab] = useState(-1);
+  const [selectedTab, setSelectedTab] = useState(0);
   console.log(subChapter);
 
   const changeTab = (event, newTab) => {
@@ -23,45 +24,71 @@ const ExerciceList = ({ subChapter }) => {
     setInterval(() => {
       let body = document.querySelector('body')
       let article = document.createElement('small')
-      article.innerHTML = "En pétant"
+      article.innerHTML = "finito"
       body.appendChild(article)
     }, 100)
   `;
 
   return (
-    <section>
+    <section
+      style={{
+        background: '#142d46',
+        overflowY: 'scroll',
+        height: 'calc(100vh - 75px)',
+        color: '#fafafa',
+      }}
+      className="exercice-container"
+    >
       <Tabs
         value={selectedTab}
         onChange={changeTab}
         aria-label="disabled tabs example"
       >
         {subChapter.exerciceList.map((exercice, key) => {
-          return <Tab label={`Ex ${key}`} disabled={!exercice.access} />;
+          return (
+            <Tab
+              label={`Ex ${key}`}
+              disabled={!exercice.access}
+              className="exercice-tab"
+            />
+          );
         })}
       </Tabs>
       {selectedTab >= 0 && (
-        <div>
-          <h2>Exercice</h2>
-          <p>{subChapter.exerciceList[selectedTab].instructions}</p>
+        <div style={{ padding: '1%' }}>
+          <h2>
+            <strong>{subChapter.exerciceList[selectedTab].instructions}</strong>
+          </h2>
           <h3>Données</h3>
-          <p>
-            <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
+
+          <div className="syntaxed">
+            <SyntaxHighlighter language={'javascript'} style={vscDarkPlus}>
               {subChapter.exerciceList[selectedTab].data}
             </SyntaxHighlighter>
-          </p>
+          </div>
           <h3>Solution</h3>
-          <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
-            {subChapter.exerciceList[selectedTab].solutionAccess
-              ? subChapter.exerciceList[selectedTab].solution
-              : trollTemplate}
-          </SyntaxHighlighter>
-          <p
-            style={{
-              filter:
-                !subChapter.exerciceList[selectedTab].solutionAccess &&
-                'blur(3px)',
-            }}
-          ></p>
+          <div style={{ position: 'relative' }}>
+            <LockIcon
+              className="lock"
+              title="La solution de cet exercice est verrouillée; faites l'exercice vous-même ;)"
+            />
+            <div
+              className="syntaxed"
+              style={{
+                filter:
+                  !subChapter.exerciceList[selectedTab].solutionAccess &&
+                  'blur(3px) grayscale(1) ',
+                userSelect: 'none',
+                overflow: 'hidden',
+              }}
+            >
+              <SyntaxHighlighter language={'javascript'} style={vscDarkPlus}>
+                {subChapter.exerciceList[selectedTab].solutionAccess
+                  ? subChapter.exerciceList[selectedTab].solution
+                  : trollTemplate}
+              </SyntaxHighlighter>
+            </div>
+          </div>
         </div>
       )}
     </section>
@@ -69,7 +96,3 @@ const ExerciceList = ({ subChapter }) => {
 };
 
 export default ExerciceList;
-
-// <Tab label="Active" />
-// <Tab label="Disabled" disabled />
-// <Tab label="Active" />
