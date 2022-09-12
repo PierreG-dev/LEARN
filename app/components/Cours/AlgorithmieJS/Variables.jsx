@@ -98,7 +98,6 @@ const Variables = () => {
         </strong>
         .
       </p>
-
       <h2>Lecture de la valeur d'une variable</h2>
       <strong>
         Nous avons appris à stocker des données dans nos variables, il est
@@ -128,8 +127,35 @@ const Variables = () => {
         <strong>déclarée</strong> et avec quel <strong>mot-clef</strong>.
       </p>
       <h3>let</h3>
-
+      <p>
+        L'instruction <span>let</span> permet de déclarer une variable dont la
+        portée est celle du bloc courant, éventuellement en initialisant sa
+        valeur.
+      </p>
+      <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
+        {'let x \nlet x = 2'}
+      </SyntaxHighlighter>
+      <p>Il est possible de déclarer plusieures variables en même temps</p>
+      <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
+        {'let x, y, z'}
+      </SyntaxHighlighter>
       <h3>const</h3>
+      <p>
+        La déclaration const permet de créer une constante nommée accessible
+        uniquement en lecture. Cela ne signifie pas que la valeur contenue est
+        immuable, uniquement que l'identifiant ne peut pas être réaffecté.
+        Autrement dit la valeur d'une constante ne peut pas être modifiée par
+        des réaffectations ultérieures. Une constante ne peut pas être déclarée
+        à nouveau.
+      </p>
+      <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
+        {`// Généralement, par convention, les\n// constantes sont en majuscules\nconst MA_FAV = 7;\n// Cette réaffectation lèvera une exception TypeError\nMA_FAV = 20;\n// affichera 7\nconsole.log("mon nombre favori est : " + MA_FAV)`}
+      </SyntaxHighlighter>
+      <p>
+        Au delà de simplement empêcher la réaffectation de valeurs, la mot-clef{' '}
+        <span>const</span> lancera une erreur dans la console si une tentative
+        de modification de valeur a lieu.
+      </p>
     </article>
   );
 };
