@@ -55,6 +55,12 @@ const CryptoExam = () => {
             <SyntaxHighlighter language="bash" style={vscDarkPlus}>
               https://api.coinbase.com/v2/prices/ETH-EUR/buy
             </SyntaxHighlighter>
+
+            <p>
+              Monnaies: <br />- Bitcoin {'=>'} BTC <br />- Ethereum {'=>'} ETH{' '}
+              <br />- Cardano {'=>'} ADA <br />- Polkadot {'=>'} DOT <br />-
+              Cronos {'=>'} CRO <br />- Polygon {'=>'} MATIC <br />
+            </p>
           </section>
 
           <section title={'Partie I'}>
