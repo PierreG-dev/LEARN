@@ -18,7 +18,9 @@ const fetchData = (setter) => {
     });
 };
 
-// const socket = io('http://localhost:8000', { autoConnect: true });
+const socket = io(process.env.SOCKET_URL || 'http://localhost:8000', {
+  autoConnect: true,
+});
 
 function MyApp({ Component, pageProps }) {
   const [isConnected, setIsConnected] = useState(socket.connected);
