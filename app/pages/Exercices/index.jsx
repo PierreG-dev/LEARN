@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Image from 'next/image';
+
 import { DataContext } from '../../context/context';
 import { useContext } from 'react';
 import { ListItem, Paper } from '@mui/material';
