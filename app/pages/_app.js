@@ -10,7 +10,7 @@ import { DataContext } from '../context/context';
 import Loader from '../components/Loader';
 
 const fetchData = (setter) => {
-  fetch('http://localhost:8000/api/getData')
+  fetch(process.env.DATA_URL || 'http://localhost:8000/api/getData')
     .then((response) => response.json())
     .then((data) => {
       setter(data);
@@ -18,7 +18,7 @@ const fetchData = (setter) => {
     });
 };
 
-const socket = io('http://localhost:8000', { autoConnect: true });
+// const socket = io('http://localhost:8000', { autoConnect: true });
 
 function MyApp({ Component, pageProps }) {
   const [isConnected, setIsConnected] = useState(socket.connected);
