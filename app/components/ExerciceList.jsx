@@ -47,6 +47,7 @@ const ExerciceList = ({ subChapter }) => {
         {subChapter.exerciceList.map((exercice, key) => {
           return (
             <Tab
+              key={key}
               label={`Ex ${key}`}
               disabled={!exercice.access}
               className="exercice-tab"

@@ -49,7 +49,7 @@ export default function Home() {
       >
         {data.map((chapter, key) => {
           return (
-            <Link href={`/Cours/${chapter.chapterName}`}>
+            <Link href={`/Cours/${chapter.chapterName}`} key={key}>
               <Paper
                 elevation={3}
                 className="chapter-card"
