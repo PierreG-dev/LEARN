@@ -102,6 +102,10 @@ const MainContainer = styled.main`
         color: rgba(255, 255, 255, 0.9);
         font-size: 2rem;
         letter-spacing: 2px;
+        margin-top: 60px;
+      }
+
+      h3 {
       }
 
       ul {
