@@ -10,7 +10,7 @@ import { DataContext } from '../context/context';
 import Loader from '../components/Loader';
 
 const fetchData = (setter) => {
-  fetch('http://api.learn.pierre-godino.com/api/getData')
+  fetch('https://api.learn.pierre-godino.com/api/getData')
     .then((response) => response.json())
     .then((data) => {
       setter(data);
@@ -18,7 +18,7 @@ const fetchData = (setter) => {
     });
 };
 
-const socket = io('http://api.learn.pierre-godino.com', {
+const socket = io('https://api.learn.pierre-godino.com', {
   autoConnect: true,
 });
 
