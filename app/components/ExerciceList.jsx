@@ -48,7 +48,7 @@ const ExerciceList = ({ subChapter }) => {
           return (
             <Tab
               key={key}
-              label={`Ex ${key}`}
+              label={`Ex ${key + 1}`}
               disabled={!exercice.access}
               className="exercice-tab"
             />
@@ -69,16 +69,17 @@ const ExerciceList = ({ subChapter }) => {
           </div>
           <h3>Solution</h3>
           <div style={{ position: 'relative' }}>
-            <LockIcon
-              className="lock"
-              title="La solution de cet exercice est verrouillée; faites l'exercice vous-même ;)"
-            />
+            {!subChapter.exerciceList[selectedTab].solutionAccess && (
+              <div title="La solution de cet exercice est verrouillée; faites l'exercice vous-même ;)">
+                <LockIcon className="lock" />
+              </div>
+            )}
             <div
               className="syntaxed"
               style={{
                 filter:
                   !subChapter.exerciceList[selectedTab].solutionAccess &&
-                  'blur(3px) grayscale(1) ',
+                  'blur(3px) grayscale(0.6) ',
                 userSelect: 'none',
                 overflow: 'hidden',
               }}

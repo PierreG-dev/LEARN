@@ -2,6 +2,10 @@
 .logo-typo {
   font-family: 'Silkscreen', cursive !important;
 }
+
+.logo-typo a {
+  font-family: 'Silkscreen', cursive !important;
+}
 .logo-beta {
   color: lightblue;
   font-size: 0.7rem;

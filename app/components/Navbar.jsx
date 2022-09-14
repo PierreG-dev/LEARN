@@ -99,13 +99,18 @@ const ResponsiveAppBar = ({ children, isConnected }) => {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                  <MenuItem
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    style={{ marginRight: 50 }}
+                  >
+                    <Typography style={{ textAlign: 'center' }}>
+                      {page}
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap
@@ -121,15 +126,34 @@ const ResponsiveAppBar = ({ children, isConnected }) => {
                 color: 'inherit',
                 textDecoration: 'none',
               }}
+              className="logo-typo"
             >
-              LOGO
+              LEARN
+              <sup className="logo-beta">beta</sup>
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: {
+                  xs: 'none',
+                  md: 'flex',
+                  gap: 30,
+                  paddingLeft: 30,
+                  fontSize: '1rem',
+                  letterSpacing: '1px',
+                },
+              }}
+              className="logo-typo"
+            >
               {pages.map((page) => (
                 <Link
                   href={`/${page}`}
                   key={page}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{
+                    my: 2,
+                    color: 'white',
+                    display: 'block',
+                  }}
                 >
                   {page}
                 </Link>
