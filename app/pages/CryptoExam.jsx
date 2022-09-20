@@ -49,8 +49,8 @@ const CryptoExam = () => {
               https://api.coinbase.com/v2/prices/[CRYPTO]-EUR/buy
             </SyntaxHighlighter>
             <p>
-              Par exemple, pour récupérer le prix d'un Ethereum (une monnaie)
-              contre 1 Euro il faudra fair la requête sur l'URL suivant:
+              Par exemple, pour récupérer le prix d'un Ethereum (une monnaie) en
+              Euros il faudra faire la requête sur l'URL suivant:
             </p>
             <SyntaxHighlighter language="bash" style={vscDarkPlus}>
               https://api.coinbase.com/v2/prices/ETH-EUR/buy
@@ -66,7 +66,7 @@ const CryptoExam = () => {
           <section title={'Partie I'}>
             <h2>Partie I</h2>
             <p>
-              <strong>Afficher le prix</strong> d'un Bitcoin contre 1 Euro.
+              <strong>Afficher le prix</strong> d'un Bitcoin en Euros.
             </p>
           </section>
 
