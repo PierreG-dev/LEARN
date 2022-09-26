@@ -2,10 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var schema = new Schema({
+  order: Number,
   subChapterId: String,
   data: String,
   instructions: String,
-  solution: String,
+  solutionHTML: String,
+  solutionCSS: String,
+  solutionJS: String,
   access: Boolean,
   solutionAccess: Boolean,
 });

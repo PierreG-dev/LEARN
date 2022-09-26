@@ -1,19 +1,22 @@
 const collections = require('../../collections');
 const uuid = require('uuid');
-module.exports = (req, res) => {
-  if (
-    !req.body.subChapterId ||
-    !req.body.data ||
-    !req.body.instructions ||
-    !req.body.solution
-  ) {
+module.exports = async (req, res) => {
+  if (!req.body.subChapterId || !req.body.data || !req.body.instructions) {
     throw 'Empty parameters';
   }
+  let coExercisesList = await collections.Exercise.find({
+    subChapterId: req.body.subChapterId,
+  });
+  console.log(coExercisesList);
+
   collections.Exercise.create({
+    order: coExercisesList.length + 1,
     subChapterId: req.body.subChapterId,
     data: req.body.data,
     instructions: req.body.instructions,
-    solution: req.body.solution,
+    solutionHTML: req.body.solutionHTML,
+    solutionCSS: req.body.solutionCSS,
+    solutionJS: req.body.solutionJS,
     access: false,
     solutionAccess: false,
   })

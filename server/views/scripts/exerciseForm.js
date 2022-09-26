@@ -1,6 +1,8 @@
 const exerciseData = document.querySelector('#exercise_data'); //For exercise data
 const exerciseInstructions = document.querySelector('#exercise_instructions'); //For exercise instructions
-const exerciseSolution = document.querySelector('#exercise_solution'); //For exercise solution
+const exerciseSolutionHTML = document.querySelector('#exercise_solution_html'); //HTML Solution
+const exerciseSolutionCSS = document.querySelector('#exercise_solution_css'); //CSS Solution
+const exerciseSolutionJS = document.querySelector('#exercise_solution_js'); //JS Solution
 const exerciseSuccessSpan = document.querySelector('#exerciseSuccessSpan'); //Span for success indicator
 const exerciseButton = document.querySelector('#exercise_button'); //Button to confirm the creation
 
@@ -26,7 +28,9 @@ exerciseButton.onclick = (e) => {
       subChapterId: memorySpan.dataset.ongoingSubChapter,
       exerciseData,
       exerciseInstructions,
-      exerciseSolution,
+      exerciseSolutionHTML,
+      exerciseSolutionCSS,
+      exerciseSolutionJS,
     })
   );
   fetch('/api/postExercise', {
@@ -42,7 +46,9 @@ exerciseButton.onclick = (e) => {
       subChapterId: memorySpan.dataset.ongoingSubChapter,
       data: exerciseData.value,
       instructions: exerciseInstructions.value,
-      solution: exerciseSolution.value,
+      solutionHTML: exerciseSolutionHTML.value,
+      solutionCSS: exerciseSolutionCSS.value,
+      solutionJS: exerciseSolutionJS.value,
     }),
   })
     .then((response) => response.text())
@@ -51,7 +57,9 @@ exerciseButton.onclick = (e) => {
       console.log(`logs: ${data}`);
       exerciseData.value = '';
       exerciseInstructions.value = '';
-      exerciseSolution.value = '';
+      exerciseSolutionHTML.value = '';
+      exerciseSolutionCSS.value = '';
+      exerciseSolutionJS.value = '';
       exerciseSuccessSpan.classList.replace('d-none', 'd-block');
     })
     .catch((error) =>

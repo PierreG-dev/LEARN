@@ -12,8 +12,12 @@
                     textarea(name="exerciseInstructions", cols="30", rows="3", id="exercise_data", class="form-control")
                     label(for="exerciseData")= "Instructions"
                     textarea(name="exerciseData", cols="30", rows="2", id="exercise_instructions" class="form-control")
-                    label(for="exerciseSolution")= "Solution"
-                    textarea(name="exerciseSolution", cols="30", rows="5", id="exercise_solution" class="form-control")
+                    label(for="exerciseSolutionHTML")= "HTML"
+                    textarea(name="exerciseSolutionHTML", cols="30", rows="5", id="exercise_solution_html" class="form-control")
+                    label(for="exerciseSolutionCSS")= "CSS"
+                    textarea(name="exerciseSolutionCSS", cols="30", rows="5", id="exercise_solution_css" class="form-control")
+                    label(for="exerciseSolutionJS")= "JS"
+                    textarea(name="exerciseSolutionJS", cols="30", rows="5", id="exercise_solution_js" class="form-control")
             .modal-footer.position-relative
                 span.text-success.text-sm.position-absolute.start-0.d-none#exerciseSuccessSpan="Créé avec succès !"
                 button.btn.btn-secondary(type='button' data-dismiss='modal') Fermer

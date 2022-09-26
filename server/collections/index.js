@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+require('dotenv').config();
 
 const db_url = process.env.DB_URL || 'mongodb://localhost/LEARN';
 
