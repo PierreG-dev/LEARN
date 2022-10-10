@@ -1,11 +1,11 @@
-import contenu from '../../components/Cours/AlgorithmieJS';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-import { useCallback } from 'react';
+import contenu from "../../components/Cours/AlgorithmieJS";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import styled from "styled-components";
+import { useState, useEffect } from "react";
+import { useCallback } from "react";
 
-const Algorithmie = () => {
+const AlgorithmieEnJs = () => {
   const [selectedSection, setSelectedSection] = useState(0);
 
   return (
@@ -19,11 +19,11 @@ const Algorithmie = () => {
               key={key}
               onClick={() => setSelectedSection(key)}
               style={{
-                background: selectedSection == key ? '#162f48FF' : '#122b44aa',
+                background: selectedSection == key ? "#162f48FF" : "#122b44aa",
                 color:
                   selectedSection == key
-                    ? 'rgba(255, 255, 255, 0.6)'
-                    : 'rgba(255, 255, 255, 0.4)',
+                    ? "rgba(255, 255, 255, 0.6)"
+                    : "rgba(255, 255, 255, 0.4)",
               }}
             >
               {elem.nom}
@@ -109,7 +109,7 @@ const MainContainer = styled.main`
       }
 
       ul {
-        list-style: '- ';
+        list-style: "- ";
       }
 
       p span {
@@ -121,4 +121,4 @@ const MainContainer = styled.main`
   }
 `;
 
-export default Algorithmie;
+export default AlgorithmieEnJs;

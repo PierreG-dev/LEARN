@@ -1,18 +1,13 @@
-import Head from 'next/head';
-import styles from '../../styles/Home.module.css';
-import { DataContext } from '../../context/context';
-import { useContext, useEffect } from 'react';
-import { ListItem, Paper } from '@mui/material';
-import { Grid } from '@mui/material';
-import ChapterList from '../../components/ChapterList';
-import { router } from 'next/router';
-import LinearProgress from '@mui/material/LinearProgress';
-import Link from 'next/link';
-
-export default function Index() {
+import styled from "styled-components";
+import { DataContext } from "../../context/context";
+import { useCallback, useContext, useEffect } from "react";
+import DoneIcon from "@mui/icons-material/Done";
+import LinearProgress from "@mui/material/LinearProgress";
+import Link from "next/link";
+const Index = () => {
   const data = useContext(DataContext);
 
-  const calculateProgress = (chapter) => {
+  const calculateProgress = useCallback((chapter) => {
     let exercicesAmount = 0;
     let finishedExercicesAMount = 0;
 
@@ -24,57 +19,101 @@ export default function Index() {
     });
 
     return (finishedExercicesAMount / exercicesAmount).toFixed(2) * 100;
-  };
+  });
 
   return (
-    <div
-      style={{
-        height: 'calc(100vh - 75px)',
-        position: 'relative',
-        background: 'rgb(20, 45, 70) none repeat scroll 0% 0%',
-        overflowY: 'scroll',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          padding: 15,
-          flexWrap: 'wrap',
-          width: 'calc(100vw - 30px)',
-          alignItems: 'center',
-          gap: 50,
-        }}
-      >
+    <MainContainer style={{ background: "#f4f1de" }}>
+      <h1 style={{ color: "#e07a5f" }}>Chapitres</h1>
+      <div id="chapter_wrapper">
         {data.map((chapter, key) => {
           return (
-            <Link href={`/Cours/${chapter.chapterName}`} key={key}>
-              <Paper
-                elevation={3}
-                className="chapter-card"
-                sx={{
-                  padding: 2,
-                  width: 300,
-                  color: '#fafafa',
-                  margin: 0,
-                  background:
-                    'rgba(40, 66, 92, 0) linear-gradient(to right bottom, rgb(40, 66, 92), rgb(33, 56, 79) 120%) repeat scroll 0% 0%',
-                }}
-              >
-                <h2 style={{ margin: 0, color: '#fafafa' }}>
-                  {chapter.chapterName}
-                </h2>
-                <p>{chapter.description}</p>
-                <LinearProgress
-                  variant="determinate"
-                  value={calculateProgress(chapter)}
-                  sx={{ background: 'rgb(28, 49, 70)' }}
-                />
-              </Paper>
+            <Link
+              href={`/Cours/${chapter.chapterName
+                .split(" ")
+                .map((mot) => mot[0].toUpperCase() + mot.substring(1))
+                .join("")}`}
+              key={key}
+            >
+              <div className="chapter-card" style={{ background: "#f2cc8f" }}>
+                <h2 style={{ color: "#e07a5f" }}>{chapter.chapterName}</h2>
+                <p style={{ color: "#e07a5f" }}>{chapter.description}</p>
+                <div className="progressBar-container">
+                  <LinearProgress
+                    variant="determinate"
+                    value={calculateProgress(chapter)}
+                    sx={{
+                      background: "#F4F1DE",
+                      borderRadius: 2,
+                      width: "95%",
+                    }}
+                  />
+                  <span style={{ color: "#e07a5f" }}>
+                    {calculateProgress(chapter) == 100 ? (
+                      <DoneIcon style={{ color: "#81B29A" }} />
+                    ) : (
+                      `${calculateProgress(chapter)}%`
+                    )}
+                  </span>
+                </div>
+              </div>
             </Link>
           );
         })}
       </div>
-    </div>
+    </MainContainer>
   );
-}
+};
+
+export default Index;
+
+const MainContainer = styled.section`
+  height: calc(100vh - 75px);
+  width: 100vw;
+  position: relative;
+
+  overflow-y: scroll;
+  padding: 15px;
+
+  h1 {
+    font-size: 3rem;
+    margin: 20px 0;
+  }
+
+  #chapter_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .progressBar-container {
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-right: 10px;
+        font-size: 0.8rem;
+      }
+
+      .MuiLinearProgress-root span {
+        background-color: #81b29a;
+      }
+    }
+  }
+
+  .chapter-card {
+    cursor: pointer;
+    border-radius: 5px;
+
+    padding: 15px;
+    transition: 0.2s;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      transform: translate3d(0, -5px, 0);
+      box-shadow: 5px 10px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      margin: 0;
+    }
+  }
+`;

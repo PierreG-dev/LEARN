@@ -19,9 +19,9 @@ const Navbar = ({ children, isConnected }) => {
           </div>
         </Link>
         <div id="navbar_links" className="logo-typo">
-          <Link href="Cours">Cours</Link>
-          <Link href="Exercices">Exercices</Link>
-          <Link href="Exams">Examens</Link>
+          <Link href="/Cours">Cours</Link>
+          <Link href="/Exercices">Exercices</Link>
+          <Link href="/Exams">Examens</Link>
         </div>
       </MainContainer>
       {children}
