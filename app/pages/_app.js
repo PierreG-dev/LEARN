@@ -1,16 +1,17 @@
-import '../styles/globals.css';
-import { useState, useEffect, createContext, useContext } from 'react';
-import { io } from 'socket.io-client';
-import Navbar from '../components/Navbar';
-import '../style/globals.css';
-import '../style/gears_animation.css';
-import '../style/loader_animation.css';
-import '../style/loader.css';
-import { DataContext } from '../context/context';
-import Loader from '../components/Loader';
+import "../styles/globals.css";
+import "../style/imported.css";
+import { useState, useEffect, createContext, useContext } from "react";
+import { io } from "socket.io-client";
+import Navbar from "../components/Navbar";
+import "../style/globals.css";
+import "../style/gears_animation.css";
+import "../style/loader_animation.css";
+import "../style/loader.css";
+import { DataContext } from "../context/context";
+import Loader from "../components/Loader";
 
 const fetchData = (setter) => {
-  fetch('https://api.learn.pierre-godino.com/api/getData')
+  fetch("https://api.learn.pierre-godino.com/api/getData")
     .then((response) => response.json())
     .then((data) => {
       setter(data);
@@ -18,7 +19,7 @@ const fetchData = (setter) => {
     });
 };
 
-const socket = io('https://api.learn.pierre-godino.com', {
+const socket = io("https://api.learn.pierre-godino.com", {
   autoConnect: true,
 });
 
@@ -32,22 +33,22 @@ function MyApp({ Component, pageProps }) {
     fetchData(setDatabase);
 
     //--- SOCKET IO ---//
-    socket.on('connect', () => {
+    socket.on("connect", () => {
       setIsConnected(true);
-      console.log('Connexion avec le serveur établie.');
+      console.log("Connexion avec le serveur établie.");
     });
 
-    socket.on('disconnect', () => {
+    socket.on("disconnect", () => {
       setIsConnected(false);
-      console.log('Déconnecté du serveur, tentative de reconnexion...');
+      console.log("Déconnecté du serveur, tentative de reconnexion...");
     });
 
-    socket.on('updates', () => {
+    socket.on("updates", () => {
       fetchData(setDatabase);
     });
     return () => {
-      socket.off('connect');
-      socket.off('disconnect');
+      socket.off("connect");
+      socket.off("disconnect");
     };
   }, []);
 

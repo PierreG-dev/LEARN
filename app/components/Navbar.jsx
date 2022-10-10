@@ -1,184 +1,73 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import CircleIcon from '@mui/icons-material/Circle';
-import Link from 'next/link';
+import * as React from "react";
+import styled from "styled-components";
+import Link from "next/link";
 
-const pages = ['Cours', 'Exercices'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ["Cours", "Exercices"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const ResponsiveAppBar = ({ children, isConnected }) => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
+const Navbar = ({ children, isConnected }) => {
   return (
     <main>
-      <AppBar
-        position="static"
-        style={{ background: 'rgb(5, 30, 52)', height: 75 }}
-      >
-        <Container maxWidth="xl">
-          <div className="gears-container">
-            <i></i>
-            <i></i>
+      <MainContainer style={{ background: "#E07A5F" }}>
+        <Link href="/">
+          <div id="navbar_logo">
+            <div className="gears-container">
+              <i></i>
+              <i></i>
+            </div>
+            <div className="logo-typo">LEARN</div>
           </div>
-          <Toolbar disableGutters style={{ marginLeft: '60px' }}>
-            {/* <SettingsIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-
-            <Typography
-              className="logo-typo"
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontWeight: 700,
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LEARN
-              <sup className="logo-beta">beta</sup>
-            </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
-              >
-                {pages.map((page) => (
-                  <MenuItem
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    style={{ marginRight: 50 }}
-                  >
-                    <Typography style={{ textAlign: 'center' }}>
-                      {page}
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-              className="logo-typo"
-            >
-              LEARN
-              <sup className="logo-beta">beta</sup>
-            </Typography>
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: {
-                  xs: 'none',
-                  md: 'flex',
-                  gap: 30,
-                  paddingLeft: 30,
-                  fontSize: '1rem',
-                  letterSpacing: '1px',
-                },
-              }}
-              className="logo-typo"
-            >
-              {pages.map((page) => (
-                <Link
-                  href={`/${page}`}
-                  key={page}
-                  sx={{
-                    my: 2,
-                    color: 'white',
-                    display: 'block',
-                  }}
-                >
-                  {page}
-                </Link>
-              ))}
-            </Box>
-
-            <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-              <CircleIcon
-                style={{
-                  color: isConnected ? 'green' : 'red',
-                  fontSize: '0.6rem',
-                  marginRight: 4,
-                  marginTop: 2,
-                  opacity: 0.6,
-                }}
-              />
-              {/* <span style={{ fontSize: '0.7rem', fontWeight: 'bold' }}>
-                {isConnected ? 'online' : 'Reconnexion en cours...'}
-              </span> */}
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
+        </Link>
+        <div id="navbar_links" className="logo-typo">
+          <Link href="Cours">Cours</Link>
+          <Link href="Exercices">Exercices</Link>
+          <Link href="Exams">Examens</Link>
+        </div>
+      </MainContainer>
       {children}
     </main>
   );
 };
-export default ResponsiveAppBar;
+
+const MainContainer = styled.nav`
+  display: flex;
+
+  align-items: center;
+  height: 75px;
+  width: 100vw;
+
+  #navbar_logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-width: 5%;
+    color: #fafafa;
+    font-size: 1.8rem;
+    padding-left: 10%;
+    transition: 0.1s;
+    cursor: pointer;
+
+    &:hover {
+      filter: invert(20%) sepia(30%) saturate(511%) hue-rotate(346deg)
+        brightness(100%) contrast(91%);
+    }
+  }
+
+  #navbar_links {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #fafafa;
+    gap: 20px;
+    padding: 0 1%;
+
+    a {
+      transition: 0.1s;
+    }
+    a:hover {
+      color: #f2cc8f;
+    }
+  }
+`;
+export default Navbar;

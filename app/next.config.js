@@ -13,14 +13,4 @@ module.exports = {
   },
 };
 
-module.exports = {
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/Cours',
-        permanent: true,
-      },
-    ];
-  },
-};
+module.exports = {};

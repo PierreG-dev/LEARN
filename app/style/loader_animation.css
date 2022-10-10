@@ -6,7 +6,7 @@
   height: 20px;
   width: 20px;
   border-radius: 0;
-  background: #fff;
+  background: #E07A5F;
   float: left;
   margin: 0 3px;
 }
@@ -41,7 +41,7 @@
   }
   50% {
     -moz-transform: translate(0, -30px);
-    background: #fafafa;
+    background: #E07A5F;
   }
   85%,
   100% {
@@ -55,7 +55,7 @@
   }
   50% {
     -webkit-transform: translate(0, -30px);
-    background: #fafafa;
+    background: #E07A5F;
   }
   80%,
   100% {

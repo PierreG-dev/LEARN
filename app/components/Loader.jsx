@@ -2,11 +2,11 @@ const Loader = ({ loaded }) => {
   return (
     <div
       id="loader"
-      style={{ opacity: loaded ? '0' : '1', zIndex: loaded ? -5 : 1 }}
+      style={{ opacity: loaded ? "0" : "1", zIndex: loaded ? -5 : 1 }}
     >
       <h1
         className="logo-typo"
-        style={{ color: '#fafafa !important', fontSize: '3rem' }}
+        style={{ color: "#E07A5F !important", fontSize: "3rem" }}
       >
         LEARN
       </h1>
