@@ -46,9 +46,11 @@ const MainContainer = styled.main`
 
   h1 {
     font-size: 3rem;
+    font-weight: 600;
     margin: 0;
     margin-top: 15px;
-    letter-spacing: 2px;
+    margin-bottom: 15px;
+    letter-spacing: 4px;
   }
 
   .content-list {
@@ -85,7 +87,7 @@ const MainContainer = styled.main`
         background: #f2cc8f;
         box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2);
         padding: 15px;
-        margin-top: 30px;
+        margin-bottom: 30px;
 
         h1,
         h2,

@@ -1,30 +1,30 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import React from "react";
+import styled from "styled-components";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 const CryptoExam = () => {
   return (
     <MainContainer>
-      <img className={'background'} src="/res/btc_background.jpg" alt="" />
+      <img className={"background"} src="/res/btc_background.jpg" alt="" />
       <div
         style={{
           background: "url('/res/overlay.png')",
-          height: '100%',
-          width: '100%',
-          position: 'absolute',
+          height: "100%",
+          width: "100%",
+          position: "absolute",
           opacity: 0.3,
           zIndex: -1,
         }}
       ></div>
       <div
         className={
-          'grid grid-cols-1 md:grid-cols-2 gap-4 p-6 max-w-6xl mx-auto my-auto'
+          "grid grid-cols-1 md:grid-cols-2 gap-4 p-6 max-w-6xl mx-auto my-auto"
         }
       >
         <InfosContainer>
           <div className="flex flex-col justify-between p-6 block md:hidden mb-7">
-            <h1 style={{ color: '#fafafa' }}>
+            <h1 style={{ color: "#fafafa" }}>
               Examen <br />
               JavaScript
             </h1>
@@ -35,14 +35,14 @@ const CryptoExam = () => {
 
             <p>
               On cherche à construire une application qui permet d'afficher en
-              temps réel le prix d'une cryptomonnaie choisie par l'utilisateur
-              en temps réel. <br />
+              temps réel le prix d'une cryptomonnaie choisie par l'utilisateur.{" "}
+              <br />
               Le prix recherché est celui de la cryptomonnaie en question contre
               l'EURO (€).
             </p>
             <p>
               La plateforme de change Coinbase met à disposition son service de
-              récupération de prix de cryptomonnaies en temps réel sur le l'URL
+              récupération de prix de cryptomonnaies en temps réel sur l'URL
               suivant:
             </p>
             <SyntaxHighlighter language="bash" style={vscDarkPlus}>
@@ -57,53 +57,53 @@ const CryptoExam = () => {
             </SyntaxHighlighter>
 
             <p>
-              Monnaies: <br />- Bitcoin {'=>'} BTC <br />- Ethereum {'=>'} ETH{' '}
-              <br />- Cardano {'=>'} ADA <br />- Polkadot {'=>'} DOT <br />-
-              Cronos {'=>'} CRO <br />- Polygon {'=>'} MATIC <br />
+              Monnaies: <br />- Bitcoin {"=>"} BTC <br />- Ethereum {"=>"} ETH{" "}
+              <br />- Cardano {"=>"} ADA <br />- Polkadot {"=>"} DOT <br />-
+              Cronos {"=>"} CRO <br />- Polygon {"=>"} MATIC <br />
             </p>
           </section>
 
-          <section title={'Partie I'}>
+          <section title={"Partie I"}>
             <h2>Partie I</h2>
             <p>
               <strong>Afficher le prix</strong> d'un Bitcoin en Euros.
             </p>
           </section>
 
-          <section title={'Partie II'}>
+          <section title={"Partie II"}>
             <img src="/res/rank_1.png" alt="" className="medal" />
             <h2>Partie II</h2>
             <p>
-              <strong>Afficher les prix</strong> des 6 monnaies suivantes:{' '}
-              <strong>Bitcoin</strong>, <strong>Ethereum</strong>,{' '}
-              <strong>Cardano</strong>, <strong>Polkadot</strong>,{' '}
+              <strong>Afficher les prix</strong> des 6 monnaies suivantes:{" "}
+              <strong>Bitcoin</strong>, <strong>Ethereum</strong>,{" "}
+              <strong>Cardano</strong>, <strong>Polkadot</strong>,{" "}
               <strong>Cronos</strong> et <strong>Polygon</strong>.
             </p>
           </section>
 
-          <section title={'Partie III'}>
+          <section title={"Partie III"}>
             <h2>Partie III</h2>
             <p>
-              A l'aide d'un élément <strong>{'<select>'}</strong>, proposer à
-              l'utilisateur une interface qui <strong>affiche le prix</strong>{' '}
+              A l'aide d'un élément <strong>{"<select>"}</strong>, proposer à
+              l'utilisateur une interface qui <strong>affiche le prix</strong>{" "}
               de la monnaie sélectionnée (parmis les 6 précédentes) dans ce
               dernier.
             </p>
           </section>
-          <section title={'Partie IV'}>
+          <section title={"Partie IV"}>
             <img src="/res/rank_2.png" alt="" className="medal" />
 
             <h2>Partie IV</h2>
             <p>
-              Améliorer le code de la <strong>Partie III</strong> en{' '}
-              <strong>mettant à jour le prix</strong> de la monnaie affichée{' '}
+              Améliorer le code de la <strong>Partie III</strong> en{" "}
+              <strong>mettant à jour le prix</strong> de la monnaie affichée{" "}
               <u>toutes les secondes</u>.
             </p>
           </section>
-          <section title={'Partie V'}>
+          <section title={"Partie V"}>
             <h2>Partie V</h2>
             <p>
-              Améliorer le code de la <strong>Partie IV</strong> en{' '}
+              Améliorer le code de la <strong>Partie IV</strong> en{" "}
               <strong>changeant la couleur du prix</strong> affiché en fonction
               de l'évolution de ce dernier.
               <br />
@@ -111,27 +111,27 @@ const CryptoExam = () => {
             </p>
 
             <p>
-              <span style={{ color: 'dodgerblue' }}>
+              <span style={{ color: "dodgerblue" }}>
                 1700 €<sup>►</sup>
-              </span>{' '}
+              </span>{" "}
               (Le prix est stable)
               <br />
-              <span style={{ color: 'green' }}>
+              <span style={{ color: "green" }}>
                 1750 €<sup>▲</sup>
-              </span>{' '}
+              </span>{" "}
               (Le prix vient d'augmenter après la mise à jour)
               <br />
-              <span style={{ color: 'orangered' }}>
+              <span style={{ color: "orangered" }}>
                 1670 €<sup>▼</sup>
               </span>
               (Le prix vient de diminuer après la mise à jour)
             </p>
           </section>
-          <section title={'Partie VI'}>
+          <section title={"Partie VI"}>
             <img src="/res/rank_3.png" alt="" className="medal" />
             <h2>Partie VI</h2>
             <p>
-              Toujours en améliorant le code précédent,{' '}
+              Toujours en améliorant le code précédent,{" "}
               <strong>afficher un historique des prix</strong> observés pour la
               monnaie selectionnée. <br />
               Si le prix ne bouge pas après une mise à jour, inutile de
@@ -145,23 +145,23 @@ const CryptoExam = () => {
             <h1>Bonus</h1>
           </div>
 
-          <section title={'Bonus I'}>
+          <section title={"Bonus I"}>
             <img src="/res/rank_4.png" alt="" className="medal" />
-            <h2 className={'mb-3'}>Bonus I</h2>
+            <h2 className={"mb-3"}>Bonus I</h2>
             <p>
-              Lors du chargement de la monnaie selectionnée,{' '}
+              Lors du chargement de la monnaie selectionnée,{" "}
               <strong>afficher un loader a la place du prix</strong> le temps
               que l'affichage soit mis à jour
             </p>
           </section>
 
-          <section title={'Bonus II'}>
+          <section title={"Bonus II"}>
             <img src="/res/rank_5.png" alt="" className="medal" />
-            <h2 className={'mb-4'}>Bonus II</h2>
+            <h2 className={"mb-4"}>Bonus II</h2>
             <p>
               <strong>
                 Afficher un graphique de l'évolution du prix de la monnaie
-              </strong>{' '}
+              </strong>{" "}
               affichée depuis qu'elle a été selectionnée.
             </p>
           </section>
@@ -194,7 +194,7 @@ const MainContainer = styled.div`
   }
 
   h1 {
-    font-family: 'Bebas Neue', cursive !important;
+    font-family: "Bebas Neue", cursive !important;
     font-size: 4.5rem;
     letter-spacing: 0.8rem;
     text-align: justify;
@@ -205,7 +205,7 @@ const MainContainer = styled.div`
     text-shadow: 0px 0 5px rgba(0, 0, 0, 0.3);
   }
   h2 {
-    font-family: 'Bebas Neue', cursive !important;
+    font-family: "Bebas Neue", cursive !important;
     font-size: 1.8rem;
     letter-spacing: 0.5rem;
   }
@@ -214,7 +214,7 @@ const MainContainer = styled.div`
   }
 
   ul {
-    list-style: '- ';
+    list-style: "- ";
   }
 
   h4,
