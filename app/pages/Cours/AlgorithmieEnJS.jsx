@@ -9,8 +9,10 @@ const AlgorithmieEnJs = () => {
   const [selectedSection, setSelectedSection] = useState(0);
 
   return (
-    <MainContainer>
-      <section>{contenu[selectedSection].jsx}</section>
+    <MainContainer style={{ background: "#F4F1DE" }}>
+      <section style={{ color: "#E07A5F" }}>
+        {contenu[selectedSection].jsx}
+      </section>
       <List className="content-list">
         {contenu.map((elem, key) => {
           return (
@@ -39,9 +41,15 @@ const MainContainer = styled.main`
   width: 100vw;
   height: calc(100vh - 75px);
   display: flex;
-  background: #122b44;
   overflow-y: scroll;
   color: #fafafa;
+
+  h1 {
+    font-size: 3rem;
+    margin: 0;
+    margin-top: 15px;
+    letter-spacing: 2px;
+  }
 
   .content-list {
     width: 15%;
@@ -69,53 +77,51 @@ const MainContainer = styled.main`
     width: calc(85%);
     height: 100%;
 
-    article {
+    div {
       padding: 0 1vw;
 
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      p,
-      span,
-      small,
-      sup,
-      strong,
-      u,
-      li,
-      ul {
-        color: rgba(255, 255, 255, 0.7);
-        text-shadow: 2px 2px 7px rgba(255, 255, 255, 0.05);
-        letter-spacing: 1px;
-      }
+      article {
+        border-radius: 15px;
+        background: #f2cc8f;
+        box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.2);
+        padding: 15px;
+        margin-top: 30px;
 
-      h1 {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 2.8rem;
-        margin: 0;
-        margin-top: 15px;
-        letter-spacing: 2px;
-      }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        p,
+        span,
+        small,
+        sup,
+        strong,
+        u,
+        li,
+        ul {
+          text-shadow: 2px 2px 7px rgba(255, 255, 255, 0.05);
+          letter-spacing: 1px;
+        }
 
-      h2 {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 2rem;
-        letter-spacing: 2px;
-        margin-top: 60px;
-      }
+        h2 {
+          font-size: 2.25rem;
+          letter-spacing: 2px;
+          margin: 0;
+        }
 
-      h3 {
-      }
+        h3 {
+        }
 
-      ul {
-        list-style: "- ";
-      }
+        ul {
+          list-style: "- ";
+        }
 
-      p span {
-        color: #569cd6;
-        background: #1e1e1e;
-        padding: 0.5px 8px;
+        p span {
+          color: #569cd6;
+          background: #1e1e1e;
+          padding: 0.5px 8px;
+        }
       }
     }
   }
