@@ -21,11 +21,12 @@ const AlgorithmieEnJs = () => {
               key={key}
               onClick={() => setSelectedSection(key)}
               style={{
-                background: selectedSection == key ? "#162f48FF" : "#122b44aa",
+                background: selectedSection == key ? "#F2CC8F" : "transparent",
                 color:
                   selectedSection == key
-                    ? "rgba(255, 255, 255, 0.6)"
-                    : "rgba(255, 255, 255, 0.4)",
+                    ? "rgba(224,122,95, 0.9)"
+                    : "rgba(224,122,95, 0.7)",
+                opacity: selectedSection == key ? 1 : 0.7,
               }}
             >
               {elem.nom}
@@ -56,7 +57,6 @@ const MainContainer = styled.main`
   .content-list {
     width: 15%;
     height: 100%;
-    background: #051e34;
     padding: 0;
     margin: 0;
     position: fixed;
@@ -65,13 +65,12 @@ const MainContainer = styled.main`
     .content-list-item {
       cursor: pointer;
       padding: 8px 10px;
-      background: #122b44;
-      transition: 0.1s;
-      color: rgba(255, 255, 255, 0.4);
+      transition: 0.5s;
+      opacity: 0.5;
+      border-radius: 5px;
     }
     .content-list-item:hover {
-      background: #162f48 !important;
-      color: rgba(255, 255, 255, 0.6) !important;
+      opacity: 1 !important;
     }
   }
 
