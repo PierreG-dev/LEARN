@@ -21,11 +21,15 @@ tryConnect();
 const Chapter = require('./chapter.js')(connection);
 const SubChapter = require('./subChapter.js')(connection);
 const Exercise = require('./exercise.js')(connection);
+const Group = require('./group.js')(connection);
+const Student = require('./student.js')(connection);
 
 const collections = {
   Chapter,
   SubChapter,
   Exercise,
+  Group,
+  Student,
 };
 
 module.exports = collections;

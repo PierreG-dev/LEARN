@@ -134,6 +134,16 @@ app.post('/auth', (req, res, next) => {
   req.session.isConnected ? res.redirect('/') : res.render('auth');
 });
 
+app.get('/classManagement', async (req, res) => {
+  if (!req.session.isConnected) {
+    res.redirect('/auth');
+    return;
+  }
+
+  let data = await collections.Group.find().lean();
+  res.status(200).render('classManagement', data);
+});
+
 app.get('/chapter:id', async (req, res) => {
   if (!req.session.isConnected) {
     res.redirect('/auth');
@@ -178,10 +188,12 @@ app.get('/api/getData', api.getData);
 app.get('/api/getChapter:id?', api.getChapter);
 app.get('/api/getSubChapter:id?', api.getSubChapter);
 app.get('/api/getExercise:id?', api.getExercise);
+app.get('/api/getGroup', api.getGroup);
 
 app.post('/api/postChapter', api.postChapter);
 app.post('/api/postSubChapter', api.postSubChapter);
 app.post('/api/postExercise', api.postExercise);
+app.post('/api/postGroup', api.postGroup);
 
 app.put('/api/updateChapterAccess:id?', api.updateChapterAccess); //Changer access d'un Chapter
 app.put('/api/updateSubChapterAccess:id?', api.updateSubChapterAccess); //Changer access d'un subChapter

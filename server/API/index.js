@@ -2,10 +2,12 @@ const getData = require('./get/getData');
 const getChapter = require('./get/getChapter');
 const getSubChapter = require('./get/getSubChapter');
 const getExercise = require('./get/getExercise');
+const getGroup = require('./get/getGroup');
 
 const postChapter = require('./post/postChapter');
 const postSubChapter = require('./post/postSubChapter');
 const postExercise = require('./post/postExercise');
+const postGroup = require('./post/postGroup');
 
 const updateChapterAccess = require('./put/updateChapterAccess');
 const updateSubChapterAccess = require('./put/updateSubChapterAccess');
@@ -16,10 +18,12 @@ module.exports = {
   postChapter,
   postSubChapter,
   postExercise,
+  postGroup,
   getData,
   getChapter,
   getSubChapter,
   getExercise,
+  getGroup,
   updateChapterAccess,
   updateSubChapterAccess,
   updateExerciseAccess,
