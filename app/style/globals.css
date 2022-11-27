@@ -30,15 +30,12 @@
   box-shadow: 2px 12px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
-
-
 h1,
 h2,
 h3 H4,
 h5 {
   font-family: 'Lato', sans-serif !important;
   font-weight: 400;
-
 }
 
 .exercice-container h2,
@@ -54,7 +51,8 @@ h5 {
 }
 
 .exercice-container .exercice-tab {
-  color: #fafafa;
+  color: #e07a5f77;
+  transition: 1s;
 }
 
 .exercice-container div .lock {
@@ -75,3 +73,27 @@ h5 {
 }
 
 /*==== COURS ====*/
+
+/*==== ANIMATIONS ====*/
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+body {
+  background: #f4f1de;
+}
+
+/*==== TEMP ====*/
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: #e07a5f !important;
+  transition: 1s !important;
+}
+.css-1aquho2-MuiTabs-indicator {
+  background-color: #e07a5f !important;
+}

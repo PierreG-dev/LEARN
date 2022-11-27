@@ -49,12 +49,10 @@ export default function CustomizedList() {
     <div style={{ width: '100vw', height: '100%', display: 'flex' }}>
       <div
         style={{
-          background: '#F4F1DE',
           display: 'flex',
           height: '100%',
           maxWidth: '150px !important',
-          boxShadow:
-            '0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)',
+          boxShadow: 'none',
         }}
       >
         <ThemeProvider
@@ -69,7 +67,7 @@ export default function CustomizedList() {
             palette: {
               mode: 'dark',
               primary: { main: 'rgb(102, 157, 246)' },
-              background: { paper: 'f2cc8f' },
+              background: { paper: '#E07A5F' },
             },
           })}
         >
@@ -77,7 +75,7 @@ export default function CustomizedList() {
             elevation={0}
             sx={{ maxWidth: 256, borderRadius: 0, height: '100%' }}
           >
-            <ChapterMenu style={{ background: '#f2cc8f' }}>
+            <ChapterMenu style={{ background: '#E07A5F' }}>
               <ListItemButton component="a" href="#customized-list">
                 <ListItemIcon sx={{ fontSize: 20 }}>📚</ListItemIcon>
                 <ListItemText
@@ -113,6 +111,7 @@ export default function CustomizedList() {
                             Ckey === selectedChapter ? -1 : Ckey
                           );
                         }}
+                        disabled={!chapter.access}
                       >
                         <ListItemIcon sx={{ color: 'inherit' }}>
                           <MenuBookIcon />
@@ -192,6 +191,4 @@ export default function CustomizedList() {
   );
 }
 
-const ChapterMenu = styled.aside`
-  background: red;
-`;
+const ChapterMenu = styled.aside``;

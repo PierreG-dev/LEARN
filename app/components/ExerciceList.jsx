@@ -4,6 +4,7 @@ import Tab from '@mui/material/Tab';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import LockIcon from '@mui/icons-material/Lock';
+import styled from 'styled-components';
 
 const ExerciceList = ({ subChapter }) => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -30,9 +31,9 @@ const ExerciceList = ({ subChapter }) => {
   `;
 
   return (
-    <section
+    <MainContainer
       style={{
-        background: '#E07A5F',
+        background: '#F4F1DE',
         overflowY: 'scroll',
         height: 'calc(100vh - 75px)',
         color: '#fafafa',
@@ -88,10 +89,7 @@ const ExerciceList = ({ subChapter }) => {
                     overflow: 'hidden',
                   }}
                 >
-                  <SyntaxHighlighter
-                    language={'javascript'}
-                    style={vscDarkPlus}
-                  >
+                  <SyntaxHighlighter language={'html'} style={vscDarkPlus}>
                     {subChapter.exerciceList[selectedTab].solutionAccess
                       ? subChapter.exerciceList[selectedTab].solutionHTML
                       : trollTemplate}
@@ -120,10 +118,7 @@ const ExerciceList = ({ subChapter }) => {
                     overflow: 'hidden',
                   }}
                 >
-                  <SyntaxHighlighter
-                    language={'javascript'}
-                    style={vscDarkPlus}
-                  >
+                  <SyntaxHighlighter language={'css'} style={vscDarkPlus}>
                     {subChapter.exerciceList[selectedTab].solutionAccess
                       ? subChapter.exerciceList[selectedTab].solutionCSS
                       : trollTemplate}
@@ -166,8 +161,19 @@ const ExerciceList = ({ subChapter }) => {
           )}
         </div>
       )}
-    </section>
+    </MainContainer>
   );
 };
 
+const MainContainer = styled.section`
+  animation: fade-in 1 0.5s ease;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: #e07a5f;
+  }
+`;
 export default ExerciceList;
