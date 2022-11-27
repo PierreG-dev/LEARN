@@ -32,7 +32,7 @@ const ExerciceList = ({ subChapter }) => {
   return (
     <section
       style={{
-        background: '#142d46',
+        background: '#E07A5F',
         overflowY: 'scroll',
         height: 'calc(100vh - 75px)',
         color: '#fafafa',
@@ -68,29 +68,102 @@ const ExerciceList = ({ subChapter }) => {
             </SyntaxHighlighter>
           </div>
           <h3>Solution</h3>
-          <div style={{ position: 'relative' }}>
-            {!subChapter.exerciceList[selectedTab].solutionAccess && (
-              <div title="La solution de cet exercice est verrouillée; faites l'exercice vous-même ;)">
-                <LockIcon className="lock" />
+          {/* HTML */}
+          {subChapter.exerciceList[selectedTab].solutionHTML && (
+            <div>
+              <h4>HTML</h4>
+              <div style={{ position: 'relative' }}>
+                {!subChapter.exerciceList[selectedTab].solutionAccess && (
+                  <div title="La solution de cet exercice est verrouillée; faites l'exercice vous-même ;)">
+                    <LockIcon className="lock" />
+                  </div>
+                )}
+                <div
+                  className="syntaxed"
+                  style={{
+                    filter:
+                      !subChapter.exerciceList[selectedTab].solutionAccess &&
+                      'blur(3px) grayscale(0.6) ',
+                    userSelect: 'none',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <SyntaxHighlighter
+                    language={'javascript'}
+                    style={vscDarkPlus}
+                  >
+                    {subChapter.exerciceList[selectedTab].solutionAccess
+                      ? subChapter.exerciceList[selectedTab].solutionHTML
+                      : trollTemplate}
+                  </SyntaxHighlighter>
+                </div>
               </div>
-            )}
-            <div
-              className="syntaxed"
-              style={{
-                filter:
-                  !subChapter.exerciceList[selectedTab].solutionAccess &&
-                  'blur(3px) grayscale(0.6) ',
-                userSelect: 'none',
-                overflow: 'hidden',
-              }}
-            >
-              <SyntaxHighlighter language={'javascript'} style={vscDarkPlus}>
-                {subChapter.exerciceList[selectedTab].solutionAccess
-                  ? subChapter.exerciceList[selectedTab].solution
-                  : trollTemplate}
-              </SyntaxHighlighter>
             </div>
-          </div>
+          )}
+          {/* CSS */}
+          {subChapter.exerciceList[selectedTab].solutionCSS && (
+            <div>
+              <h4>CSS</h4>
+              <div style={{ position: 'relative' }}>
+                {!subChapter.exerciceList[selectedTab].solutionAccess && (
+                  <div title="La solution de cet exercice est verrouillée; faites l'exercice vous-même ;)">
+                    <LockIcon className="lock" />
+                  </div>
+                )}
+                <div
+                  className="syntaxed"
+                  style={{
+                    filter:
+                      !subChapter.exerciceList[selectedTab].solutionAccess &&
+                      'blur(3px) grayscale(0.6) ',
+                    userSelect: 'none',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <SyntaxHighlighter
+                    language={'javascript'}
+                    style={vscDarkPlus}
+                  >
+                    {subChapter.exerciceList[selectedTab].solutionAccess
+                      ? subChapter.exerciceList[selectedTab].solutionCSS
+                      : trollTemplate}
+                  </SyntaxHighlighter>
+                </div>
+              </div>
+            </div>
+          )}
+          {/* JS */}
+          {subChapter.exerciceList[selectedTab].solutionJS && (
+            <div>
+              <h4>JS</h4>
+              <div style={{ position: 'relative' }}>
+                {!subChapter.exerciceList[selectedTab].solutionAccess && (
+                  <div title="La solution de cet exercice est verrouillée; faites l'exercice vous-même ;)">
+                    <LockIcon className="lock" />
+                  </div>
+                )}
+                <div
+                  className="syntaxed"
+                  style={{
+                    filter:
+                      !subChapter.exerciceList[selectedTab].solutionAccess &&
+                      'blur(3px) grayscale(0.6) ',
+                    userSelect: 'none',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <SyntaxHighlighter
+                    language={'javascript'}
+                    style={vscDarkPlus}
+                  >
+                    {subChapter.exerciceList[selectedTab].solutionAccess
+                      ? subChapter.exerciceList[selectedTab].solutionJS
+                      : trollTemplate}
+                  </SyntaxHighlighter>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </section>

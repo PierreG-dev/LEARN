@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import { styled, ThemeProvider, createTheme } from '@mui/material/styles';
+import styled from 'styled-components';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -25,19 +26,19 @@ import ExerciceList from './ExerciceList';
 import { DataContext } from '../context/context';
 import { useContext } from 'react';
 
-const FireNav = styled(List)({
-  '& .MuiListItemButton-root': {
-    paddingLeft: 24,
-    paddingRight: 24,
-  },
-  '& .MuiListItemIcon-root': {
-    minWidth: 0,
-    marginRight: 16,
-  },
-  '& .MuiSvgIcon-root': {
-    fontSize: 20,
-  },
-});
+// const FireNav = styled(List)({
+//   '& .MuiListItemButton-root': {
+//     paddingLeft: 24,
+//     paddingRight: 24,
+//   },
+//   '& .MuiListItemIcon-root': {
+//     minWidth: 0,
+//     marginRight: 16,
+//   },
+//   '& .MuiSvgIcon-root': {
+//     fontSize: 20,
+//   },
+// });
 
 export default function CustomizedList() {
   const [selectedChapter, setSelectedChapter] = useState(-1);
@@ -48,6 +49,7 @@ export default function CustomizedList() {
     <div style={{ width: '100vw', height: '100%', display: 'flex' }}>
       <div
         style={{
+          background: '#F4F1DE',
           display: 'flex',
           height: '100%',
           maxWidth: '150px !important',
@@ -67,7 +69,7 @@ export default function CustomizedList() {
             palette: {
               mode: 'dark',
               primary: { main: 'rgb(102, 157, 246)' },
-              background: { paper: 'rgb(5, 30, 52)' },
+              background: { paper: 'f2cc8f' },
             },
           })}
         >
@@ -75,7 +77,7 @@ export default function CustomizedList() {
             elevation={0}
             sx={{ maxWidth: 256, borderRadius: 0, height: '100%' }}
           >
-            <FireNav component="nav" disablePadding>
+            <ChapterMenu style={{ background: '#f2cc8f' }}>
               <ListItemButton component="a" href="#customized-list">
                 <ListItemIcon sx={{ fontSize: 20 }}>📚</ListItemIcon>
                 <ListItemText
@@ -166,7 +168,7 @@ export default function CustomizedList() {
                   );
                 })}
               </Box>
-            </FireNav>
+            </ChapterMenu>
           </Paper>
         </ThemeProvider>
       </div>
@@ -189,3 +191,7 @@ export default function CustomizedList() {
     </div>
   );
 }
+
+const ChapterMenu = styled.aside`
+  background: red;
+`;
