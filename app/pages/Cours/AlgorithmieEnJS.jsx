@@ -1,37 +1,39 @@
-import contenu from "../../components/Cours/AlgorithmieJS";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { useCallback } from "react";
+import contenu from '../../components/Cours/AlgorithmieJS';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+import { useCallback } from 'react';
 
 const AlgorithmieEnJs = () => {
   const [selectedSection, setSelectedSection] = useState(0);
 
   return (
-    <MainContainer style={{ background: "#F4F1DE" }}>
-      <section style={{ color: "#E07A5F" }}>
+    <MainContainer style={{ background: '#F4F1DE' }}>
+      <section style={{ color: '#E07A5F' }}>
         {contenu[selectedSection].jsx}
       </section>
       <List className="content-list">
         {contenu.map((elem, key) => {
-          return (
-            <ListItem
-              class="content-list-item"
-              key={key}
-              onClick={() => setSelectedSection(key)}
-              style={{
-                background: selectedSection == key ? "#F2CC8F" : "transparent",
-                color:
-                  selectedSection == key
-                    ? "rgba(224,122,95, 0.9)"
-                    : "rgba(224,122,95, 0.7)",
-                opacity: selectedSection == key ? 1 : 0.7,
-              }}
-            >
-              {elem.nom}
-            </ListItem>
-          );
+          if (elem.access)
+            return (
+              <ListItem
+                class="content-list-item"
+                key={key}
+                onClick={() => setSelectedSection(key)}
+                style={{
+                  background:
+                    selectedSection == key ? '#F2CC8F' : 'transparent',
+                  color:
+                    selectedSection == key
+                      ? 'rgba(224,122,95, 0.9)'
+                      : 'rgba(224,122,95, 0.7)',
+                  opacity: selectedSection == key ? 1 : 0.7,
+                }}
+              >
+                {elem.nom}
+              </ListItem>
+            );
         })}
       </List>
     </MainContainer>
@@ -60,7 +62,8 @@ const MainContainer = styled.main`
     padding: 0;
     margin: 0;
     position: fixed;
-    right: 0;
+    right: 20px;
+    margin-top: 5px;
 
     .content-list-item {
       cursor: pointer;
@@ -115,7 +118,7 @@ const MainContainer = styled.main`
         }
 
         ul {
-          list-style: "- ";
+          list-style: '- ';
         }
 
         p span {

@@ -1,5 +1,5 @@
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 const StructuresDeContrôle = () => {
   return (
@@ -8,18 +8,18 @@ const StructuresDeContrôle = () => {
 
       <p>
         Une <strong>structure de contrôle</strong> est une instruction
-        particulière ayant pour but de{" "}
+        particulière ayant pour but de{' '}
         <strong>dévier le flot de contrôle</strong> du programme la contenant
         lorsqu'elle est exécutée.
       </p>
       <p>
         Pour faire simple, une <strong>structure de contrôle</strong> permettra
-        d'exécuter des lignes de codes en{" "}
+        d'exécuter des lignes de codes en{' '}
         <strong>sortant du déroulé logique</strong> du script.
       </p>
       <p>
-        Les outils qui vont suivre utilisent tous des{" "}
-        <strong>conditions</strong> pour fonctionner. Une{" "}
+        Les outils qui vont suivre utilisent tous des{' '}
+        <strong>conditions</strong> pour fonctionner. Une{' '}
         <strong>condition</strong> est une expression retournant toujours true
         ou false; pour se faire, elles utilisent des opérateurs de comparaison &
         conditions. Ce qui donne quelque chose comme ceci:
@@ -41,12 +41,12 @@ const StructuresDeContrôle = () => {
 
         <p>
           Comme illustré ci-dessus, si il y a plusieurs instructions dans la
-          structure de contrôle, alors il faudra délimiter{" "}
-          <strong>le début et la fin</strong> de ces dernières à l'aide{" "}
+          structure de contrôle, alors il faudra délimiter{' '}
+          <strong>le début et la fin</strong> de ces dernières à l'aide{' '}
           <strong>d'accolades</strong>. <br />
           Si la structure ne contient qu'
           <strong>une seule et unique instruction</strong>, il est possible de
-          s'en passer:{" "}
+          s'en passer:{' '}
           <strong>la structure n'exécutera que la ligne suivante</strong>.
         </p>
         <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
@@ -65,7 +65,7 @@ const StructuresDeContrôle = () => {
         <p>
           Une structure Switch s'utilise pour tester une valeur, et adapter le
           code à exécuter en fonction de cette dernière. un switch n'a aucun
-          intérêt si la valeur ne peut pas avoir plus de 2 valeurs différentes.{" "}
+          intérêt si la valeur ne peut pas avoir plus de 2 valeurs différentes.{' '}
           <br />
           Le switch joue le même rôle qu'un if mais est visuellement différent,
           il permet surtout une meilleure lecture du coup dans le cas ou la
@@ -80,18 +80,29 @@ const StructuresDeContrôle = () => {
         <h2>While</h2>
         <p>
           Une structure while est une boucle. <br />
-          Il existe plusieurs types de boucles, celle ci est la simple dans son
-          comportement:{" "}
+          Il existe plusieurs types de boucles, celle-ci est la plus simple dans
+          son fonctionnement:{' '}
           <strong>
             tant que sa condition est vraie alors elle répète le code en boucle
           </strong>
           . <br />
-          <strong>Attention cependant</strong>, si rien n'est prévu pour rentre
-          la condition fausse à un certain moment, la boucle sera infinie et le
-          code bloqué.
+        </p>
+        <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
+          {`let nombre = 0\nwhile (nombre !== 100) {\n  nombre = nombre + 1\n}\n//Le programme s'arrête après avoir incrémenté de 1 la variable nombre 100 fois.`}
+        </SyntaxHighlighter>
+        <p>
+          <strong>Attention cependant</strong>, si rien n'est prévu pour rendre
+          la condition fausse, la boucle sera infinie et le code bloqué.
+        </p>
+        <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
+          {`let nombre = 0\nwhile (nombre !== 100) {\n  nombre + 1 //Cette fois-ci, nombre n'est pas incrément à chaque tour, on calcule simplement la somme de la valeur contenue dans la variable "nombre" et la valeur numérique "1".\n}\n//Comme on ne change pas la valeur de la variable "nombre", la condition de la boucle sera toujours vraie, et la boucle devient infinie.`}
+        </SyntaxHighlighter>
+        <p>
+          Il est donc crucial de <strong>bien formuler la condition</strong> de
+          votre boucle, afin qu'elle répète le code le nombre de fois voulu.
         </p>
       </article>
-      <article>
+      {/* <article>
         <h2>for</h2>
       </article>
       <article>
@@ -99,7 +110,7 @@ const StructuresDeContrôle = () => {
       </article>
       <article>
         <h2>Ternaire</h2>
-      </article>
+      </article> */}
     </div>
   );
 };

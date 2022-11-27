@@ -7,44 +7,56 @@ import TypeObject from './TypeObject';
 import Types from './Types';
 import TypeString from './TypeString';
 import Variables from './Variables';
+import StructuresDeDonnees from './StructuresDeDonnees';
 
 export default [
   {
     nom: 'Variables',
     jsx: <Variables />,
+    access: true,
   },
   {
     nom: 'Types de valeurs',
     jsx: <Types />,
+    access: true,
   },
   {
     nom: 'Opérateurs',
     jsx: <Operateurs />,
+    access: true,
   },
   {
     nom: 'Structures de contrôle',
     jsx: <StructuresDeControle />,
+    access: true,
+  },
+  {
+    nom: 'Structures de données',
+    jsx: <StructuresDeDonnees />,
+    access: false,
   },
   {
     nom: 'Fonctions',
     jsx: <Fonctions />,
+    access: false,
   },
-  {
-    nom: 'Type Number',
-    jsx: <TypeNumber />,
-  },
-  {
-    nom: 'Type String',
-    jsx: <TypeString />,
-  },
-  {
-    nom: 'Type Array',
-    jsx: <TypeArray />,
-  },
-  {
-    nom: 'Type Object',
-    jsx: <TypeObject />,
-  },
+
+  // {
+  //   nom: 'Type Number',
+  //   jsx: <TypeNumber />,
+  // },
+  // {
+  //   nom: 'Type String',
+  //   jsx: <TypeString />,
+  // },
+  // {
+  //   nom: 'Type Array',
+  //   jsx: <TypeArray />,
+  // },
+  // {
+  //   nom: 'Type Object',
+  //   jsx: <TypeObject />,
+  // },
 ];
 
 /*
