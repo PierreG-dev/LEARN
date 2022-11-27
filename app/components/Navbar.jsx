@@ -1,14 +1,14 @@
-import * as React from "react";
-import styled from "styled-components";
-import Link from "next/link";
+import * as React from 'react';
+import styled from 'styled-components';
+import Link from 'next/link';
 
-const pages = ["Cours", "Exercices"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = ['Cours', 'Exercices'];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = ({ children, isConnected }) => {
   return (
     <main>
-      <MainContainer style={{ background: "#E07A5F" }}>
+      <MainContainer style={{ background: '#E07A5F' }}>
         <Link href="/">
           <div id="navbar_logo">
             <div className="gears-container">
@@ -21,7 +21,6 @@ const Navbar = ({ children, isConnected }) => {
         <div id="navbar_links" className="logo-typo">
           <Link href="/Cours">Cours</Link>
           <Link href="/Exercices">Exercices</Link>
-          <Link href="/Exams">Examens</Link>
         </div>
       </MainContainer>
       {children}
