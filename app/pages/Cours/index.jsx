@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import { DataContext } from "../../context/context";
-import { useCallback, useContext, useEffect } from "react";
-import DoneIcon from "@mui/icons-material/Done";
-import LinearProgress from "@mui/material/LinearProgress";
-import Link from "next/link";
+import styled from 'styled-components';
+import { DataContext } from '../../context/context';
+import { useCallback, useContext, useEffect } from 'react';
+import DoneIcon from '@mui/icons-material/Done';
+import LinearProgress from '@mui/material/LinearProgress';
+import Link from 'next/link';
 const Index = () => {
   const data = useContext(DataContext);
 
@@ -22,39 +22,49 @@ const Index = () => {
   });
 
   return (
-    <MainContainer style={{ background: "#f4f1de" }}>
-      <h1 style={{ color: "#e07a5f" }}>Chapitres</h1>
+    <MainContainer style={{ background: '#f4f1de' }}>
+      <h1 style={{ color: '#e07a5f' }}>Chapitres</h1>
       <div id="chapter_wrapper">
         {data.map((chapter, key) => {
           return (
             <Link
-              href={`/Cours/${chapter.chapterName
-                .split(" ")
-                .map((mot) => mot[0].toUpperCase() + mot.substring(1))
-                .join("")}`}
+              href={
+                chapter.access
+                  ? `/Cours/${chapter.chapterName
+                      .split(' ')
+                      .map((mot) => mot[0].toUpperCase() + mot.substring(1))
+                      .join('')}`
+                  : ''
+              }
               key={key}
             >
-              <div className="chapter-card" style={{ background: "#f2cc8f" }}>
-                <h2 style={{ color: "#e07a5f" }}>{chapter.chapterName}</h2>
-                <p style={{ color: "#e07a5f" }}>{chapter.description}</p>
-                <div className="progressBar-container">
-                  <LinearProgress
-                    variant="determinate"
-                    value={calculateProgress(chapter)}
-                    sx={{
-                      background: "#F4F1DE",
-                      borderRadius: 2,
-                      width: "95%",
-                    }}
-                  />
-                  <span style={{ color: "#e07a5f" }}>
-                    {calculateProgress(chapter) == 100 ? (
-                      <DoneIcon style={{ color: "#81B29A" }} />
-                    ) : (
-                      `${calculateProgress(chapter)}%`
-                    )}
-                  </span>
-                </div>
+              <div
+                className={`chapter-card ${chapter.access || 'disabled'}`}
+                style={{ background: '#f2cc8f' }}
+                title={chapter.access || 'Cours innaccessible pour le moment'}
+              >
+                <h2 style={{ color: '#e07a5f' }}>{chapter.chapterName}</h2>
+                <p style={{ color: '#e07a5f' }}>{chapter.description}</p>
+                {chapter.access && (
+                  <div className="progressBar-container">
+                    <LinearProgress
+                      variant="determinate"
+                      value={calculateProgress(chapter)}
+                      sx={{
+                        background: '#F4F1DE',
+                        borderRadius: 2,
+                        width: '95%',
+                      }}
+                    />
+                    <span style={{ color: '#e07a5f' }}>
+                      {calculateProgress(chapter) == 100 ? (
+                        <DoneIcon style={{ color: '#81B29A' }} />
+                      ) : (
+                        `${calculateProgress(chapter)}%`
+                      )}
+                    </span>
+                  </div>
+                )}
               </div>
             </Link>
           );
@@ -110,6 +120,17 @@ const MainContainer = styled.section`
     &:hover {
       transform: translate3d(0, -5px, 0);
       box-shadow: 5px 10px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    &.disabled {
+      box-shadow: none;
+      filter: grayscale(0.4);
+      cursor: help;
+    }
+
+    &.disabled:hover {
+      transform: none;
+      box-shadow: none;
     }
 
     h2 {
