@@ -15,7 +15,7 @@ const ExerciceList = ({ subChapter }) => {
 
   useEffect(() => {
     setSelectedTab(0);
-  }, [subChapter]);
+  }, []);
 
   const trollTemplate = `
     let trololo = 'issou';
