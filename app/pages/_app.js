@@ -15,7 +15,6 @@ const fetchData = (setter) => {
     .then((response) => response.json())
     .then((data) => {
       setter(data);
-      console.log(data);
     });
 };
 

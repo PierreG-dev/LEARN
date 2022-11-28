@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -8,11 +8,14 @@ import styled from 'styled-components';
 
 const ExerciceList = ({ subChapter }) => {
   const [selectedTab, setSelectedTab] = useState(0);
-  console.log(subChapter);
 
   const changeTab = (event, newTab) => {
     setSelectedTab(newTab);
   };
+
+  useEffect(() => {
+    setSelectedTab(0);
+  }, [subChapter]);
 
   const trollTemplate = `
     let trololo = 'issou';
