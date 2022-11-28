@@ -1,5 +1,5 @@
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 const Operateurs = () => {
   return (
@@ -127,7 +127,7 @@ const Operateurs = () => {
         </SyntaxHighlighter>
         <h3>OU logique</h3>
         <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
-          {`true && true //Retourne true\ntrue || false //Retourne true\nfalse || true //Retourne true\nfalse || false //Retourne false`}
+          {`true || true //Retourne true\ntrue || false //Retourne true\nfalse || true //Retourne true\nfalse || false //Retourne false`}
         </SyntaxHighlighter>
       </article>
     </div>
