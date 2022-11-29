@@ -234,6 +234,9 @@ io.on('disconnect', (socket) => {
 */
 
 //============== FOR MY STUDENTS ===============//
+app.get('/api/tutu', (req, res) => {
+  res.status(200).send('cursed');
+});
 app.get('/api/toto', (req, res) => {
   res.status(200).send('Hello world!');
 });
