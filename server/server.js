@@ -208,8 +208,8 @@ app.get('/blocked', (req, res) => {
   res.render('errors/blocked', { error: 401, cause: 'Too many trials.' });
 });
 
-////==============================//
-//            SOCKETS            //
+//==============================//
+//            SOCKETS           //
 //==============================//
 
 io.on('connect', (socket) => {

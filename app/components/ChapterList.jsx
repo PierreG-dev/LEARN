@@ -141,32 +141,43 @@ export default function CustomizedList() {
                         <List style={{ marginLeft: 10 }}>
                           {chapter.subChapterList.map((subChapter, SCkey) => {
                             return (
-                              <ListItemButton
-                                onClick={() => {
-                                  if (SCkey !== selectedChapter)
-                                    setSelectedTab(0);
-                                  setSelectedSubChapter(
-                                    SCkey === selectedSubChapter ? -1 : SCkey
-                                  );
-                                }}
-                                key={subChapter._id}
-                                sx={{
-                                  py: 0,
-                                  minHeight: 32,
-                                  color: 'rgba(255,255,255,.8)',
+                              <div
+                                className="menu-item-custom"
+                                style={{
+                                  background:
+                                    SCkey === selectedSubChapter
+                                      ? 'rgba(255,255,255,0.2)!important'
+                                      : 'transparent',
+                                  transition: '0.2s',
                                 }}
                               >
-                                <ListItemIcon sx={{ color: 'inherit' }}>
-                                  <MenuBookIcon />
-                                </ListItemIcon>
-                                <ListItemText
-                                  primary={subChapter.subChapterName}
-                                  primaryTypographyProps={{
-                                    fontSize: 14,
-                                    fontWeight: 'medium',
+                                <ListItemButton
+                                  onClick={() => {
+                                    if (SCkey !== selectedChapter)
+                                      setSelectedTab(0);
+                                    setSelectedSubChapter(
+                                      SCkey === selectedSubChapter ? -1 : SCkey
+                                    );
                                   }}
-                                />
-                              </ListItemButton>
+                                  key={subChapter._id}
+                                  sx={{
+                                    py: 0,
+                                    minHeight: 32,
+                                    color: 'rgba(255,255,255,.8)',
+                                  }}
+                                >
+                                  <ListItemIcon sx={{ color: 'inherit' }}>
+                                    <MenuBookIcon />
+                                  </ListItemIcon>
+                                  <ListItemText
+                                    primary={subChapter.subChapterName}
+                                    primaryTypographyProps={{
+                                      fontSize: 14,
+                                      fontWeight: 'medium',
+                                    }}
+                                  />
+                                </ListItemButton>
+                              </div>
                             );
                           })}
                         </List>
