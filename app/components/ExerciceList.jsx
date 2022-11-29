@@ -6,17 +6,7 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import LockIcon from '@mui/icons-material/Lock';
 import styled from 'styled-components';
 
-const ExerciceList = ({ subChapter }) => {
-  const [selectedTab, setSelectedTab] = useState(0);
-
-  const changeTab = (event, newTab) => {
-    setSelectedTab(newTab);
-  };
-
-  useEffect(() => {
-    setSelectedTab(0);
-  }, []);
-
+const ExerciceList = ({ subChapter, selectedTab, changeTab }) => {
   const trollTemplate = `
     let trololo = 'issou';
 

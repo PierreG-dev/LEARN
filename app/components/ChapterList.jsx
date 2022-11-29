@@ -42,8 +42,13 @@ import { useContext } from 'react';
 
 export default function CustomizedList() {
   const [selectedChapter, setSelectedChapter] = useState(-1);
+  const [selectedTab, setSelectedTab] = useState(0);
   const [selectedSubChapter, setSelectedSubChapter] = useState(-1);
   const data = useContext(DataContext);
+
+  const changeTab = (event, newTab) => {
+    setSelectedTab(newTab);
+  };
 
   return (
     <div style={{ width: '100vw', height: '100%', display: 'flex' }}>
@@ -107,6 +112,7 @@ export default function CustomizedList() {
                           color: 'rgba(255,255,255,.8)',
                         }}
                         onClick={() => {
+                          if (Ckey !== selectedChapter) setSelectedTab(0);
                           setSelectedChapter(
                             Ckey === selectedChapter ? -1 : Ckey
                           );
@@ -136,11 +142,13 @@ export default function CustomizedList() {
                           {chapter.subChapterList.map((subChapter, SCkey) => {
                             return (
                               <ListItemButton
-                                onClick={() =>
+                                onClick={() => {
+                                  if (SCkey !== selectedChapter)
+                                    setSelectedTab(0);
                                   setSelectedSubChapter(
                                     SCkey === selectedSubChapter ? -1 : SCkey
-                                  )
-                                }
+                                  );
+                                }}
                                 key={subChapter._id}
                                 sx={{
                                   py: 0,
@@ -181,6 +189,8 @@ export default function CustomizedList() {
           selectedSubChapter !== -1 &&
           selectedChapter.exerciceList !== [] && (
             <ExerciceList
+              changeTab={changeTab}
+              selectedTab={selectedTab}
               subChapter={
                 data[selectedChapter].subChapterList[selectedSubChapter]
               }
