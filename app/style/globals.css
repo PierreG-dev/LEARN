@@ -93,6 +93,7 @@ body {
 .exercice-tab {
   color: #e07a5f !important;
   transition: 1s !important;
+  opacity: 0.7;
 }
 
 .exercice-tab.Mui-disabled {
