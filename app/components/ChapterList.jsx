@@ -143,11 +143,10 @@ export default function CustomizedList() {
                             return (
                               <div
                                 className="menu-item-custom"
+                                onMouseOver={() => {
+                                  console.log(SCkey, selectedSubChapter);
+                                }}
                                 style={{
-                                  background:
-                                    SCkey === selectedSubChapter
-                                      ? 'rgba(255,255,255,0.2)!important'
-                                      : 'transparent',
                                   transition: '0.2s',
                                 }}
                               >
@@ -163,7 +162,6 @@ export default function CustomizedList() {
                                   sx={{
                                     py: 0,
                                     minHeight: 32,
-                                    color: 'rgba(255,255,255,.8)',
                                   }}
                                 >
                                   <ListItemIcon sx={{ color: 'inherit' }}>
@@ -174,6 +172,13 @@ export default function CustomizedList() {
                                     primaryTypographyProps={{
                                       fontSize: 14,
                                       fontWeight: 'medium',
+                                    }}
+                                    sx={{
+                                      transition: '0.2s',
+                                      color:
+                                        SCkey == selectedSubChapter
+                                          ? '#f2cc8f !important'
+                                          : 'rgba(255,255,255,.8) !important',
                                     }}
                                   />
                                 </ListItemButton>

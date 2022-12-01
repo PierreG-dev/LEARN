@@ -97,7 +97,9 @@ body {
 .css-1aquho2-MuiTabs-indicator {
   background-color: #e07a5f !important;
 }
-
+.menu-item-custom {
+  transition: '0.2s' !important;
+}
 .menu-item-custom:hover {
   background: rgba(255, 255, 255, 0.2) !important;
 }
