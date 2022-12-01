@@ -90,11 +90,15 @@ body {
 }
 
 /*==== TEMP ====*/
-.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+.exercice-tab {
   color: #e07a5f !important;
   transition: 1s !important;
 }
-.css-1aquho2-MuiTabs-indicator {
+
+.exercice-tab.Mui-disabled {
+  opacity: 0.4;
+}
+.MuiTabs-indicator {
   background-color: #e07a5f !important;
 }
 .menu-item-custom {
