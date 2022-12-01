@@ -7,6 +7,10 @@ import Link from 'next/link';
 const Index = () => {
   const data = useContext(DataContext);
 
+  useEffect(() => {
+    document.title = 'LEARN | Cours';
+  }, []);
+
   const calculateProgress = useCallback((chapter) => {
     let exercicesAmount = 0;
     let finishedExercicesAMount = 0;

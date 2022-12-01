@@ -28,6 +28,7 @@ function MyApp({ Component, pageProps }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    document.title = 'LEARN';
     //Récupération de la base de données
     let databaseUpdater = setInterval(() => {
       fetchData(setDatabase);
