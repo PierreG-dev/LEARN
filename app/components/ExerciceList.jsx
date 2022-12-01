@@ -45,6 +45,7 @@ const ExerciceList = ({ subChapter, selectedTab, changeTab }) => {
               label={`Ex ${key + 1}`}
               disabled={!exercice.access}
               className="exercice-tab"
+              sx={selectedTab === key ? { opacity: 1 } : {}}
             />
           );
         })}
