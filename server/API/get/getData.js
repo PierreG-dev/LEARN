@@ -1,4 +1,6 @@
 const collections = require('../../collections');
+const { encryptString, decryptString } = require('encrypt-string');
+
 module.exports = async (req, res) => {
   const chapters = await collections.Chapter.find().lean();
 
@@ -28,5 +30,10 @@ module.exports = async (req, res) => {
     })
   );
 
-  res.status(200).send(data);
+  let encryptedData = await encryptString(
+    JSON.stringify(data),
+    process.env.ENCRYPT_KEY
+  );
+
+  res.status(200).send(encryptedData);
 };
