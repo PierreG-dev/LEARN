@@ -18,7 +18,7 @@ const AlgorithmieEnJs = () => {
           if (elem.access)
             return (
               <ListItem
-                class="content-list-item"
+                className="content-list-item"
                 key={key}
                 onClick={() => setSelectedSection(key)}
                 style={{

@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import styled from "styled-components";
-import Link from "next/link";
+import { useEffect } from 'react';
+import styled from 'styled-components';
+import Link from 'next/link';
 
 export default function Home() {
   useEffect(() => {}, []);
@@ -11,10 +11,10 @@ export default function Home() {
         <h1 className="logo-typo">LEARN_</h1>
         <h2>Apprenez à votre rythme, avec les bons outils.</h2>
         <Link href="/Cours">
-          <button class="cssbuttons-io-button">
-            {" "}
+          <button className="cssbuttons-io-button">
+            {' '}
             Accéder aux cours
-            <div class="icon">
+            <div className="icon">
               <svg
                 height="24"
                 width="24"
