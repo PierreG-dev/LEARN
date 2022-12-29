@@ -127,7 +127,7 @@ app.post('/auth', (req, res, next) => {
     return;
   }
   let password = (req.body.password || '').toString();
-  let pass = 'godgod82100';
+  let pass = process.env.ADMIN_PASSWORD;
 
   req.session.isConnected = password === pass;
 
@@ -185,6 +185,7 @@ app.get('/chapter:id', async (req, res) => {
 
 //----------- API ------------
 app.get('/api/getData', api.getData);
+app.get('/api/getDataHashed', api.getDataHashed);
 app.get('/api/getChapter:id?', api.getChapter);
 app.get('/api/getSubChapter:id?', api.getSubChapter);
 app.get('/api/getExercise:id?', api.getExercise);

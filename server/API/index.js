@@ -1,4 +1,5 @@
 const getData = require('./get/getData');
+const getDataHashed = require('./get/getDataHashed');
 const getChapter = require('./get/getChapter');
 const getSubChapter = require('./get/getSubChapter');
 const getExercise = require('./get/getExercise');
@@ -20,6 +21,7 @@ module.exports = {
   postExercise,
   postGroup,
   getData,
+  getDataHashed,
   getChapter,
   getSubChapter,
   getExercise,

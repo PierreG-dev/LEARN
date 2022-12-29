@@ -1,7 +1,16 @@
 import '../styles/globals.css';
 import '../style/imported.css';
-import { useState, useEffect, createContext, useContext } from 'react';
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useCallback,
+  useRef,
+  useMemo,
+} from 'react';
 import Cryptr from 'cryptr';
+import { encrypt, decrypt } from '@devoxa/aes-encryption';
 import { io } from 'socket.io-client';
 import Navbar from '../components/Navbar';
 import '../style/globals.css';
@@ -11,31 +20,40 @@ import '../style/loader.css';
 import { DataContext } from '../context/context';
 import Loader from '../components/Loader';
 
-const fetchData = (setter) => {
-  const encrypter = new Cryptr(process.env.NEXT_PUBLIC_ENCRYPT_KEY);
-
-  fetch(process.env.NEXT_PUBLIC_DATA_FETCHING_URL)
-    .then((response) => response.text())
-    .then((data) => {
-      let decryptedData = JSON.parse(encrypter.decrypt(data));
-      setter(decryptedData);
-    });
-};
-
+//connexion aux sockets
 const socket = io('https://api.learn.pierre-godino.com', {
   autoConnect: true,
 });
 
 function MyApp({ Component, pageProps }) {
-  const [database, setDatabase] = useState();
+  const [rawData, setRawData] = useState();
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [loaded, setLoaded] = useState(false);
 
+  const dataHash = useRef();
+
+  //Gère le décryptage des données
+  const database = useMemo(() => {
+    if (!rawData) return;
+    try {
+      const key = '' + process.env.NEXT_PUBLIC_ENCRYPT_KEY; //Clé de cryptage
+      console.info('Decrypting...');
+      let decryptedData = decrypt(key, rawData);
+      console.info('Parsing...');
+      let parsedData = JSON.parse(decryptedData);
+      console.info('Data parsed !');
+      return parsedData;
+    } catch (err) {
+      console.error('DECRYPTING ERROR' + err);
+    }
+  }, [rawData]);
+
+  //Gère les protocoles de démarrage
   useEffect(() => {
     document.title = 'LEARN';
     //Récupération de la base de données
     let databaseUpdater = setInterval(() => {
-      fetchData(setDatabase);
+      update();
     }, 10000);
 
     //--- SOCKET IO ---//
@@ -55,10 +73,30 @@ function MyApp({ Component, pageProps }) {
     return () => {
       socket.off('connect');
       socket.off('disconnect');
+      socket.off('updates');
       clearInterval(databaseUpdater);
     };
   }, []);
 
+  //Gère la communication avec l'API
+  const update = useCallback(() => {
+    fetch(process.env.NEXT_PUBLIC_DATA_FETCHING_URL + 'Hashed')
+      .then((response) => response.text())
+      .then((newHash) => {
+        if (newHash != dataHash.current) {
+          dataHash.current = newHash;
+          console.info('Update running...');
+          fetch(process.env.NEXT_PUBLIC_DATA_FETCHING_URL)
+            .then((response) => response.text())
+            .then((data) => {
+              setRawData(data); //Update si les données ont changées
+            })
+            .catch((err) => console.error('UPDATE ERROR' + err));
+        }
+      });
+  }, []);
+
+  //Gère le chargement de la page
   useEffect(() => {
     if (!loaded) {
       if (database)

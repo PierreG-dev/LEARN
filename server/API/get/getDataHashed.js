@@ -1,5 +1,5 @@
 const collections = require('../../collections');
-let { encrypt, decrypt } = require('@devoxa/aes-encryption');
+const sha256 = require('js-sha256').sha256;
 
 module.exports = async (req, res) => {
   const chapters = await collections.Chapter.find().lean();
@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
     })
   );
 
-  let encryptedData = encrypt(process.env.ENCRYPT_KEY, JSON.stringify(data));
+  let hashedData = sha256(JSON.stringify(data));
 
-  res.status(200).send(encryptedData);
+  res.status(200).send(hashedData);
 };

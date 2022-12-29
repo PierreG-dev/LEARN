@@ -10,6 +10,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@devoxa/aes-encryption": "^1.0.3",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.4",
