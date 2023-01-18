@@ -4,6 +4,7 @@ const getChapter = require('./get/getChapter');
 const getSubChapter = require('./get/getSubChapter');
 const getExercise = require('./get/getExercise');
 const getGroup = require('./get/getGroup');
+const getSoluce = require('./get/getSoluce');
 
 const postChapter = require('./post/postChapter');
 const postSubChapter = require('./post/postSubChapter');
@@ -26,6 +27,7 @@ module.exports = {
   getSubChapter,
   getExercise,
   getGroup,
+  getSoluce,
   updateChapterAccess,
   updateSubChapterAccess,
   updateExerciseAccess,

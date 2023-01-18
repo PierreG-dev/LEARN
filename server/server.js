@@ -37,11 +37,11 @@ const api = require('./API');
 var session = require('express-session'); //Session management
 const fetch = require('node-fetch');
 const morgan = require('morgan'); //HTTP verbs management
-const bodyParser = require('body-parser'); //Request's body parser
 const multer = require('multer');
-const forms = multer();
+const fileUpload = require('express-fileupload');
+// const forms = multer();
 const cors = require('cors'); //CORS management
-
+app.use(fileUpload());
 app.use(morgan('combined'));
 app.use(
   cors({
@@ -51,9 +51,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(forms.array());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(multer().array());
 
 app.use(
   session({
@@ -87,20 +85,6 @@ server.listen(PORT, () => {
 
 //------- ROUTES --------
 require('./API');
-
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   res.setHeader(
-//     'Access-Control-Allow-Headers',
-//     'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
-//   );
-//   res.setHeader(
-//     'Access-Control-Allow-Methods',
-//     'GET, POST, PUT, DELETE, PATCH, OPTIONS'
-//   );
-//   console.log('cors set');
-//   next();
-// });
 
 app.get('/', async (req, res) => {
   if (!req.session.isConnected) {
@@ -190,6 +174,7 @@ app.get('/api/getChapter:id?', api.getChapter);
 app.get('/api/getSubChapter:id?', api.getSubChapter);
 app.get('/api/getExercise:id?', api.getExercise);
 app.get('/api/getGroup', api.getGroup);
+app.get('/api/getSoluce:exerciceId', api.getSoluce);
 
 app.post('/api/postChapter', api.postChapter);
 app.post('/api/postSubChapter', api.postSubChapter);
@@ -221,8 +206,6 @@ io.on('disconnect', (socket) => {
   console.log(`Client with ID of ${socket.id} disconnected!`);
 });
 /*
-
-
   socket.on('chat_message', (msg) => {
     console.log(msg);
     socket.emit('chat_message', 'well done, loool');
@@ -266,6 +249,25 @@ app.get('/api/myIP', async (req, res) => {
     ip: ip,
     location: location,
   });
+});
+
+app.post('/fileTest', (req, res) => {
+  if (!req.files) res.status(500).send('No files were caught..');
+  let imageFile = req.files.file;
+  console.log(imageFile);
+  imageFile.mv(
+    `${__dirname}/public/uploads/${req.body.fileName}.jpg`,
+    (err) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      res.json({ file: `public/${req.body.filename}.jpg` });
+      console.log(res.json);
+    }
+  );
+
+  // res.status(200).send(req.files);
 });
 
 //======== 404 ========//

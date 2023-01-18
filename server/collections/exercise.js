@@ -11,6 +11,7 @@ var schema = new Schema({
   solutionJS: String,
   access: Boolean,
   solutionAccess: Boolean,
+  filename: String,
 });
 
 schema.statics.create = (packet) => {
