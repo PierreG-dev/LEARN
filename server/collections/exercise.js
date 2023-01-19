@@ -9,9 +9,9 @@ var schema = new Schema({
   solutionHTML: String,
   solutionCSS: String,
   solutionJS: String,
+  solutionFile: Boolean,
   access: Boolean,
   solutionAccess: Boolean,
-  filename: String,
 });
 
 schema.statics.create = (packet) => {

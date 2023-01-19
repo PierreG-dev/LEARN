@@ -18,6 +18,8 @@
                     textarea(name="exerciseSolutionCSS", cols="30", rows="5", id="exercise_solution_css" class="form-control")
                     label(for="exerciseSolutionJS")= "JS"
                     textarea(name="exerciseSolutionJS", cols="30", rows="5", id="exercise_solution_js" class="form-control")
+                    label(for="exerciseSolutionFile")= "Fichier"
+                    input(type="file", name="exerciseSolutionFile", id="exercise_solution_file")
             .modal-footer.position-relative
                 span.text-success.text-sm.position-absolute.start-0.d-none#exerciseSuccessSpan="Créé avec succès !"
                 button.btn.btn-secondary(type='button' data-dismiss='modal') Fermer

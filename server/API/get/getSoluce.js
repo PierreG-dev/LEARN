@@ -9,8 +9,7 @@ module.exports = async (req, res) => {
       error: 401,
       msg: 'Unauthorized',
     });
-  console.log(exercice.filename);
-  if (!exercice.filename)
+  if (!exercice.solutionFile)
     res.status(404).send({
       error: 404,
       msg: 'This exercice has no available ressources',

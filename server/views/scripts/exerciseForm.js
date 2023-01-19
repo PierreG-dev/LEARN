@@ -3,6 +3,7 @@ const exerciseInstructions = document.querySelector('#exercise_instructions'); /
 const exerciseSolutionHTML = document.querySelector('#exercise_solution_html'); //HTML Solution
 const exerciseSolutionCSS = document.querySelector('#exercise_solution_css'); //CSS Solution
 const exerciseSolutionJS = document.querySelector('#exercise_solution_js'); //JS Solution
+const exerciseSolutionFile = document.querySelector('#exercise_solution_file'); //File solution
 const exerciseSuccessSpan = document.querySelector('#exerciseSuccessSpan'); //Span for success indicator
 const exerciseButton = document.querySelector('#exercise_button'); //Button to confirm the creation
 
@@ -23,36 +24,36 @@ exerciceCreationButtons.forEach((button) => {
 
 exerciseButton.onclick = (e) => {
   console.log('launching post...');
-  console.log(
-    JSON.stringify({
-      subChapterId: memorySpan.dataset.ongoingSubChapter,
-      exerciseData,
-      exerciseInstructions,
-      exerciseSolutionHTML,
-      exerciseSolutionCSS,
-      exerciseSolutionJS,
-    })
-  );
+  console.log(exerciseSolutionFile);
+  console.log({
+    subChapterId: memorySpan.dataset.ongoingSubChapter,
+    exerciseData: exerciseData.value,
+    exerciseInstructions: exerciseInstructions.value,
+    exerciseSolutionHTML: exerciseSolutionHTML.value,
+    exerciseSolutionCSS: exerciseSolutionCSS.value,
+    exerciseSolutionJS: exerciseSolutionJS.value,
+    exerciseSolutionFile: exerciseSolutionFile.files[0],
+  });
+  const formData = new FormData();
+  formData.append('subChapterId', memorySpan.dataset.ongoingSubChapter);
+  formData.append('data', exerciseData.value);
+  formData.append('instructions', exerciseInstructions.value);
+  formData.append('solutionHTML', exerciseSolutionHTML.value);
+  formData.append('solutionCSS', exerciseSolutionCSS.value);
+  formData.append('solutionJS', exerciseSolutionJS.value);
+  formData.append('solutionFile', exerciseSolutionFile.files[0] || null);
+  console.log('before fetch');
   fetch('/api/postExercise', {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    // mode: 'no-cors', // no-cors, *cors, same-origin
+    mode: 'no-cors', // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
     credentials: 'same-origin', // include, *same-origin, omit
     redirect: 'manual',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      subChapterId: memorySpan.dataset.ongoingSubChapter,
-      data: exerciseData.value,
-      instructions: exerciseInstructions.value,
-      solutionHTML: exerciseSolutionHTML.value,
-      solutionCSS: exerciseSolutionCSS.value,
-      solutionJS: exerciseSolutionJS.value,
-    }),
+    body: formData,
   })
     .then((response) => response.text())
     .then((data) => {
+      console.log(data);
       console.log('New exercise created !');
       console.log(`logs: ${data}`);
       exerciseData.value = '';
@@ -60,6 +61,7 @@ exerciseButton.onclick = (e) => {
       exerciseSolutionHTML.value = '';
       exerciseSolutionCSS.value = '';
       exerciseSolutionJS.value = '';
+      exerciseSolutionFile.value = '';
       exerciseSuccessSpan.classList.replace('d-none', 'd-block');
     })
     .catch((error) =>
