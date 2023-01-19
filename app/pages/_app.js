@@ -9,7 +9,6 @@ import {
   useRef,
   useMemo,
 } from 'react';
-import Cryptr from 'cryptr';
 import { encrypt, decrypt } from '@devoxa/aes-encryption';
 import { io } from 'socket.io-client';
 import Navbar from '../components/Navbar';

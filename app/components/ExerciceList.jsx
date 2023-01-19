@@ -27,7 +27,7 @@ const ExerciceList = ({ subChapter, selectedTab, changeTab }) => {
     <MainContainer
       style={{
         background: '#F4F1DE',
-        overflowY: 'scroll',
+
         height: 'calc(100vh - 75px)',
         color: '#fafafa',
       }}
@@ -51,11 +51,29 @@ const ExerciceList = ({ subChapter, selectedTab, changeTab }) => {
         })}
       </Tabs>
       {selectedTab >= 0 && (
-        <div style={{ padding: '1%' }}>
-          <h2>
-            <strong>{subChapter.exerciceList[selectedTab].instructions}</strong>
+        <section
+          id="exercice_container"
+          style={{
+            padding: '4%',
+            paddingTop: '1%',
+            overflowY: 'scroll',
+            maxHeight: '83.5vh',
+            paddingBottom: '1%',
+          }}
+        >
+          <h2 style={{ marginLeft: '-3%' }}>
+            <strong
+              style={{
+                textAlign: 'center',
+                width: '100%',
+                display: 'block',
+                marginBottom: 25,
+              }}
+            >
+              {subChapter.exerciceList[selectedTab].instructions}
+            </strong>
           </h2>
-          <h3>Données</h3>
+          <h3>Tips</h3>
 
           <div className="syntaxed">
             <SyntaxHighlighter language={'javascript'} style={vscDarkPlus}>
@@ -153,7 +171,37 @@ const ExerciceList = ({ subChapter, selectedTab, changeTab }) => {
               </div>
             </div>
           )}
-        </div>
+          {subChapter.exerciceList[selectedTab].solutionFile && (
+            <div>
+              <h4>Fichiers</h4>
+              <div style={{ position: 'relative' }}>
+                <div
+                  className="syntaxed"
+                  style={{
+                    userSelect: 'none',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {subChapter.exerciceList[selectedTab].solutionAccess ? (
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_SOLUTION_FETCHING_URL}:${subChapter.exerciceList[selectedTab]._id}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <button className="download-button">
+                        Télécharger la solution
+                      </button>
+                    </a>
+                  ) : (
+                    <button className="download-button disabled">
+                      Télécharger la solution
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
       )}
     </MainContainer>
   );
@@ -167,7 +215,48 @@ const MainContainer = styled.section`
   h3,
   h4,
   h5 {
+    font-family: 'Lato', sans-serif !important;
     color: #e07a5f;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+  }
+
+  h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  pre {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  .download-button {
+    padding: 10px 20px;
+    font-family: 'Lato', sans-serif !important;
+    border-radius: 5px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #fafafa;
+    border: none;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: #e07a5f;
+    transition: 0.2s;
+
+    &.disabled {
+      filter: grayscale(0.8);
+      cursor: not-allowed;
+
+      &:hover {
+        color: #fafafa;
+        background: #e07a5f;
+      }
+    }
+
+    &:hover {
+      color: #e07a5f;
+      background: #fafafa;
+    }
   }
 `;
 export default ExerciceList;
