@@ -27,9 +27,7 @@ module.exports = async (req, res) => {
     .then((newExercice) => {
       if (req.files) {
         let solutionFile = req.files.solutionFile;
-        solutionFile.mv(
-          `${__dirname}../../../ressources/${newExercice._id}.zip`
-        );
+        solutionFile.mv(`${__dirname}/../../ressources/${newExercice._id}.zip`);
       }
     })
     .then(() => {
