@@ -22,7 +22,9 @@ const Index = () => {
       });
     });
 
-    return (finishedExercicesAMount / exercicesAmount).toFixed(2) * 100;
+    return (
+      (finishedExercicesAMount / exercicesAmount).toFixed(2) * 100
+    ).toFixed(2);
   });
 
   return (
