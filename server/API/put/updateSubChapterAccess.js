@@ -1,5 +1,6 @@
 const collections = require('../../collections');
 module.exports = async (req, res) => {
+  if (!req.session.isConnected) res.status(403).send('unauthorized');
   if (!req.params.id) throw 'empty parameters';
 
   let subChapter = await collections.SubChapter.find({

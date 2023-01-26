@@ -2,6 +2,7 @@ const collections = require('../../collections');
 const uuid = require('uuid');
 const sha256 = require('js-sha256').sha256;
 module.exports = async (req, res) => {
+  if (!req.session.isConnected) res.status(403).send('unauthorized');
   if (!req.body.groupName || !req.body.description || !req.body.students) {
     throw 'Empty parameters';
   }

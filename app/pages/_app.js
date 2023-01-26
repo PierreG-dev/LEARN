@@ -11,18 +11,25 @@ import {
 } from 'react';
 import { encrypt, decrypt } from '@devoxa/aes-encryption';
 import { io } from 'socket.io-client';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Layout/Navbar';
 import '../style/globals.css';
 import '../style/gears_animation.css';
 import '../style/loader_animation.css';
 import '../style/loader.css';
 import { DataContext } from '../context/context';
-import Loader from '../components/Loader';
+import Loader from '../components/Layout/Loader';
 
 //connexion aux sockets
 const socket = io('https://api.learn.pierre-godino.com', {
   autoConnect: true,
 });
+
+//Tri des Chapitres en fonction de leur disponibilité
+const dataSorter = (chapter1, chapter2) => {
+  if (chapter1.access && chapter2.access) return 0;
+  if (chapter1.access && !chapter2.access) return -1;
+  if (!chapter1.access && chapter2.access) return 1;
+};
 
 function MyApp({ Component, pageProps }) {
   const [rawData, setRawData] = useState();
@@ -41,7 +48,7 @@ function MyApp({ Component, pageProps }) {
       console.info('Parsing...');
       let parsedData = JSON.parse(decryptedData);
       console.info('Data parsed !');
-      return parsedData;
+      return parsedData.sort(dataSorter);
     } catch (err) {
       console.error('DECRYPTING ERROR' + err);
     }

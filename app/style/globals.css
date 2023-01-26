@@ -103,8 +103,10 @@ body {
   background-color: #e07a5f !important;
 }
 .menu-item-custom {
-  transition: '0.2s' !important;
+  transition: 0.2s;
 }
-.menu-item-custom:hover {
-  background: rgba(255, 255, 255, 0.2) !important;
+.menu-item-custom.accessible:hover {
+  background: rgba(255, 255, 255, 0) !important;
+  transform: translate3d(10px, 0, 0);
+  cursor: pointer;
 }

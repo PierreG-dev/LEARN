@@ -1,8 +1,7 @@
 const collections = require('../../collections');
 const uuid = require('uuid');
 module.exports = (req, res) => {
-  console.log(req.body);
-
+  if (!req.session.isConnected) res.status(403).send('unauthorized');
   if (!req.body.chapterName || !req.body.description) {
     throw 'Empty parameters';
   }

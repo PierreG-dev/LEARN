@@ -20,38 +20,64 @@ import PermMedia from '@mui/icons-material/PermMedia';
 import Dns from '@mui/icons-material/Dns';
 import Public from '@mui/icons-material/Public';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExerciceList from './ExerciceList';
-import { DataContext } from '../context/context';
+import ExerciceList from './ExercicesPanel';
+import { DataContext } from '../../context/context';
 import { useContext } from 'react';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useCallback } from 'react';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import StorageIcon from '@mui/icons-material/Storage';
+import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import CodeIcon from '@mui/icons-material/Code';
+import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
+import RequestPageIcon from '@mui/icons-material/RequestPage';
+import LanguageIcon from '@mui/icons-material/Language';
 
-// const FireNav = styled(List)({
-//   '& .MuiListItemButton-root': {
-//     paddingLeft: 24,
-//     paddingRight: 24,
-//   },
-//   '& .MuiListItemIcon-root': {
-//     minWidth: 0,
-//     marginRight: 16,
-//   },
-//   '& .MuiSvgIcon-root': {
-//     fontSize: 20,
-//   },
-// });
+const chapterIconPicker = (chapterName) => {
+  switch (chapterName) {
+    case 'Algorithmie en JS':
+      return <PsychologyIcon />;
+    case 'React':
+      return <ExtensionIcon />;
+    case 'DOM':
+      return <AutoFixHighIcon />;
+    case 'JQuery':
+      return <RequestPageIcon />;
+    case 'Algorithmie en PHP':
+      return <PsychologyIcon />;
+    case 'React Native':
+      return <DevicesOtherIcon />;
+    case 'Node JS':
+      return <StorageIcon />;
+    case 'HTML':
+      return <CodeIcon />;
+    case 'CSS':
+      return <IntegrationInstructionsIcon />;
+    case 'APIs':
+      return <LanguageIcon />;
+    default:
+      return <MenuBookIcon />;
+  }
+};
 
-export default function CustomizedList() {
+const ExercicesLibrary = () => {
   const [selectedChapter, setSelectedChapter] = useState(-1);
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedSubChapter, setSelectedSubChapter] = useState(-1);
   const data = useContext(DataContext);
 
-  const changeTab = (event, newTab) => {
+  const changeTab = useCallback((event, newTab) => {
     setSelectedTab(newTab);
-  };
+  }, []);
 
   return (
-    <div style={{ width: '100vw', height: '100%', display: 'flex' }}>
+    <MainContainer>
       <div
         style={{
           display: 'flex',
@@ -81,18 +107,7 @@ export default function CustomizedList() {
             sx={{ maxWidth: 256, borderRadius: 0, height: '100%' }}
           >
             <ChapterMenu style={{ background: '#E07A5F' }}>
-              <ListItemButton component="a" href="#customized-list">
-                <ListItemIcon sx={{ fontSize: 20 }}>📚</ListItemIcon>
-                <ListItemText
-                  sx={{ my: 0 }}
-                  primary="Chapitres"
-                  primaryTypographyProps={{
-                    fontSize: 20,
-                    fontWeight: 'medium',
-                    letterSpacing: 0,
-                  }}
-                />
-              </ListItemButton>
+              <h2 id="library_title">Chapitres</h2>
               <Divider />
               <Box
                 sx={{
@@ -116,11 +131,12 @@ export default function CustomizedList() {
                           setSelectedChapter(
                             Ckey === selectedChapter ? -1 : Ckey
                           );
+                          setSelectedSubChapter(-1);
                         }}
                         disabled={!chapter.access}
                       >
                         <ListItemIcon sx={{ color: 'inherit' }}>
-                          <MenuBookIcon />
+                          {chapterIconPicker(chapter.chapterName)}
                         </ListItemIcon>
                         <ListItemText
                           primary={chapter.chapterName}
@@ -130,11 +146,15 @@ export default function CustomizedList() {
                           }}
                         />
                         <ListItemIcon>
-                          {selectedChapter === Ckey ? (
-                            <ExpandLessIcon />
-                          ) : (
-                            <ExpandMoreIcon />
-                          )}
+                          <ExpandMoreIcon
+                            style={{
+                              transition: '0.2s',
+                              transform:
+                                selectedChapter === Ckey
+                                  ? 'rotate(180deg)'
+                                  : 'rotate(360deg)',
+                            }}
+                          />
                         </ListItemIcon>
                       </ListItemButton>
                       {selectedChapter === Ckey && chapter.access && (
@@ -142,16 +162,17 @@ export default function CustomizedList() {
                           {chapter.subChapterList.map((subChapter, SCkey) => {
                             return (
                               <div
-                                className="menu-item-custom"
+                                className={
+                                  'menu-item-custom' +
+                                  (subChapter.access ? ' accessible' : ' ')
+                                }
                                 onMouseOver={() => {
                                   console.log(SCkey, selectedSubChapter);
-                                }}
-                                style={{
-                                  transition: '0.2s',
                                 }}
                               >
                                 <ListItemButton
                                   onClick={() => {
+                                    if (!subChapter.access) return;
                                     if (SCkey !== selectedChapter)
                                       setSelectedTab(0);
                                     setSelectedSubChapter(
@@ -164,9 +185,23 @@ export default function CustomizedList() {
                                     minHeight: 32,
                                   }}
                                 >
-                                  <ListItemIcon sx={{ color: 'inherit' }}>
-                                    <MenuBookIcon />
-                                  </ListItemIcon>
+                                  {selectedSubChapter === SCkey ? (
+                                    <BookmarkIcon
+                                      sx={{
+                                        color: subChapter.access
+                                          ? 'inherit'
+                                          : 'rgba(255,255,255,0.3)',
+                                      }}
+                                    ></BookmarkIcon>
+                                  ) : (
+                                    <BookmarkBorderIcon
+                                      sx={{
+                                        color: subChapter.access
+                                          ? 'inherit'
+                                          : 'rgba(255,255,255,0.3)',
+                                      }}
+                                    ></BookmarkBorderIcon>
+                                  )}
                                   <ListItemText
                                     primary={subChapter.subChapterName}
                                     primaryTypographyProps={{
@@ -175,10 +210,11 @@ export default function CustomizedList() {
                                     }}
                                     sx={{
                                       transition: '0.2s',
-                                      color:
-                                        SCkey == selectedSubChapter
+                                      color: subChapter.access
+                                        ? SCkey == selectedSubChapter
                                           ? '#f2cc8f !important'
-                                          : 'rgba(255,255,255,.8) !important',
+                                          : 'rgba(255,255,255,0.8) !important'
+                                        : 'rgba(255,255,255,0.3)',
                                     }}
                                   />
                                 </ListItemButton>
@@ -213,8 +249,30 @@ export default function CustomizedList() {
             />
           )}
       </div>
-    </div>
+    </MainContainer>
   );
-}
+};
+
+const MainContainer = styled.div`
+  width: 100vw;
+  height: 100%;
+  display: flex;
+
+  h2#library_title {
+    font-family: 'Silkscreen', cursive !important;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: auto;
+  }
+`;
 
 const ChapterMenu = styled.aside``;
+
+export default ExercicesLibrary;

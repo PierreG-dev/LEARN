@@ -6,8 +6,7 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import LockIcon from '@mui/icons-material/Lock';
 import styled from 'styled-components';
 
-const ExerciceList = ({ subChapter, selectedTab, changeTab }) => {
-  const trollTemplate = `
+const trollTemplate = `
     let trololo = 'issou';
 
     for (let issou = 666; issou < 25cm; issou--) {
@@ -23,6 +22,7 @@ const ExerciceList = ({ subChapter, selectedTab, changeTab }) => {
     }, 100)
   `;
 
+const ExercicesPanel = ({ subChapter, selectedTab, changeTab }) => {
   return (
     <MainContainer
       style={{
@@ -33,11 +33,7 @@ const ExerciceList = ({ subChapter, selectedTab, changeTab }) => {
       }}
       className="exercice-container"
     >
-      <Tabs
-        value={selectedTab}
-        onChange={changeTab}
-        aria-label="disabled tabs example"
-      >
+      <Tabs value={selectedTab} onChange={changeTab} id="tabs_container">
         {subChapter.exerciceList.map((exercice, key) => {
           return (
             <Tab
@@ -185,7 +181,13 @@ const ExerciceList = ({ subChapter, selectedTab, changeTab }) => {
                   {subChapter.exerciceList[selectedTab].solutionAccess ? (
                     <a
                       href={`${process.env.NEXT_PUBLIC_SOLUTION_FETCHING_URL}:${subChapter.exerciceList[selectedTab]._id}`}
-                      target="_blank"
+                      onClick={() => {
+                        window.open(
+                          `${process.env.NEXT_PUBLIC_SOLUTION_FETCHING_URL}:${subChapter.exerciceList[selectedTab]._id}`,
+                          '_blank',
+                          'toolbar=no,scrollbars=no,resizable=no,top=200,left=500,width=100,height=100'
+                        );
+                      }}
                       rel="noreferrer"
                     >
                       <button className="download-button">
@@ -209,6 +211,14 @@ const ExerciceList = ({ subChapter, selectedTab, changeTab }) => {
 
 const MainContainer = styled.section`
   animation: fade-in 1 0.5s ease;
+
+  #tabs_container {
+    overflow: hidden;
+  }
+
+  .exercice-tab {
+    min-width: 70px !important;
+  }
 
   h1,
   h2,
@@ -257,6 +267,9 @@ const MainContainer = styled.section`
       color: #e07a5f;
       background: #fafafa;
     }
+    &:active {
+      transform: scale3d(0.97, 0.97, 1);
+    }
   }
 `;
-export default ExerciceList;
+export default ExercicesPanel;

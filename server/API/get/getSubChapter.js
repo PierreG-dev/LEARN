@@ -1,5 +1,6 @@
 const collections = require('../../collections');
 module.exports = (req, res) => {
+  if (!req.session.isConnected) res.status(403).send('unauthorized');
   collections.SubChapter.find(
     req.params.id ? { chapterId: req.params.id.slice(1) } : {}
   )

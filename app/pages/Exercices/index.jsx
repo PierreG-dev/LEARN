@@ -4,7 +4,7 @@ import { DataContext } from '../../context/context';
 import { useContext } from 'react';
 import { ListItem, Paper } from '@mui/material';
 import { Grid } from '@mui/material';
-import ChapterList from '../../components/ChapterList';
+import ChapterList from '../../components/Exercices/ExercicesLibrary';
 import { useEffect } from 'react';
 
 const Index = () => {
