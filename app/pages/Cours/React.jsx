@@ -40,6 +40,7 @@ const React = () => {
 
   return (
     <MainContainer style={{ background: '#F4F1DE' }}>
+      {console.log(selectedSection)}
       <section style={{ color: '#E07A5F' }}>
         {contenu[selectedSection].jsx}
       </section>
