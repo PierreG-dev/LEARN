@@ -56,6 +56,7 @@ function MyApp({ Component, pageProps }) {
 
   //Gère les protocoles de démarrage
   useEffect(() => {
+    update();
     document.title = 'LEARN';
     //Récupération de la base de données
     let databaseUpdater = setInterval(() => {
@@ -108,7 +109,7 @@ function MyApp({ Component, pageProps }) {
       if (database)
         setTimeout(() => {
           setLoaded(true);
-        }, 500);
+        }, 1500);
     }
   }, [database]);
 

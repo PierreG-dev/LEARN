@@ -1,8 +1,23 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
+
 const Loader = ({ loaded }) => {
+  const [displayLoader, setDisplayLoader] = useState(!loaded);
+  useEffect(() => {
+    if (!loaded) return;
+
+    setTimeout(() => {
+      setDisplayLoader(false);
+    }, 1000);
+  }, [loaded]);
   return (
     <div
       id="loader"
-      style={{ opacity: loaded ? '0' : '1', zIndex: loaded ? -5 : 1 }}
+      style={{
+        opacity: displayLoader ? '1' : '0',
+        zIndex: displayLoader ? '5' : '-1',
+        transition: 'opacity 0.3s ease 0s, z-index 0s linear 0.3s',
+      }}
     >
       <h1
         className="logo-typo"
