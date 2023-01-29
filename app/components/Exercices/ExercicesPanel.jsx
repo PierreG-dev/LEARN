@@ -181,13 +181,6 @@ const ExercicesPanel = ({ subChapter, selectedTab, changeTab }) => {
                   {subChapter.exerciceList[selectedTab].solutionAccess ? (
                     <a
                       href={`${process.env.NEXT_PUBLIC_SOLUTION_FETCHING_URL}:${subChapter.exerciceList[selectedTab]._id}`}
-                      onClick={() => {
-                        window.open(
-                          `${process.env.NEXT_PUBLIC_SOLUTION_FETCHING_URL}:${subChapter.exerciceList[selectedTab]._id}`,
-                          '_blank',
-                          'toolbar=no,scrollbars=no,resizable=no,top=200,left=500,width=100,height=100'
-                        );
-                      }}
                       rel="noreferrer"
                     >
                       <button className="download-button">
