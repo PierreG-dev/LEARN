@@ -10,7 +10,7 @@ const collections = require('../../collections');
 
 module.exports = async (req, res) => {
   try {
-    if (password !== 'CDA_2022_11')
+    if (req.body.password !== 'CDA_2022_11')
       return res.status(401).send({
         code: 401,
         msg: 'Wrong password',
