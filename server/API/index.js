@@ -16,6 +16,12 @@ const updateSubChapterAccess = require('./put/updateSubChapterAccess');
 const updateExerciseAccess = require('./put/updateExerciseAccess');
 const updateExerciceSolutionAccess = require('./put/updateExerciceSolutionAccess');
 
+// ----- CHAT ----- //
+const getMessages = require('./chat/getChat');
+const postMessageChat = require('./chat/postChat');
+const putAuthChat = require('./chat/auth');
+const putDisconnectChat = require('./chat/disconnect');
+
 module.exports = {
   postChapter,
   postSubChapter,
@@ -32,4 +38,8 @@ module.exports = {
   updateSubChapterAccess,
   updateExerciseAccess,
   updateExerciceSolutionAccess,
+  getMessages,
+  postMessageChat,
+  putAuthChat,
+  putDisconnectChat,
 };

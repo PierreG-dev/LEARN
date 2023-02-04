@@ -23,6 +23,7 @@ const SubChapter = require('./subChapter.js')(connection);
 const Exercise = require('./exercise.js')(connection);
 const Group = require('./group.js')(connection);
 const Student = require('./student.js')(connection);
+const Message = require('./message.js')(connection);
 
 const collections = {
   Chapter,
@@ -30,6 +31,7 @@ const collections = {
   Exercise,
   Group,
   Student,
+  Message,
 };
 
 module.exports = collections;

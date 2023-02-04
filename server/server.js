@@ -74,6 +74,14 @@ const io = require('socket.io')(server, {
   },
 });
 
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    console.error(err);
+    return res.status(400).send({ status: 404, message: err.message }); // Bad request
+  }
+  next();
+});
+
 //---------- START ---------
 server.listen(PORT, () => {
   console.log('Server listening on port ' + PORT);
@@ -216,6 +224,13 @@ io.on('disconnect', (socket) => {
     socket.emit('chat_message', msg + ' | ' + now.getTime());
   });
 */
+
+//============== LIVE CHAT =====================//
+
+app.put('/api/chatConnect', api.putAuthChat);
+app.put('/api/chatDisconnect', api.putDisconnectChat);
+app.get('/api/getChat', api.getMessages);
+app.post('/api/postChat', api.postMessageChat);
 
 //============== FOR MY STUDENTS ===============//
 app.get('/api/tutu', (req, res) => {
