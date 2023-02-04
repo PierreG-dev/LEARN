@@ -8,12 +8,14 @@ const alreadySeen = (array, object) => {
 };
 
 module.exports = async (req, res) => {
-  if (!req.session.chatConnected) {
-    res.status(401).send({
+  if (password !== 'CDA_2022_11')
+    return res.status(401).send({
       code: 401,
-      msg: 'You are not connected',
+      msg: 'Wrong password',
     });
-    return;
+
+  if (!req.body.userName || !req.body.userAvatar) {
+    res.status(401);
   }
 
   const messagesArray = await collections.Message.find({}).lean();
@@ -27,14 +29,14 @@ module.exports = async (req, res) => {
         (elem) =>
           Object.entries(elem).toString() ===
           Object.entries({
-            userName: req.session.userName,
-            userAvatar: req.session.userAvatar,
+            userName: req.body.userName,
+            userAvatar: req.body.userAvatar,
           }).toString()
       )
     ) {
       temp.push({
-        userName: req.session.userName,
-        userAvatar: req.session.userAvatar,
+        userName: req.body.userName,
+        userAvatar: req.body.userAvatar,
       });
       console.log(temp);
       await collections.Message.findOneAndUpdate(

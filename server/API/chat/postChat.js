@@ -10,14 +10,12 @@ const collections = require('../../collections');
 
 module.exports = async (req, res) => {
   try {
-    if (!req.session.chatConnected) {
-      res.status(401).send({
+    if (password !== 'CDA_2022_11')
+      return res.status(401).send({
         code: 401,
-        msg: 'You are not connected',
+        msg: 'Wrong password',
       });
-      return;
-    }
-    if (!req.body.content) {
+    if (!req.body.content || !req.body.userAvatar || !req.body.userName) {
       res.status(400).send({
         code: 400,
         msg: 'Missing parameters',
@@ -27,12 +25,10 @@ module.exports = async (req, res) => {
 
     collections.Message.create({
       content: req.body.content,
-      author: req.session.userName,
-      imageUrl: req.session.userAvatar,
+      author: req.body.userName,
+      imageUrl: req.body.userAvatar,
       timestamp: new Date().toLocaleString(),
-      seen: [
-        { userName: req.session.userName, userAvatar: req.session.userAvatar },
-      ],
+      seen: [{ userName: req.body.userName, userAvatar: req.body.userAvatar }],
     })
       .then(() => {
         res.status(200).send({

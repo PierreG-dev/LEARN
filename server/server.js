@@ -47,7 +47,6 @@ app.use(
   cors({
     origin: '*',
     optionsSuccessStatus: 200,
-    credentials: true,
   })
 );
 app.use(express.json());
@@ -228,8 +227,8 @@ io.on('disconnect', (socket) => {
 
 //============== LIVE CHAT =====================//
 
-app.put('/api/chatConnect', api.putAuthChat);
-app.put('/api/chatDisconnect', api.putDisconnectChat);
+// app.put('/api/chatConnect', api.putAuthChat);
+// app.put('/api/chatDisconnect', api.putDisconnectChat);
 app.get('/api/getChat', api.getMessages);
 app.post('/api/postChat', api.postMessageChat);
 
