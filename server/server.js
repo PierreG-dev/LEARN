@@ -229,7 +229,7 @@ io.on('disconnect', (socket) => {
 
 // app.put('/api/chatConnect', api.putAuthChat);
 // app.put('/api/chatDisconnect', api.putDisconnectChat);
-app.get('/api/getChat', api.getMessages);
+app.post('/api/getChat', api.getMessages);
 app.post('/api/postChat', api.postMessageChat);
 
 //============== FOR MY STUDENTS ===============//
