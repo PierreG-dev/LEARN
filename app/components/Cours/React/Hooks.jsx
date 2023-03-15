@@ -106,6 +106,87 @@ export default MonComposant;
           On retourne donc l'ancien état auquel on rajoute 5.
         </p>
       </article>
+      <article>
+        <h2>useEffect</h2>
+        <p>
+          UseEffect est un hooks de React qui permet de lancer une procédure
+          asynchrone à certaines étapes du cycle de vie d'un composant.
+        </p>
+        <SyntaxHighlighter
+          language="javascript"
+          style={vscDarkPlus}
+        >{`import { useEffect } from 'react';
+
+const MonComposant = (props) => {
+  const afficherHeure = () => {
+    console.log(new Date().getDate());
+  };
+
+  useEffect(afficherHeure);
+
+  return <div></div>;
+};
+
+export default MonComposant;`}</SyntaxHighlighter>
+        <p>
+          Le useEffect ci-dessus executera la fonction afficherHeure à chaque
+          étape du cycle de vie. <br />
+          Il est possible de lancer des useEffect de manière plus ciblée, à
+          l'aide d'un tableau de dépendances:{' '}
+        </p>
+        <SyntaxHighlighter
+          language="javascript"
+          style={vscDarkPlus}
+        >{`const afficherHeure = () => {
+    console.log(new Date().getDate());
+  };
+
+  useEffect(afficherHeure, [props]);`}</SyntaxHighlighter>
+        <p>
+          Dans l'exemple ci dessus, afficherHeure ne se lancera que lorsque le
+          composant est Créé, et lorsque les props changent.
+        </p>
+        <p>
+          Pour comprendre plus en détails, voir section{' '}
+          <strong>
+            <em>Cycles de vie</em>
+          </strong>
+        </p>
+      </article>
+      <article>
+        <h2>useRef</h2>
+        <p>
+          useRef est un hook de la librairie react, permettant de récupérer un
+          élément du dom afin de lire ou modifier ses attributs. <br />
+        </p>
+        <SyntaxHighlighter
+          language="javascript"
+          style={vscDarkPlus}
+        >{`import { useEffect } from 'react';
+
+        const MonComposant = (props) => {
+          const paragraphRef = useRef();
+          console.log(paragraphRef.current.style.color)
+        
+          return (
+            <div>
+              <p ref={paragraphRef}>Toto</p>
+            </div>
+          );
+        };
+        
+        export default MonComposant;
+        `}</SyntaxHighlighter>
+        <p>
+          Dans l'exemple ci-dessus, on récupère l'élément {'<p>'} dans la
+          variable <strong>paragraphRef</strong>
+        </p>
+        <SyntaxHighlighter
+          language="javascript"
+          style={vscDarkPlus}
+        >{``}</SyntaxHighlighter>
+        <p></p>
+      </article>
     </div>
   );
 };

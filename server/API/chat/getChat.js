@@ -15,7 +15,10 @@ module.exports = async (req, res) => {
     });
 
   if (!req.body.userName || !req.body.userAvatar) {
-    res.status(401);
+    res.status(401).send({
+      code: 401,
+      msg: 'Missing parameters',
+    });
   }
 
   const messagesArray = await collections.Message.find({}).lean();
