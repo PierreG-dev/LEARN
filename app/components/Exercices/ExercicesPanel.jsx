@@ -167,6 +167,38 @@ const ExercicesPanel = ({ subChapter, selectedTab, changeTab }) => {
               </div>
             </div>
           )}
+          {/* PHP */}
+          {subChapter.exerciceList[selectedTab].solutionPHP && (
+            <div>
+              <h4>PHP</h4>
+              <div style={{ position: 'relative' }}>
+                {!subChapter.exerciceList[selectedTab].solutionAccess && (
+                  <div title="La solution de cet exercice est verrouillée; faites l'exercice vous-même ;)">
+                    <LockIcon className="lock" />
+                  </div>
+                )}
+                <div
+                  className="syntaxed"
+                  style={{
+                    filter:
+                      !subChapter.exerciceList[selectedTab].solutionAccess &&
+                      'blur(3px) grayscale(0.6) ',
+                    userSelect: 'none',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <SyntaxHighlighter
+                    language={'php'}
+                    style={vscDarkPlus}
+                  >
+                    {subChapter.exerciceList[selectedTab].solutionAccess
+                      ? subChapter.exerciceList[selectedTab].solutionPHP
+                      : trollTemplate}
+                  </SyntaxHighlighter>
+                </div>
+              </div>
+            </div>
+          )}
           {subChapter.exerciceList[selectedTab].solutionFile && (
             <div>
               <h4>Fichiers</h4>
