@@ -21,6 +21,7 @@ module.exports = async (req, res) => {
     solutionHTML: req.body.solutionHTML,
     solutionCSS: req.body.solutionCSS,
     solutionJS: req.body.solutionJS,
+    solutionPHP: req.body.solutionPHP,
     solutionFile: req.files ? true : false,
     access: false,
     solutionAccess: false,

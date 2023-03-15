@@ -3,6 +3,7 @@ const exerciseInstructions = document.querySelector('#exercise_instructions'); /
 const exerciseSolutionHTML = document.querySelector('#exercise_solution_html'); //HTML Solution
 const exerciseSolutionCSS = document.querySelector('#exercise_solution_css'); //CSS Solution
 const exerciseSolutionJS = document.querySelector('#exercise_solution_js'); //JS Solution
+const exerciseSolutionPHP = document.querySelector('#exercise_solution_php'); //PHP Solution
 const exerciseSolutionFile = document.querySelector('#exercise_solution_file'); //File solution
 const exerciseSuccessSpan = document.querySelector('#exerciseSuccessSpan'); //Span for success indicator
 const exerciseButton = document.querySelector('#exercise_button'); //Button to confirm the creation
@@ -32,6 +33,7 @@ exerciseButton.onclick = (e) => {
     exerciseSolutionHTML: exerciseSolutionHTML.value,
     exerciseSolutionCSS: exerciseSolutionCSS.value,
     exerciseSolutionJS: exerciseSolutionJS.value,
+    exerciseSolutionPHP: exerciseSolutionPHP.value,
     exerciseSolutionFile: exerciseSolutionFile.files[0],
   });
   const formData = new FormData();
@@ -41,6 +43,7 @@ exerciseButton.onclick = (e) => {
   formData.append('solutionHTML', exerciseSolutionHTML.value);
   formData.append('solutionCSS', exerciseSolutionCSS.value);
   formData.append('solutionJS', exerciseSolutionJS.value);
+  formData.append('solutionPHP', exerciseSolutionPHP.value);
   formData.append('solutionFile', exerciseSolutionFile.files[0] || null);
   console.log('before fetch');
   fetch('/api/postExercise', {
@@ -61,6 +64,7 @@ exerciseButton.onclick = (e) => {
       exerciseSolutionHTML.value = '';
       exerciseSolutionCSS.value = '';
       exerciseSolutionJS.value = '';
+      exerciseSolutionPHP.value = '';
       exerciseSolutionFile.value = '';
       exerciseSuccessSpan.classList.replace('d-none', 'd-block');
     })

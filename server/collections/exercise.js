@@ -9,6 +9,7 @@ var schema = new Schema({
   solutionHTML: String,
   solutionCSS: String,
   solutionJS: String,
+  solutionPHP: String,
   solutionFile: Boolean,
   access: Boolean,
   solutionAccess: Boolean,

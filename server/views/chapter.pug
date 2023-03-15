@@ -48,6 +48,8 @@ block content
                                     code.hljs(source=`${exo.data}`, lang='css')= exo.solutionCSS
                                 pre
                                     code.hljs(source=`${exo.data}`, lang='javascript')= exo.solutionJS
+                                pre
+                                    code.hljs(source=`${exo.data}`, lang='php')= exo.solutionPHP
                                 .d-flex.gap-2
                                     .form-check.form-switch.m-0.py-0(data-exo-id=`${exo._id}`, class="exo_access_button")
                                         input(id=`exo_access_toggle_${exo._id}`, type="checkbox", value="", data-toggle="toggle", data-on="🔓", data-off="🔒", data-onstyle="success", data-offstyle="warning")
