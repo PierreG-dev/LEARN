@@ -1,30 +1,27 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import Link from 'next/link';
+import * as React from "react";
+import styled from "styled-components";
+import Link from "next/link";
 
-const pages = ['Cours', 'Exercices'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ["Cours", "Exercices"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = ({ children, isConnected }) => {
   return (
-    <main>
-      <MainContainer style={{ background: '#E07A5F' }}>
-        <Link href="/">
-          <div id="navbar_logo">
-            <div className="gears-container">
-              <i></i>
-              <i></i>
-            </div>
-            <div className="logo-typo">LEARN</div>
+    <MainContainer style={{ background: "#E07A5F" }}>
+      <Link href="/">
+        <div id="navbar_logo">
+          <div className="gears-container">
+            <i></i>
+            <i></i>
           </div>
-        </Link>
-        <div id="navbar_links" className="logo-typo">
-          <Link href="/Cours">Cours</Link>
-          <Link href="/Exercices">Exercices</Link>
+          <div className="logo-typo">LEARN</div>
         </div>
-      </MainContainer>
-      {children}
-    </main>
+      </Link>
+      <div id="navbar_links" className="logo-typo">
+        <Link href="/Cours">Cours</Link>
+        <Link href="/Exercices">Exercices</Link>
+      </div>
+    </MainContainer>
   );
 };
 

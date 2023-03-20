@@ -1,5 +1,5 @@
-import '../styles/globals.css';
-import '../style/imported.css';
+import "../styles/globals.css";
+import "../style/imported.css";
 import {
   useState,
   useEffect,
@@ -8,19 +8,19 @@ import {
   useCallback,
   useRef,
   useMemo,
-} from 'react';
-import { encrypt, decrypt } from '@devoxa/aes-encryption';
-import { io } from 'socket.io-client';
-import Navbar from '../components/Layout/Navbar';
-import '../style/globals.css';
-import '../style/gears_animation.css';
-import '../style/loader_animation.css';
-import '../style/loader.css';
-import { DataContext } from '../context/context';
-import Loader from '../components/Layout/Loader';
+} from "react";
+import { encrypt, decrypt } from "@devoxa/aes-encryption";
+import { io } from "socket.io-client";
+import Layout from "../components/Layout";
+import "../style/globals.css";
+import "../style/gears_animation.css";
+import "../style/loader_animation.css";
+import "../style/loader.css";
+import { DataContext } from "../context/context";
+import Loader from "../components/Layout/Loader";
 
 //connexion aux sockets
-const socket = io('https://api.learn.pierre-godino.com', {
+const socket = io("https://api.learn.pierre-godino.com", {
   autoConnect: true,
 });
 
@@ -42,63 +42,63 @@ function MyApp({ Component, pageProps }) {
   const database = useMemo(() => {
     if (!rawData) return;
     try {
-      const key = '' + process.env.NEXT_PUBLIC_ENCRYPT_KEY; //Clé de cryptage
-      console.info('Decrypting...');
+      const key = "" + process.env.NEXT_PUBLIC_ENCRYPT_KEY; //Clé de cryptage
+      console.info("Decrypting...");
       let decryptedData = decrypt(key, rawData);
-      console.info('Parsing...');
+      console.info("Parsing...");
       let parsedData = JSON.parse(decryptedData);
-      console.info('Data parsed !');
+      console.info("Data parsed !");
       return parsedData.sort(dataSorter);
     } catch (err) {
-      console.error('DECRYPTING ERROR' + err);
+      console.error("DECRYPTING ERROR" + err);
     }
   }, [rawData]);
 
   //Gère les protocoles de démarrage
   useEffect(() => {
     update();
-    document.title = 'LEARN';
+    document.title = "LEARN";
     //Récupération de la base de données
     let databaseUpdater = setInterval(() => {
       update();
     }, 10000);
 
     //--- SOCKET IO ---//
-    socket.on('connect', () => {
+    socket.on("connect", () => {
       setIsConnected(true);
-      console.log('Connexion avec le serveur établie.');
+      console.log("Connexion avec le serveur établie.");
     });
 
-    socket.on('disconnect', () => {
+    socket.on("disconnect", () => {
       setIsConnected(false);
-      console.log('Déconnecté du serveur, tentative de reconnexion...');
+      console.log("Déconnecté du serveur, tentative de reconnexion...");
     });
 
-    socket.on('updates', () => {
+    socket.on("updates", () => {
       fetchData(setDatabase);
     });
     return () => {
-      socket.off('connect');
-      socket.off('disconnect');
-      socket.off('updates');
+      socket.off("connect");
+      socket.off("disconnect");
+      socket.off("updates");
       clearInterval(databaseUpdater);
     };
   }, []);
 
   //Gère la communication avec l'API
   const update = useCallback(() => {
-    fetch(process.env.NEXT_PUBLIC_DATA_FETCHING_URL + 'Hashed')
+    fetch(process.env.NEXT_PUBLIC_DATA_FETCHING_URL + "Hashed")
       .then((response) => response.text())
       .then((newHash) => {
         if (newHash != dataHash.current) {
           dataHash.current = newHash;
-          console.info('Update running...');
+          console.info("Update running...");
           fetch(process.env.NEXT_PUBLIC_DATA_FETCHING_URL)
             .then((response) => response.text())
             .then((data) => {
               setRawData(data); //Update si les données ont changées
             })
-            .catch((err) => console.error('UPDATE ERROR' + err));
+            .catch((err) => console.error("UPDATE ERROR" + err));
         }
       });
   }, []);
@@ -117,9 +117,9 @@ function MyApp({ Component, pageProps }) {
     <DataContext.Provider value={database}>
       <Loader loaded={loaded} />
       {loaded && (
-        <Navbar isConnected={isConnected}>
+        <Layout isConnected={isConnected}>
           <Component {...pageProps} />
-        </Navbar>
+        </Layout>
       )}
     </DataContext.Provider>
   );
