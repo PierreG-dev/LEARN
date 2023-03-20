@@ -29,12 +29,12 @@ export default [
   {
     nom: "Structures de données",
     jsx: <StructuresDeDonnees />,
-    access: false,
+    access: true,
   },
   {
     nom: "Fonctions",
     jsx: <Fonctions />,
-    access: false,
+    access: true,
   },
 ];
 
