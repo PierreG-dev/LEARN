@@ -35,6 +35,7 @@ import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import ExtensionIcon from '@mui/icons-material/Extension';
 import CodeIcon from '@mui/icons-material/Code';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
 import LanguageIcon from '@mui/icons-material/Language';
@@ -61,6 +62,8 @@ const chapterIconPicker = (chapterName) => {
       return <IntegrationInstructionsIcon />;
     case 'APIs':
       return <LanguageIcon />;
+    case 'SEO & Référencement':
+      return <QueryStatsIcon />;
     default:
       return <MenuBookIcon />;
   }
