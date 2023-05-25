@@ -12,4 +12,5 @@ module.exports = {
   env: {},
   trailingSlash: true,
   nextConfig,
+  useFileSystemPublicRoutes: false,
 };

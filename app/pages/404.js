@@ -1,6 +1,6 @@
-import { Fragment } from "react";
-import Link from "next/link";
-import styled from "styled-components";
+import { Fragment } from 'react';
+import Link from 'next/link';
+import styled from 'styled-components';
 
 export default () => {
   return (
@@ -26,11 +26,11 @@ const MainContainer = styled.div`
 
   h1 {
     color: #e07a5f;
-    font-family: "Silkscreen", cursive !important;
+    font-family: 'Silkscreen', cursive !important;
     text-align: center;
 
     span {
-      font-family: "Silkscreen", cursive !important;
+      font-family: 'Silkscreen', cursive !important;
       font-size: 5rem;
     }
   }
