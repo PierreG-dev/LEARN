@@ -1,13 +1,26 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import { io, Socket } from 'socket.io-client';
 import Auth from './pages/Auth';
+import Layout from './components/Layout';
+import Error404 from './pages/Error404';
+import {
+  Routes,
+  Route,
+  BrowserRouter as Router,
+  Link,
+  useNavigate,
+  useLocation,
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
+import Home from './pages';
 
 function App() {
   const [socket, setSocket] = useState<Socket>();
   const [isConnected, setIsConnected] = useState(false);
   const [token, setToken] = useState<string | null>(null); // Ajout du state pour stocker le token
 
+  //Gestion de la connexion
   useEffect(() => {
     // Établir la connexion Socket.IO lorsque le token est défini
     if (token) {
@@ -27,6 +40,7 @@ function App() {
     }
   }, [token]);
 
+  //Gestion du JWT
   useEffect(() => {
     // Récupérer le JWT depuis le stockage local lors du montage initial
     const storedToken = localStorage.getItem('token');
@@ -35,6 +49,7 @@ function App() {
     }
   }, []);
 
+  //Connexion
   const handleLogin = () => {
     fetch('http://localhost:8000/login', {
       method: 'POST',
@@ -64,6 +79,7 @@ function App() {
       });
   };
 
+  //Deconnexion
   const handleLogout = () => {
     // Supprimer le JWT du stockage local
     localStorage.removeItem('token');
@@ -89,12 +105,61 @@ function App() {
         console.error('Erreur lors de la déconnexion', error);
       });
   };
+  console.log(isConnected);
+  const routerGenerator = () => {
+    if (!isConnected)
+      return (
+        <>
+          <Route
+            path="/auth"
+            element={
+              <Auth
+                isConnected={isConnected}
+                handleLogin={handleLogin}
+                handleLogout={handleLogout}
+              />
+            }
+          />
+          {!isConnected && (
+            <Route path="*" element={<Navigate to="/auth" replace />} />
+          )}
+        </>
+      );
+    else
+      return (
+        <>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Error404 />} />
+        </>
+      );
+  };
 
   return (
-    <>
-      <Auth />
-    </>
+    <Router>
+      <Layout handleLogout={handleLogout} isConnected={isConnected}>
+        <h1>Coucou</h1>
+        <Routes>{routerGenerator()}</Routes>
+      </Layout>
+    </Router>
   );
 }
 
+{
+  /* <Route path="/" element={<Home />} />
+          {!isConnected && (
+            <Route path="*" element={<Navigate to="/auth" replace />} />
+          )}
+
+          <Route
+            path="/auth"
+            element={
+              <Auth
+                isConnected={isConnected}
+                handleLogin={handleLogin}
+                handleLogout={handleLogout}
+              />
+            }
+          /> */
+}
 export default App;
