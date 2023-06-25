@@ -10,22 +10,25 @@ interface Props {
 const Navbar = ({ handleLogout, isConnected }: Props) => {
   return (
     <MainContainer>
-      <ul>
-        <li>
-          <Link to="/">home</Link>
-        </li>
-        <li>
-          <Link to="/auth">auth</Link>
-        </li>
-        <li>
-          <Link to="/tutu">tutu</Link>
-        </li>
-      </ul>
-      {isConnected && (
-        <button onClick={handleLogout}>
-          <MdLogout />
-        </button>
-      )}
+      <div>
+        <Link to="/">
+          <h2>
+            LEARN<sup>Manager</sup>
+          </h2>
+        </Link>
+
+        <ul>
+          <li>
+            <Link to="/classes">Classes</Link>
+          </li>
+          <li>
+            <Link to="/chapters">Chapitres</Link>
+          </li>
+        </ul>
+      </div>
+      <button onClick={handleLogout}>
+        <MdLogout />
+      </button>
     </MainContainer>
   );
 };
@@ -33,20 +36,60 @@ const Navbar = ({ handleLogout, isConnected }: Props) => {
 const MainContainer = styled.nav`
   width: 80%;
   height: 60px;
-  background: red;
+  background: #e07a5f;
   display: flex;
   padding: 0 10%;
   align-items: center;
   justify-content: space-between;
 
-  ul {
+  & > div {
     display: flex;
-    list-style: none;
-    gap: 20px;
+    gap: 50px;
 
-    li a {
+    a {
       text-decoration: none;
-      color: #f1f1f1;
+
+      h2 {
+        color: #fafafa;
+        font-family: 'Silkscreen', cursive;
+        letter-spacing: 1px;
+        font-size: 1.3rem;
+
+        sup {
+          font-size: 0.7rem;
+        }
+      }
+    }
+
+    ul {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 20px;
+
+      li a {
+        text-decoration: none;
+        color: #f1f1f1;
+        font-family: 'Silkscreen', cursive;
+      }
+    }
+  }
+
+  & > button {
+    border: none;
+    background: #fff2;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fafafa;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.1s;
+    font-size: 1.1rem;
+
+    &:hover {
+      background: #fff4;
     }
   }
 `;

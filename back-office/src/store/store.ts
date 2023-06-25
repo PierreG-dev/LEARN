@@ -1,9 +1,14 @@
 // store.ts
+import { configureStore } from '@reduxjs/toolkit';
+import { connectionReducer } from './auth/reducer';
 
-import { createStore, Store } from 'redux';
-import { AuthState } from './authReducer';
-import authReducer from './authReducer';
+const store = configureStore({
+  reducer: {
+    connection: connectionReducer,
+  },
+});
 
-const store: Store<AuthState> = createStore(authReducer);
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export default store;

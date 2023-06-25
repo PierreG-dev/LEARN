@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { io, Socket } from 'socket.io-client';
 import Auth from './pages/Auth';
 import Layout from './components/Layout';
@@ -14,111 +14,146 @@ import {
   Outlet,
 } from 'react-router-dom';
 import Home from './pages';
+import Chapter from './pages/Chapters';
+import Classes from './pages/Classes';
+import { connect, disconnect } from './store/auth/actions';
+import { useDispatch, useSelector, Provider } from 'react-redux';
+import store, { RootState } from './store/store';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { APIResponse } from './types/types';
+import Loader from './components/Layout/Loader';
 
-function App() {
+const App: React.FC = () => {
   const [socket, setSocket] = useState<Socket>();
-  const [isConnected, setIsConnected] = useState(false);
-  const [token, setToken] = useState<string | null>(null); // Ajout du state pour stocker le token
 
-  //Gestion de la connexion
-  useEffect(() => {
-    // Établir la connexion Socket.IO lorsque le token est défini
-    if (token) {
-      const newSocket = io('http://localhost:8000', {
-        auth: { token },
-      });
+  const dispatch = useDispatch();
+  const isConnected = useSelector(
+    (state: RootState) => state.connection.isConnected
+  );
+  const connectionToken = useSelector(
+    (state: RootState) => state.connection.token
+  );
 
-      newSocket.on('connect', () => {
-        console.log('Connecté au serveur Socket.IO');
-        setSocket(newSocket);
-        setIsConnected(true);
-      });
-
-      return () => {
-        newSocket.disconnect();
-      };
-    }
-  }, [token]);
-
-  //Gestion du JWT
-  useEffect(() => {
-    // Récupérer le JWT depuis le stockage local lors du montage initial
+  //Vérifie si un JWT est enregistré dans le localStorage, et se connect en conséquence
+  const tryConnect = useCallback(() => {
     const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
+    if (!storedToken) return;
+
+    const newSocket = io('http://localhost:8000', {
+      auth: { token: storedToken },
+    });
+    newSocket.on('connect', () => {
+      toast.success('Connexion établie', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+      setSocket(newSocket);
+      dispatch(connect({ token: storedToken }));
+    });
+  }, [dispatch]);
 
   //Connexion
-  const handleLogin = () => {
-    fetch('http://localhost:8000/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: 'root',
-        password: 'godgod82100',
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Échec de la connexion');
-        }
+  const handleLogin = useCallback(
+    async (login: string, password: string): Promise<APIResponse> => {
+      return await fetch('http://localhost:8000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          login,
+          password,
+        }),
       })
-      .then((data) => {
-        const token = data.token;
-        setToken(token);
-        localStorage.setItem('token', token);
-        console.log('Connecté avec succès');
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la connexion', error);
-      });
-  };
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.code === 200) {
+            localStorage.setItem('token', data.token);
+            tryConnect();
+          } else if (data.code === 401) {
+            toast.error('Identifiants invalides', {
+              position: 'top-right',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'colored',
+            });
+          }
+          return data;
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la connexion', error);
+          return {
+            code: 500,
+            msg: 'Problème de réseau',
+          };
+        });
+    },
+    [tryConnect]
+  );
 
   //Deconnexion
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     // Supprimer le JWT du stockage local
-    localStorage.removeItem('token');
 
     // Exemple d'appel d'API pour se déconnecter en utilisant le JWT
     fetch('http://localhost:8000/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `${token}`, // Inclure le JWT dans les en-têtes de la requête
+        Authorization: `${connectionToken}`, // Inclure le JWT dans les en-têtes de la requête
       },
     })
-      .then((response) => {
-        if (response.ok) {
-          setIsConnected(false);
-          setToken(null);
-          console.log('Déconnecté avec succès');
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.code === 200) {
+          dispatch(disconnect());
+          localStorage.removeItem('token');
+          toast.warn('Déconnexion réussie', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
         } else {
-          console.log('Échec de la déconnexion');
+          toast.error('Erreur lors de la déconnexion', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
         }
       })
       .catch((error) => {
         console.error('Erreur lors de la déconnexion', error);
       });
-  };
-  console.log(isConnected);
-  const routerGenerator = () => {
+  }, [connectionToken, dispatch]);
+
+  const routerGenerator = useCallback(() => {
     if (!isConnected)
       return (
         <>
           <Route
             path="/auth"
-            element={
-              <Auth
-                isConnected={isConnected}
-                handleLogin={handleLogin}
-                handleLogout={handleLogout}
-              />
-            }
+            element={<Auth handleLogin={handleLogin} tryConnect={tryConnect} />}
           />
           {!isConnected && (
             <Route path="*" element={<Navigate to="/auth" replace />} />
@@ -130,36 +165,24 @@ function App() {
         <>
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Navigate to="/" replace />} />
+          <Route path="/chapters/:chapterId?" element={<Chapter />} />
+          <Route path="/classes/:classId?" element={<Classes />} />
           <Route path="*" element={<Error404 />} />
         </>
       );
-  };
+  }, [handleLogin, isConnected, tryConnect]);
 
   return (
-    <Router>
-      <Layout handleLogout={handleLogout} isConnected={isConnected}>
-        <h1>Coucou</h1>
-        <Routes>{routerGenerator()}</Routes>
-      </Layout>
-    </Router>
+    <>
+      <Loader />
+      <ToastContainer />
+      <Router>
+        <Layout handleLogout={handleLogout} isConnected={isConnected}>
+          <Routes>{routerGenerator()}</Routes>
+        </Layout>
+      </Router>
+    </>
   );
-}
+};
 
-{
-  /* <Route path="/" element={<Home />} />
-          {!isConnected && (
-            <Route path="*" element={<Navigate to="/auth" replace />} />
-          )}
-
-          <Route
-            path="/auth"
-            element={
-              <Auth
-                isConnected={isConnected}
-                handleLogin={handleLogin}
-                handleLogout={handleLogout}
-              />
-            }
-          /> */
-}
 export default App;
