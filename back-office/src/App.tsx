@@ -17,6 +17,7 @@ import Home from './pages';
 import Chapter from './pages/Chapters';
 import Classes from './pages/Classes';
 import { connect, disconnect } from './store/auth/actions';
+import { update } from './store/data/actions';
 import { useDispatch, useSelector, Provider } from 'react-redux';
 import store, { RootState } from './store/store';
 import { ToastContainer, toast } from 'react-toastify';
@@ -34,6 +35,8 @@ const App: React.FC = () => {
   const connectionToken = useSelector(
     (state: RootState) => state.connection.token
   );
+  const globaldata = useSelector((state:RootState) => state.globalData.data)
+  console.log(globaldata)
 
   //Vérifie si un JWT est enregistré dans le localStorage, et se connect en conséquence
   const tryConnect = useCallback(() => {
@@ -56,6 +59,26 @@ const App: React.FC = () => {
       });
       setSocket(newSocket);
       dispatch(connect({ token: storedToken }));
+
+      newSocket.off('dataProvider')
+      newSocket.on('dataProvider', (data) => {
+        dispatch(update({data}))
+      })
+
+
+      newSocket.off('disconnect')
+      newSocket.on('disconnect', () => {
+        toast.error('Connexion perdue', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      })
     });
   }, [dispatch]);
 

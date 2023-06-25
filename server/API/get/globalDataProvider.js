@@ -1,5 +1,4 @@
-const collections = require('../../collections');
-let { encrypt, decrypt } = require('@devoxa/aes-encryption');
+const collections = require("../../collections");
 
 module.exports = async (req, res) => {
   const chapters = await collections.Chapter.find().lean();
@@ -30,7 +29,5 @@ module.exports = async (req, res) => {
     })
   );
 
-  let encryptedData = encrypt(process.env.ENCRYPT_KEY, JSON.stringify(data));
-
-  res.status(200).send(encryptedData);
+  res.status(200).send(data);
 };

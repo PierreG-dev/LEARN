@@ -1,43 +1,42 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { model, Schema } = require("mongoose");
 
-var schema = new Schema({
-  order: Number,
+let schema = new Schema({
   subChapterId: String,
-  data: String,
+  order: Number,
+  title: String,
+  timeToResolve: Number,
+  difficulty: {
+    type: Number,
+    enum: [1, 2, 3, 4, 5],
+  },
+  practicedSkill: [String],
   instructions: String,
-  solutionHTML: String,
-  solutionCSS: String,
-  solutionJS: String,
-  solutionPHP: String,
-  solutionFile: Boolean,
-  access: Boolean,
-  solutionAccess: Boolean,
+  Informations: String,
+  demo: String,
+  tips: [String],
+  baseFile: String,
+  solutions: [
+    {
+      language: String,
+      solution: String,
+    },
+  ],
+  solutionFile: String,
 });
 
-schema.statics.create = (packet) => {
-  let exercise = new Exercise(packet);
-  return exercise
+schema.statics.createExercise = (packet) => {
+  return new Exercise(packet)
     .save()
-    .then((snapshot) => {
-      return Promise.resolve(snapshot);
-    })
+    .then((snapshot) => snapshot)
     .catch((err) => {
-      console.error(
-        'Exercise.create failed when saving ' + packet.username + ' ==> ',
-        err
-      );
-      return Promise.reject(err);
+      console.error("Exercise.createExercise failed when saving: ", err);
+      throw err;
     });
 };
 
-var Exercise;
-function make(connection) {
-  if (Exercise) {
-    return Exercise;
-  }
-  Exercise = connection.model('Exercise', schema);
+const make = (connection) => {
+  const Exercise = connection.model("Exercise", schema);
   return Exercise;
-}
+};
 
 module.exports = make;

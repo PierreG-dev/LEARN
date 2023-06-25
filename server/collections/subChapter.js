@@ -1,35 +1,24 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { model, Schema } = require("mongoose");
 
 var schema = new Schema({
   chapterId: String,
-  subChapterName: String,
-  access: Boolean,
+  title: String,
+  description: String,
 });
 
-schema.statics.create = (packet) => {
-  let subChapter = new SubChapter(packet);
-  return subChapter
+schema.statics.createSubChapter = (packet) => {
+  return new SubChapter(packet)
     .save()
-    .then((snapshot) => {
-      return Promise.resolve(snapshot);
-    })
+    .then((snapshot) => snapshot)
     .catch((err) => {
-      console.error(
-        'SubChapter.create failed when saving ' + packet.username + ' ==> ',
-        err
-      );
-      return Promise.reject(err);
+      console.error("createSubChapter failed when saving: ", err);
+      throw err;
     });
 };
 
-var SubChapter;
-function make(connection) {
-  if (SubChapter) {
-    return SubChapter;
-  }
-  SubChapter = connection.model('SubChapter', schema);
+const make = (connection) => {
+  const SubChapter = connection.model("SubChapter", schema);
   return SubChapter;
-}
+};
 
 module.exports = make;

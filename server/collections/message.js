@@ -1,8 +1,6 @@
-const mongoose = require('mongoose');
-const { stringify } = require('uuid');
-const Schema = mongoose.Schema;
+const { model, Schema } = require("mongoose");
 
-var schema = new Schema({
+const schema = new Schema({
   content: String,
   author: String,
   imageUrl: String,
@@ -11,28 +9,21 @@ var schema = new Schema({
 });
 
 schema.statics.create = (packet) => {
-  let message = new Message(packet);
-  return message
+  return new Message(packet)
     .save()
-    .then((snapshot) => {
-      return Promise.resolve(snapshot);
-    })
+    .then((snapshot) => snapshot)
     .catch((err) => {
       console.error(
-        'Message.create failed when saving ' + packet.username + ' ==> ',
+        "Message.create failed when saving " + packet.username + " ==> ",
         err
       );
-      return Promise.reject(err);
+      throw err;
     });
 };
 
-var Message;
-function make(connection) {
-  if (Message) {
-    return Message;
-  }
-  Message = connection.model('Message', schema);
+const make = (connection) => {
+  const Message = connection.model("Message", schema);
   return Message;
-}
+};
 
 module.exports = make;

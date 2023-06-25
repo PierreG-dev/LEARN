@@ -18,9 +18,7 @@ const Auth = ({ handleLogin, tryConnect }: Props) => {
     (state: RootState) => state.connection.isConnected
   );
 
-  useEffect(() => {
-    isConnected && tryConnect();
-  }, [tryConnect, isConnected]);
+  
 
   const handleResetError = useCallback(() => {
     setFormError('');

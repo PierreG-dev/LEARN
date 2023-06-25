@@ -1,4 +1,3 @@
-// reducer.ts
 import { createReducer } from '@reduxjs/toolkit';
 import { ConnectionState } from '../../types/types';
 import { connect, disconnect } from './actions';

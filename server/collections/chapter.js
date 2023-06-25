@@ -1,35 +1,34 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema, model } = require("mongoose");
 
-let schema = new Schema({
+const schema = new Schema({
   chapterName: String,
-  access: Boolean,
   description: String,
+  difficulty: {
+    type: Number,
+    enum: [1, 2, 3, 4, 5],
+  },
+  categories: [
+    {
+      type: String,
+      enum: ["Front-end", "Back-end", "Dev-ops", "Outils"],
+    },
+  ],
+  languages: [String],
 });
 
-schema.statics.create = (packet) => {
-  let chapter = new Chapter(packet);
-  return chapter
+schema.statics.createChapter = (packet) => {
+  return new Chapter(packet)
     .save()
-    .then((snapshot) => {
-      return Promise.resolve(snapshot);
-    })
+    .then((snapshot) => snapshot)
     .catch((err) => {
-      console.error(
-        'Chapter.create failed when saving ' + packet.username + ' ==> ',
-        err
-      );
-      return Promise.reject(err);
+      console.error("Chapter.createChapter failed when saving: ", err);
+      throw err;
     });
 };
 
-var Chapter;
-function make(connection) {
-  if (Chapter) {
-    return Chapter;
-  }
-  Chapter = connection.model('Chapter', schema);
+const make = (connection) => {
+  const Chapter = connection.model("Chapter", schema);
   return Chapter;
-}
+};
 
 module.exports = make;
