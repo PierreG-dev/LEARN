@@ -22,6 +22,13 @@ let schema = new Schema({
     },
   ],
   solutionFile: String,
+  wiki: String,
+  links: [
+    {
+      description: String,
+      link: String,
+    },
+  ],
 });
 
 schema.statics.createExercise = (packet) => {

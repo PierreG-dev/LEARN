@@ -1,5 +1,20 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import styled from "styled-components";
+
 const Chapter = () => {
-  return <h1>Chapitres</h1>;
+  const data = useSelector((state:RootState) => state.globalData.data)
+  console.log(data)
+
+  return <MainContainer>
+    <ul>
+      {data.map(() => <li>issou</li>)}
+    </ul>
+  </MainContainer>;
 };
+
+const MainContainer = styled.div `
+
+`
 
 export default Chapter;

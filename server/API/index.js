@@ -1,3 +1,11 @@
+/*
+   ___   ___  ____
+  / _ | / _ \/  _/
+ / __ |/ ___// /  
+/_/ |_/_/  /___/  
+                  
+*/
+
 const globalDataProvider = require("./get/globalDataProvider");
 const getDataHashed = require("./get/getDataHashed");
 const getChapter = require("./get/getChapter");
@@ -30,7 +38,6 @@ const putDisconnectChat = require("./chat/disconnect");
 const login = require("./auth/login");
 const logout = require("./auth/logout");
 const authSocket = require("./auth/authSocket");
-const authMiddleware = require("./auth/authMiddleware");
 
 module.exports = {
   postChapter,
@@ -56,5 +63,4 @@ module.exports = {
   login,
   logout,
   authSocket,
-  authMiddleware,
 };

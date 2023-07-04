@@ -36,8 +36,7 @@ const App: React.FC = () => {
     (state: RootState) => state.connection.token
   );
   const globaldata = useSelector((state:RootState) => state.globalData.data)
-  console.log(globaldata)
-
+  
   //Vérifie si un JWT est enregistré dans le localStorage, et se connect en conséquence
   const tryConnect = useCallback(() => {
     const storedToken = localStorage.getItem('token');

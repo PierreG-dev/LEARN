@@ -6,6 +6,7 @@ let schema = new Schema({
   userName: String,
   hashedPassword: String,
   avatarUrl: String,
+  roles: [String],
 });
 
 schema.statics.createUser = (packet) => {

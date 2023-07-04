@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 // Middleware d'authentification
 module.exports = (socket, next) => {
   // Récupérer le JWT depuis les paramètres de la requête du socket
@@ -10,15 +10,14 @@ module.exports = (socket, next) => {
     try {
       const decodedToken = jwt.verify(token, process.env.ENCRYPT_KEY); // Remplacez 'your-secret-key' par votre clé secrète pour la vérification du JWT
       // Authentification réussie, ajouter les informations de l'utilisateur au socket
-      socket.userId = decodedToken.userId;
-      socket.username = decodedToken.username;
+      socket.user = decodedToken;
       next();
     } catch (error) {
       // JWT invalide ou expiré
-      next(new Error('Invalid or expired token'));
+      next(new Error("Invalid or expired token"));
     }
   } else {
     // JWT non fourni
-    next(new Error('No token provided'));
+    next(new Error("No token provided"));
   }
 };

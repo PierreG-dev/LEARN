@@ -6,7 +6,6 @@ module.exports = (req, res) => {
   // if (!req.body.chapterName || !req.body.description) {
   //   throw "Empty parameters";
   // }
-  console.log(collections.Chapter);
   collections.Chapter.create({
     chapterName: req.body.chapterName,
     description: req.body.description,
