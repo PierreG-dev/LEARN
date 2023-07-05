@@ -6,44 +6,50 @@
                   
 */
 
-const globalDataProvider = require("./get/globalDataProvider");
-const getDataHashed = require("./get/getDataHashed");
-const getChapter = require("./get/getChapter");
-const getSubChapter = require("./get/getSubChapter");
-const getExercise = require("./get/getExercise");
-const getGroup = require("./get/getGroup");
-const getSoluce = require("./get/getSoluce");
-const getGeneratedExercices = require("./post/postGeneratedExercices");
+const globalDataProvider = require("@API/get/globalDataProvider");
+const getDataHashed = require("@API/get/getDataHashed");
+const getChapter = require("@API/get/getChapter");
+const getSubChapter = require("@API/get/getSubChapter");
+const getExercise = require("@API/get/getExercise");
+const getGroup = require("@API/get/getGroup");
+const getSoluce = require("@API/get/getSoluce");
+const getGeneratedExercices = require("@API/post/postGeneratedExercices");
 
 // ----- DATA CREATION ----- //
-const postChapter = require("./post/postChapter");
-const postSubChapter = require("./post/postSubChapter");
-const postExercise = require("./post/postExercise");
-const postGroup = require("./post/postGroup");
+const postChapter = require("@API/post/postChapter");
+const postSubChapter = require("@API/post/postSubChapter");
+const postExercise = require("@API/post/postExercise");
+const postSchool = require("@API/post/postSchool");
+const postClass = require("@API/post/postClass");
+const postUser = require("@API/post/postUser");
+const postSignupCode = require("@API/post/postSignupCode");
 
 // ----- DATA UPDATE ----- //
-const updateChapterAccess = require("./put/updateChapterAccess");
-const updateSubChapterAccess = require("./put/updateSubChapterAccess");
-const updateExerciseAccess = require("./put/updateExerciseAccess");
-const updateExerciceSolutionAccess = require("./put/updateExerciceSolutionAccess");
+const updateChapterAccess = require("@API/put/updateChapterAccess");
+const updateSubChapterAccess = require("@API/put/updateSubChapterAccess");
+const updateExerciseAccess = require("@API/put/updateExerciseAccess");
+const updateExerciceSolutionAccess = require("@API/put/updateExerciceSolutionAccess");
 
 // ----- CHAT ----- //
-const getMessages = require("./chat/getChat");
-const postMessageChat = require("./chat/postChat");
-const putAuthChat = require("./chat/auth");
-const putDisconnectChat = require("./chat/disconnect");
+const getMessages = require("@API/chat/getChat");
+const postMessageChat = require("@API/chat/postChat");
+const putAuthChat = require("@API/chat/auth");
+const putDisconnectChat = require("@API/chat/disconnect");
 
 // ----- AUTH ----- //
 
-const login = require("./auth/login");
-const logout = require("./auth/logout");
-const authSocket = require("./auth/authSocket");
+const login = require("@API/auth/login");
+const logout = require("@API/auth/logout");
+const signUp = require("@API/auth/signUp");
 
 module.exports = {
   postChapter,
   postSubChapter,
   postExercise,
-  postGroup,
+  postSchool,
+  postClass,
+  postSignupCode,
+  postUser,
   globalDataProvider,
   getDataHashed,
   getChapter,
@@ -62,5 +68,5 @@ module.exports = {
   putDisconnectChat,
   login,
   logout,
-  authSocket,
+  signUp,
 };

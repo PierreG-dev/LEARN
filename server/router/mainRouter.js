@@ -22,7 +22,10 @@ module.exports = (app, io) => {
   app.post("/api/postChapter", updater(io), API.postChapter);
   app.post("/api/postSubChapter", updater(io), API.postSubChapter);
   app.post("/api/postExercise", updater(io), API.postExercise);
-  app.post("/api/postGroup", updater(io), API.postGroup);
+  app.post("/api/postSchool", API.postSchool);
+  app.post("/api/postClass", API.postClass);
+  app.post("/api/postUser", API.postUser);
+  app.post("/api/postSignupCode", API.postSignupCode);
 
   //PUT
   app.put("/api/updateChapterAccess:id?", API.updateChapterAccess); //Changer access d'un Chapter

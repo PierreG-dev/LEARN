@@ -6,12 +6,23 @@
                        
 */
 const express = require("express");
+const path = require("path");
+const moduleAlias = require("module-alias");
+
+const aliases = {
+  "@collections": path.resolve(__dirname, "../collections"),
+  "@API": path.resolve(__dirname, "../API"),
+  "@router": path.resolve(__dirname, "../router"),
+  "@settings": path.resolve(__dirname, "../settings"),
+  "@utilities": path.resolve(__dirname, "../utilities"),
+  "@public": path.resolve(__dirname, "../public"),
+};
 
 module.exports = (app) => {
-  const path = require("path");
-  app.use(
-    "/res",
-    express.static(path.join(__dirname, "/public"))
-    // add some others
-  );
+  //Chemins publics
+  const resPath = path.join(__dirname, "../public");
+  app.use("/public", express.static(resPath, { recursive: true }));
+
+  //Alias pour l'environnement de dev
+  moduleAlias.addAliases(aliases);
 };

@@ -1,17 +1,22 @@
 const collections = require("../../collections");
 
 module.exports = (req, res) => {
-  // if (!req.session || !req.session.isConnected)
-  //   res.status(403).send("unauthorized");
-  // if (!req.body.chapterName || !req.body.description) {
-  //   throw "Empty parameters";
-  // }
+  const { chapterName, description, difficulty, categories, languages } =
+    req.body;
+
+  if (!chapterName || !description || !difficulty || !categories || !languages)
+    return res.status(400).send({
+      code: 400,
+      msg: "chapterName, description, difficulty, categories and languages are all required",
+    });
+
   collections.Chapter.create({
-    chapterName: req.body.chapterName,
-    description: req.body.description,
-    difficulty: req.body.difficulty,
-    categories: req.body.categories,
-    languages: req.body.languages,
+    chapterName: chapterName,
+    description: description,
+    difficulty: difficulty,
+    categories: categories,
+    languages: languages,
+    timestamp: new Date().getTime(),
   })
     .then(() => {
       res.status(200).send({

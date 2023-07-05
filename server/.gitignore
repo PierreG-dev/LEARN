@@ -25,7 +25,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-/ressources/*
+/public/**
+!/public/.gitkeep
 
 # local env files
 .env*

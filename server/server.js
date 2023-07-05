@@ -6,18 +6,18 @@
                              
 */
 
+//========== SETUP ==========//
 const settings = require("./settings");
 ({ app, io, server } = settings());
-
-const PORT = process.env.port | 8000;
-
-//========== DEMARRAGE ==========//
-server.listen(PORT, () => {
-  console.log("Server listening on port " + PORT);
-});
 
 //========== ROUTER ==========//
 require("./router")(app, io);
 
 //========== SOCKETS ==========//
 require("./socket")(io);
+
+//========== DEMARRAGE ==========//
+const PORT = process.env.port | 8000;
+server.listen(PORT, () => {
+  console.log("Server listening on port " + PORT);
+});

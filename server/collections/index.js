@@ -12,32 +12,36 @@ require("dotenv").config();
 
 const db_url = process.env.DB_URL || "mongodb://localhost/LEARN";
 
-var connection;
-function tryConnect() {
+let connection;
+const tryConnect = () => {
   console.log("trying " + db_url);
-  connection = mongoose.createConnection(db_url, (err) => {
-    if (err) {
-      console.error("MongoDB connection error: ", err);
-    } else {
-      console.log("MongoDB connexion success");
-    }
-  });
-}
+  try {
+    connection = mongoose.createConnection(db_url);
+    console.log("MongoDB connexion success");
+  } catch (err) {
+    console.error("MongoDB connexion error: " + err);
+  }
+};
 
 tryConnect();
 
-const Chapter = require("./chapter.js")(connection);
-const ChapterAccess = require("./chapterAccess.js")(connection);
+const Chapter = require("@collections/chapter.js")(connection);
+const ChapterAccess = require("@collections/chapterAccess.js")(connection);
 
-const SubChapter = require("./subChapter.js")(connection);
-const SubChapterAccess = require("./subChapterAccess.js")(connection);
+const SubChapter = require("@collections/subChapter.js")(connection);
+const SubChapterAccess = require("@collections/subChapterAccess.js")(
+  connection
+);
 
-const Exercise = require("./exercise.js")(connection);
-const ExerciseAccess = require("./exerciseAccess.js")(connection);
+const Exercise = require("@collections/exercise.js")(connection);
+const ExerciseAccess = require("@collections/exerciseAccess.js")(connection);
 
-const Class = require("./class.js")(connection);
-const User = require("./user.js")(connection);
-const Message = require("./message.js")(connection);
+const School = require("@collections/school.js")(connection);
+const SignupCode = require("@collections/signupCode.js")(connection);
+const Class = require("@collections/class.js")(connection);
+const User = require("@collections/user.js")(connection);
+
+const Message = require("@collections/message.js")(connection);
 
 const collections = {
   Chapter,
@@ -46,8 +50,10 @@ const collections = {
   SubChapterAccess,
   Exercise,
   ExerciseAccess,
-  User,
+  School,
+  SignupCode,
   Class,
+  User,
   Message,
 };
 

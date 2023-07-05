@@ -1,11 +1,24 @@
 const { model, Schema } = require("mongoose");
 
+/**
+ * classId: id de la classe associée à l'élève, indépendant si vide
+ * signupCodeId: id du code utilisé lors de l'inscription
+ * login: login de connexion
+ * userName: pseudonyme
+ * hashedPassword: mot de passe hashé
+ * avatarUrl: url de l'image de profil
+ * timestamp: date d'inscription
+ * roles: tableau des différents rôles associés au compte
+ */
+
 let schema = new Schema({
   classId: String,
+  signupCodeId: String,
   login: String,
   userName: String,
   hashedPassword: String,
   avatarUrl: String,
+  timestamp: Number,
   roles: [String],
 });
 

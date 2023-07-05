@@ -6,8 +6,8 @@
                                   
 */
 
-const mainRouter = require("./mainRouter");
-const secondaryRouter = require("./secondaryRouter");
+const mainRouter = require("@router/mainRouter");
+const secondaryRouter = require("@router/secondaryRouter");
 
 module.exports = (app, io) => {
   //Main router (Essentials routes)

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@collections": ["./collections"],
+      "@API": ["./API"],
+      "@router": ["./router"],
+      "@settings": ["./settings"],
+      "@utilities": ["./utilities"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
