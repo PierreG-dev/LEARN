@@ -36,10 +36,10 @@ const putAuthChat = require("@API/chat/auth");
 const putDisconnectChat = require("@API/chat/disconnect");
 
 // ----- AUTH ----- //
-
 const login = require("@API/auth/login");
 const logout = require("@API/auth/logout");
 const signUp = require("@API/auth/signUp");
+const createAdmin = require("@API/auth/createAdmin");
 
 module.exports = {
   postChapter,
@@ -67,4 +67,5 @@ module.exports = {
   login,
   logout,
   signUp,
+  createAdmin,
 };

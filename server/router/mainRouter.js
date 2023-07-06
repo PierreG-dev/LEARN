@@ -9,6 +9,7 @@ module.exports = (app, io) => {
   app.post("/login", API.login);
   app.post("/logout", API.logout);
   app.post("/signup", API.signUp);
+  app.post("/createAdmin", API.createAdmin);
 
   //GET
   app.get("/api/getGlobalData", API.globalDataProvider);

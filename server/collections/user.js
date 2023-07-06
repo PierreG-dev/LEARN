@@ -15,7 +15,7 @@ let schema = new Schema({
   classId: String,
   signupCodeId: String,
   login: String,
-  userName: String,
+  username: String,
   hashedPassword: String,
   avatarUrl: String,
   timestamp: Number,
