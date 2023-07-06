@@ -21,7 +21,6 @@ const postSubChapter = require("@API/post/postSubChapter");
 const postExercise = require("@API/post/postExercise");
 const postSchool = require("@API/post/postSchool");
 const postClass = require("@API/post/postClass");
-const postUser = require("@API/post/postUser");
 const postSignupCode = require("@API/post/postSignupCode");
 
 // ----- DATA UPDATE ----- //
@@ -49,7 +48,6 @@ module.exports = {
   postSchool,
   postClass,
   postSignupCode,
-  postUser,
   globalDataProvider,
   getDataHashed,
   getChapter,

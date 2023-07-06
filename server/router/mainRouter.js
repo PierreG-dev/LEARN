@@ -8,6 +8,7 @@ module.exports = (app, io) => {
   //AUTH
   app.post("/login", API.login);
   app.post("/logout", API.logout);
+  app.post("/signup", API.signUp);
 
   //GET
   app.get("/api/getGlobalData", API.globalDataProvider);
@@ -24,7 +25,6 @@ module.exports = (app, io) => {
   app.post("/api/postExercise", updater(io), API.postExercise);
   app.post("/api/postSchool", API.postSchool);
   app.post("/api/postClass", API.postClass);
-  app.post("/api/postUser", API.postUser);
   app.post("/api/postSignupCode", API.postSignupCode);
 
   //PUT
