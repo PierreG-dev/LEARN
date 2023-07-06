@@ -4,6 +4,7 @@ var schema = new Schema({
   chapterId: String,
   title: String,
   description: String,
+  order: Number,
 });
 
 schema.statics.createSubChapter = (packet) => {

@@ -15,6 +15,7 @@ const schema = new Schema({
   ],
   languages: [String],
   timestamp: Number,
+  order: Number,
 });
 
 schema.statics.createChapter = (packet) => {

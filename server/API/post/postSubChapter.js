@@ -1,21 +1,30 @@
-const collections = require('../../collections');
-const uuid = require('uuid');
-module.exports = (req, res) => {
-  if (!req.session.isConnected) res.status(403).send('unauthorized');
+const collections = require("../../collections");
+const uuid = require("uuid");
+module.exports = async (req, res) => {
+  const { title: _title, description: _description } = req.body;
 
-  if (!req.body.chapterId || !req.body.subChapterName) {
-    throw 'Empty parameters';
-  }
-  collections.SubChapter.create({
-    chapterId: req.body.chapterId,
-    subChapterName: req.body.subChapterName,
-    access: false,
-  })
-    .then(() => {
-      res.status(200).send('well received !');
-    })
-    .catch((error) => {
-      console.error('ERROR 500 when creating a subChapter', error);
-      res.status(500).send('Error when creating entry.');
+  if (!_title || !_description)
+    return res.status(400).send({
+      code: 400,
+      msg: "Title and description are required to proceed",
     });
+
+  collections.SubChapter.create({
+    title: _title,
+    description: _description,
+    order: (await collections.SubChapter.countDocuments({})) + 1,
+  })
+    .then(() =>
+      res.status(200).send({
+        code: 200,
+        msg: "Successfully created " + _title + " subchapter",
+      })
+    )
+    .catch((err) =>
+      res.status(500).send({
+        code: 500,
+        msg:
+          "An error occured during the creation of " + _title + " subchapter",
+      })
+    );
 };

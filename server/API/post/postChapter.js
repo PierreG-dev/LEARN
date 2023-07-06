@@ -1,8 +1,13 @@
 const collections = require("../../collections");
 
-module.exports = (req, res) => {
-  const { chapterName, description, difficulty, categories, languages } =
-    req.body;
+module.exports = async (req, res) => {
+  const {
+    chapterName: _chapterName,
+    description: _description,
+    difficulty: _difficulty,
+    categories: _categories,
+    languages: _language,
+  } = req.body;
 
   if (!chapterName || !description || !difficulty || !categories || !languages)
     return res.status(400).send({
@@ -17,9 +22,10 @@ module.exports = (req, res) => {
     categories: categories,
     languages: languages,
     timestamp: new Date().getTime(),
+    order: (await collections.Chapter.countDocuments({})) + 1,
   })
     .then(() => {
-      res.status(200).send({
+      return res.status(200).send({
         code: 200,
         msg: `Chapter ${req.body.chapterName} successfully created`,
       });
