@@ -1,5 +1,12 @@
 const { model, Schema } = require("mongoose");
 
+/**
+ * chapterId: id du chapitre associé au sous-chapitre
+ * title: titre du sous-chapitre
+ * description: description du sous-chapitre
+ * order: ordre du sous chapitre
+ */
+
 var schema = new Schema({
   chapterId: String,
   title: String,
