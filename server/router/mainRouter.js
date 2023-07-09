@@ -1,6 +1,7 @@
 const API = require("../API");
 const utilities = require("../utilities");
 const updater = utilities.middlewares.clientUpdater.updateClientsData;
+const multer = require("multer");
 
 module.exports = (app, io) => {
   //----------- API ------------

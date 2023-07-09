@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 /**
- * chapterName: nom du chapitre
+ * title: nom du chapitre
  * description: description du chapitre
  * difficulty: nnote allant de 1 à 5 représentant la difficultée de maitrise du chapitre
  * categories: tableau d'objets, représentants chacun une famille de compétences de dev WEB
@@ -11,7 +11,7 @@ const { Schema, model } = require("mongoose");
  */
 
 const schema = new Schema({
-  chapterName: String,
+  title: String,
   description: String,
   difficulty: {
     type: Number,

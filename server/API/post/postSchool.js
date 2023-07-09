@@ -47,7 +47,12 @@ module.exports = (req, res) => {
         msg: `New school ${req.body.name} created successfully`,
       })
     )
-    .catch((err) =>
-      console.error("Error when creating the school " + req.body.name)
-    );
+    .catch((err) => {
+      console.error(err);
+      console.error("Error when creating the school " + req.body.name);
+      res.status(500).send({
+        code: 500,
+        msg: "Error when creating the school " + req.body.name,
+      });
+    });
 };

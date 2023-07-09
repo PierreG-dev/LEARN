@@ -22,7 +22,7 @@ let schema = new Schema({
   subChapterId: String,
   order: Number,
   title: String,
-  timeToResolve: String,
+  timeToResolve: Number,
   difficulty: {
     type: Number,
     enum: [1, 2, 3, 4, 5],
