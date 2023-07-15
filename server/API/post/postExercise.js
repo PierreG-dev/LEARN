@@ -26,8 +26,6 @@ module.exports = async (req, res) => {
     ? _links_unparsed.map((obj) => JSON.parse(obj))
     : undefined;
 
-  console.log(_solutions);
-
   const { solutionFile, baseFile } = req.files;
 
   let solutionFileUrl = "";
@@ -142,6 +140,13 @@ module.exports = async (req, res) => {
       }
     })
     .then(() => {
+      console.log(
+        "The exercise " +
+          _title +
+          " from the " +
+          subChapter.title +
+          " subchapter has been successfully created"
+      );
       return res.status(200).send({
         code: 200,
         msg:
