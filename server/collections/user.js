@@ -8,6 +8,7 @@ const { model, Schema } = require("mongoose");
  * hashedPassword: mot de passe hashé
  * avatarUrl: url de l'image de profil
  * timestamp: date d'inscription
+ * lastSeen: date de la dernière requête
  * roles: tableau des différents rôles associés au compte
  */
 
@@ -19,6 +20,7 @@ let schema = new Schema({
   hashedPassword: String,
   avatarUrl: String,
   timestamp: Number,
+  lastSeen: Number,
   roles: [String],
 });
 

@@ -5,6 +5,7 @@ module.exports = (io) => {
   io.use(utilities.middlewares.auth.authMiddleware);
 
   io.on("connect", async (socket) => {
+    console.log(socket.user);
     console.log("Nouvelle connexion: " + socket.user.username);
 
     //Allumage du socket permettant l'update des clients

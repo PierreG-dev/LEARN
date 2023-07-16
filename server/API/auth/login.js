@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
     });
 
   const token = jwt.sign(
-    { id: user._id, roles: user.roles },
+    { id: user._id, roles: user.roles, username: user.username },
     process.env.ENCRYPT_KEY,
     { expiresIn: "12h" }
   );

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { MdLogout } from 'react-icons/md';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { MdLogout } from "react-icons/md";
 
 interface Props {
   handleLogout: () => void;
@@ -34,7 +34,7 @@ const Navbar = ({ handleLogout, isConnected }: Props) => {
 };
 
 const MainContainer = styled.nav`
-  width: 80%;
+  width: 100%;
   height: 60px;
   background: #e07a5f;
   display: flex;
@@ -51,7 +51,7 @@ const MainContainer = styled.nav`
 
       h2 {
         color: #fafafa;
-        font-family: 'Silkscreen', cursive;
+        font-family: "Silkscreen", cursive;
         letter-spacing: 1px;
         font-size: 1.3rem;
 
@@ -70,7 +70,7 @@ const MainContainer = styled.nav`
       li a {
         text-decoration: none;
         color: #f1f1f1;
-        font-family: 'Silkscreen', cursive;
+        font-family: "Silkscreen", cursive;
       }
     }
   }
