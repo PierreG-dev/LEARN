@@ -1,6 +1,7 @@
-import styled from 'styled-components';
-import { ReactNode } from 'react';
-import Navbar from './navbar';
+import styled from "styled-components";
+import { ReactNode } from "react";
+import Navbar from "./navbar";
+import "./index.scss";
 
 interface Props {
   children: ReactNode;
@@ -14,7 +15,7 @@ const Layout = ({ children, handleLogout, isConnected }: Props) => {
       {isConnected && (
         <Navbar handleLogout={handleLogout} isConnected={isConnected} />
       )}
-      <main className={isConnected ? 'connected' : ''}>{children}</main>
+      <main className={isConnected ? "connected" : ""}>{children}</main>
     </MainContainer>
   );
 };

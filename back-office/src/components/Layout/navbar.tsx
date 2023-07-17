@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
 
 interface Props {
@@ -7,9 +6,23 @@ interface Props {
   isConnected: boolean;
 }
 
+const links = [
+  {
+    link: "/classes",
+    name: "Classes",
+  },
+  {
+    link: "/chapters",
+    name: "Chapitres",
+  },
+];
+
 const Navbar = ({ handleLogout, isConnected }: Props) => {
+  const location = useLocation();
+  console.log(location);
+
   return (
-    <MainContainer>
+    <nav>
       <div>
         <Link to="/">
           <h2>
@@ -18,80 +31,23 @@ const Navbar = ({ handleLogout, isConnected }: Props) => {
         </Link>
 
         <ul>
-          <li>
-            <Link to="/classes">Classes</Link>
-          </li>
-          <li>
-            <Link to="/chapters">Chapitres</Link>
-          </li>
+          {links.map((link, key) => (
+            <li
+              className={
+                location.pathname.includes(link.link) ? "selected" : ""
+              }
+              key={key}
+            >
+              <Link to={link.link}>{link.name}</Link>
+            </li>
+          ))}
         </ul>
       </div>
       <button onClick={handleLogout}>
         <MdLogout />
       </button>
-    </MainContainer>
+    </nav>
   );
 };
-
-const MainContainer = styled.nav`
-  width: 100%;
-  height: 60px;
-  background: #e07a5f;
-  display: flex;
-  padding: 0 10%;
-  align-items: center;
-  justify-content: space-between;
-
-  & > div {
-    display: flex;
-    gap: 50px;
-
-    a {
-      text-decoration: none;
-
-      h2 {
-        color: #fafafa;
-        font-family: "Silkscreen", cursive;
-        letter-spacing: 1px;
-        font-size: 1.3rem;
-
-        sup {
-          font-size: 0.7rem;
-        }
-      }
-    }
-
-    ul {
-      display: flex;
-      list-style: none;
-      align-items: center;
-      gap: 20px;
-
-      li a {
-        text-decoration: none;
-        color: #f1f1f1;
-        font-family: "Silkscreen", cursive;
-      }
-    }
-  }
-
-  & > button {
-    border: none;
-    background: #fff2;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fafafa;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.1s;
-    font-size: 1.1rem;
-
-    &:hover {
-      background: #fff4;
-    }
-  }
-`;
 
 export default Navbar;

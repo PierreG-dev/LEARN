@@ -1,0 +1,160 @@
+@use "../../styles/_variables" as *;
+
+div#list {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p,
+  em {
+    color: $color-main;
+  }
+
+  & > h1 {
+    font-family: $font-family-title;
+    margin-left: 40px;
+    font-size: 2.7rem;
+    font-weight: 400;
+  }
+
+  & > em {
+    margin-bottom: 20px;
+    margin-left: 60px;
+    opacity: 0.5;
+    display: block;
+  }
+
+  & > hr {
+    border: none;
+    border-bottom: 1px solid $color-main;
+    border-radius: 2px;
+  }
+
+  & > div#content {
+    padding: 20px 0 0 40px;
+
+    & > p {
+      margin-bottom: 10px;
+    }
+
+    ul#schools_list {
+      list-style: none;
+      li.school-list-item {
+        & > em {
+          display: block;
+          padding-left: 20px;
+          opacity: 0.5;
+          margin-bottom: 30px;
+        }
+      }
+    }
+
+    ul.classes_list {
+      padding-left: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      li.class-list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 25px;
+        width: 50%;
+        background: #fafafa;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        transition: 0.2s;
+
+        &:hover {
+          cursor: help;
+        }
+
+        p {
+          cursor: help;
+          user-select: none;
+        }
+
+        & > div {
+          display: flex;
+          button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 5px 9px;
+            border: none;
+
+            &.disable {
+              opacity: 0.9;
+              border-radius: 5px 0 0 5px;
+              box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+              transition: 0.1s;
+              cursor: pointer;
+              &:hover {
+                opacity: 1;
+                box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3),
+                  inset 0 0 5px rgba(0, 0, 0, 0.3);
+              }
+              svg {
+                color: $color-light !important;
+              }
+              background: #e74c3c;
+            }
+
+            &.edit {
+              opacity: 0.9;
+              border-radius: 0 5px 5px 0;
+              box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+              transition: 0.1s;
+              cursor: pointer;
+              &:hover {
+                opacity: 1;
+                box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3),
+                  inset 0 0 5px rgba(0, 0, 0, 0.3);
+              }
+              svg {
+                color: $color-light;
+              }
+              background: #f1c40f;
+            }
+
+            &.access {
+              opacity: 0.9;
+              border-radius: 5px 0 0 5px;
+              box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+              transition: 0.1s;
+              cursor: pointer;
+              &:hover {
+                opacity: 1;
+                box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3),
+                  inset 0 0 5px rgba(0, 0, 0, 0.3);
+              }
+              svg {
+                color: $color-light !important;
+              }
+              background: #2ecc71;
+            }
+
+            &.view {
+              opacity: 0.9;
+              border-radius: 0 5px 5px 0;
+              box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+              transition: 0.1s;
+              cursor: pointer;
+              &:hover {
+                opacity: 1;
+                box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3),
+                  inset 0 0 5px rgba(0, 0, 0, 0.3);
+              }
+              svg {
+                color: $color-light !important;
+              }
+              background: #3498db;
+            }
+          }
+        }
+      }
+    }
+  }
+}
