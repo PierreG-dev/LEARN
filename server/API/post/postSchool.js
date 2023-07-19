@@ -3,7 +3,7 @@ const { default: mongoose } = require("mongoose");
 const path = require("path");
 const fs = require("fs");
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   if (!req.body.description || !req.body.name || !req.body.teacherId)
     return res.status(400).send({
       code: 400,
@@ -29,7 +29,7 @@ module.exports = (req, res) => {
         )}`
       : "",
     lastActivity: new Date().getTime(),
-    order: collections.School.countDocuments() + 1,
+    order: (await collections.School.countDocuments()) + 1,
     timestamp: new Date().getTime(),
   })
     .then(() => {
