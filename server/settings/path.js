@@ -21,7 +21,7 @@ const aliases = {
 module.exports = (app) => {
   //Chemins publics
   const resPath = path.join(__dirname, "../public");
-  app.use("/public", express.static(resPath, { recursive: true }));
+  app.use("/res", express.static(resPath, { recursive: true }));
 
   //Alias pour l'environnement de dev
   moduleAlias.addAliases(aliases);

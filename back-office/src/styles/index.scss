@@ -1,16 +1,16 @@
 @use "./_variables" as *;
-//Lato
+//Lato - textes
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
-//Oswald
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
-//Silkscreen
+//Poppins - titres
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+//Silkscreen - special
 @import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
 
 :root {
-  --toastify-color-success: rgba(51, 187, 102, 0.9);
-  --toastify-color-info: rgba(34, 134, 204, 0.9);
-  --toastify-color-warning: rgba(235, 149, 50, 0.9);
-  --toastify-color-error: rgba(204, 36, 36, 0.9);
+  --toastify-color-success: rgba(51, 187, 102, 0.8);
+  --toastify-color-info: rgba(34, 134, 204, 0.8);
+  --toastify-color-warning: rgba(235, 149, 50, 0.8);
+  --toastify-color-error: rgba(204, 36, 36, 0.8);
 }
 
 * {

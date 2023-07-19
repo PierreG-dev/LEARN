@@ -4,10 +4,10 @@ const path = require("path");
 const fs = require("fs");
 
 module.exports = (req, res) => {
-  if (!req.body.description || !req.body.name)
+  if (!req.body.description || !req.body.name || !req.body.teacherId)
     return res.status(400).send({
       code: 400,
-      msg: "School name and school description are both required",
+      msg: "School name, school description and teacherID are all required",
     });
 
   if (req.files.logo && !/^image\/.*$/.test(req.files.logo.mimetype))
@@ -20,7 +20,7 @@ module.exports = (req, res) => {
 
   collections.School.create({
     _id: newId,
-    timestamp: new Date().getTime(),
+    teacherId: req.body.teacherId,
     name: req.body.name,
     description: req.body.description,
     logoUrl: req.files.logo
@@ -28,6 +28,9 @@ module.exports = (req, res) => {
           req.files.logo.name
         )}`
       : "",
+    lastActivity: new Date().getTime(),
+    order: collections.School.countDocuments() + 1,
+    timestamp: new Date().getTime(),
   })
     .then(() => {
       if (req.files.logo) {

@@ -1,15 +1,21 @@
 const { model, Schema } = require("mongoose");
 
 /**
- * classId: Id de la classe associée au code, code indépendant si vide
- * code: code à partager
- * usages: Nombre d'utilisations au code restants
+ * name: nom de l'école
+ * description: description de l'école
+ * logoUrl: url pour récupérer le logo de l'école (image)
+ * lastActivity: epoch correspondant à la denrière activité enregistrée sur l'école
+ * order: numéro correspondant à la place de l'école (ordre personnalisé)
+ * timestamp: epoch correspondant à la date de création de l'entité
  */
 
 let schema = new Schema({
+  teacherId: String,
   name: String,
   description: String,
   logoUrl: String,
+  lastActivity: Number,
+  order: Number,
   timestamp: Number,
 });
 
