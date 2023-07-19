@@ -188,11 +188,21 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Navigate to="/" replace />} />
           <Route path="/chapters/:chapterId?" element={<Chapter />} />
+
           <Route
-            path="/classes/:classId?/edit"
-            element={<Classes edit={true} />}
+            path="/classes/:schoolId/:classId/edit"
+            element={<Classes />}
           />
-          <Route path="/classes/:classId?" element={<Classes />} />
+          <Route
+            path="/classes/:schoolId/:classId/access"
+            element={<Classes />}
+          />
+          <Route
+            path="/classes/:schoolId/:classId/view"
+            element={<Classes />}
+          />
+          <Route path="/classes/:schoolId/:classId" element={<Classes />} />
+          <Route path="/classes/:schoolId" element={<Classes />} />
           <Route path="/classes" element={<Classes />} />
           <Route path="*" element={<Error404 />} />
         </>

@@ -33,6 +33,7 @@ module.exports = async (req, res) => {
     hashedPassword: sha256(_password),
     timestamp: new Date().getTime(),
     avatarUrl: "",
+    banned: false,
     roles: ["user"],
   })
     .then(async () => {

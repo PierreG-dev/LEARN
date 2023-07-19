@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 /**
  * title: nom du chapitre
  * description: description du chapitre
+ * iconName: icone de la librairie react-icons correspondant au chapitre
  * difficulty: nnote allant de 1 à 5 représentant la difficultée de maitrise du chapitre
  * categories: tableau d'objets, représentants chacun une famille de compétences de dev WEB
  * languages: tableau de strings, représentant les différents languages utilisés dans ce chapitre
@@ -13,6 +14,7 @@ const { Schema, model } = require("mongoose");
 const schema = new Schema({
   title: String,
   description: String,
+  iconName: String,
   difficulty: {
     type: Number,
     enum: [1, 2, 3, 4, 5],

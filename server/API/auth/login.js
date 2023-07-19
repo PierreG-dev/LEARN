@@ -20,6 +20,12 @@ module.exports = async (req, res) => {
       msg: "Invalid credentials",
     });
 
+  if (user.banned)
+    return res.status(403).send({
+      code: 403,
+      msg: "You are banned",
+    });
+
   const token = jwt.sign(
     { id: user._id, roles: user.roles, username: user.username },
     process.env.ENCRYPT_KEY,

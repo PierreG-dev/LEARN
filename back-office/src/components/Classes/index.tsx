@@ -10,26 +10,20 @@ import "./index.scss";
 
 type Props = {
   schools?: School[];
-  edit: boolean;
 };
 
-const Index: React.FC<Props> = ({ schools, edit }) => {
-  const { classId } = useParams();
+const Index: React.FC<Props> = ({ schools }) => {
+  const { classId, schoolId } = useParams();
 
-  const displaypicker = useCallback(() => {
-    if (classId && !edit) return <ClassView classId={classId} />;
-    else if (classId && edit) return <ClassEdit classId={classId} />;
-    else if (schools) return <ClassList schools={schools} />;
-    else "no data";
-  }, [classId, edit]);
-
-  return <MainContainer>{displaypicker()}</MainContainer>;
+  return (
+    <MainContainer>{schools && <ClassList schools={schools} />}</MainContainer>
+  );
 };
 
 const MainContainer = styled.main`
   min-height: 100%;
   margin: 0;
-  padding: 20px 30px;
+  display: flex;
 `;
 
 export default Index;

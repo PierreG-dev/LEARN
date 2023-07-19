@@ -14,6 +14,7 @@ let schema = new Schema({
   name: String,
   studentsAmount: Number,
   timestamp: Number,
+  lastActivity: Number,
 });
 
 schema.statics.createClass = (packet) => {

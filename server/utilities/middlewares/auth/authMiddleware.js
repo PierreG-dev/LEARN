@@ -20,7 +20,7 @@ module.exports = async (socket, next) => {
       // --- Mise à jour de la propriété lastSeen de l'utilisateur
       await collections.User.findOneAndUpdate(
         { _id: decodedToken.id },
-        { lastSeen: new Date().getTime() }
+        { lastActivity: new Date().getTime() }
       );
       next();
     } catch (error) {

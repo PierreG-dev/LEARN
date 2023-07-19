@@ -4,20 +4,29 @@ module.exports = async (req, res) => {
   const {
     title: _title,
     description: _description,
+    iconName: _iconName,
     difficulty: _difficulty,
     categories: _categories,
     languages: _languages,
   } = req.body;
 
-  if (!_title || !_description || !_difficulty || !_categories || !_languages)
+  if (
+    !_title ||
+    !_description ||
+    !_difficulty ||
+    !_categories ||
+    !_languages ||
+    !_iconName
+  )
     return res.status(400).send({
       code: 400,
-      msg: "chapterName, description, difficulty, categories and languages are all required",
+      msg: "chapterName, description, difficulty, categories, languages and iconName are all required",
     });
 
   collections.Chapter.create({
     title: _title,
     description: _description,
+    iconName: _iconName,
     difficulty: _difficulty,
     categories: _categories,
     languages: _languages,

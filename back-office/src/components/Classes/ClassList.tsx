@@ -1,97 +1,186 @@
-import React, { useCallback, useMemo } from "react";
-import { Class, School } from "../../types/types";
-import {
-  AiFillEdit,
-  AiOutlineArrowRight,
-  AiOutlinePoweroff,
-} from "react-icons/ai";
-import { BsShieldLock } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Class as _Class, School as _School } from "../../types/types";
+import { IoIosSchool } from "react-icons/io";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { Link, useParams } from "react-router-dom";
+import styled from "styled-components";
+import useIcon from "../../utilities/useIcon";
 
 type Props = {
-  schools: School[];
+  schools: _School[];
 };
 
 const ClassList: React.FC<Props> = ({ schools }) => {
-  const schoolsAmount = useMemo(() => schools.length, [schools]);
-  const clasesAMount = useMemo(
-    () =>
-      schools.reduce(
-        (accumulator, school) => accumulator + school.classes.length,
-        0
-      ),
-    [schools]
-  );
+  const { schoolId, classId } = useParams();
 
-  const displayClasses = useCallback((school: School) => {
-    const classElements = school.classes.map(
-      (classItem: Class, key: number) => (
-        <li key={key} className="class-list-item">
-          <h3>{classItem.name}</h3>
-          <p
-            title={`${classItem.registeredStudentsAmount} inscrits / ${classItem.studentsAmount} prévus`}
-          >
-            {classItem.registeredStudentsAmount} / {classItem.studentsAmount}
-          </p>
-          <div>
-            <button className="disable">
-              <AiOutlinePoweroff />
-            </button>
-            <Link to={`/classes/${classItem._id}/edit`}>
-              <button className="edit">
-                <AiFillEdit />
-              </button>
-            </Link>
-          </div>
-          <div>
-            <Link to={`/classes/${classItem._id}/accesses`}>
-              <button className="access">
-                <BsShieldLock />
-              </button>
-            </Link>
-            <Link to={`/classes/${classItem._id}`}>
-              <button className="view">
-                <AiOutlineArrowRight />
-              </button>
-            </Link>
-          </div>
-        </li>
-      )
-    );
+  // const schoolsAmount = useMemo(() => schools.length, [schools]);
+  // const clasesAMount = useMemo(
+  //   () =>
+  //     schools.reduce(
+  //       (accumulator, school) => accumulator + school.classes.length,
+  //       0
+  //     ),
+  //   [schools]
+  // );
 
-    return classElements;
-  }, []);
-
-  const displaySchools = useCallback(() => {
-    return (
-      <ul id="schools_list">
-        {schools?.map((school: School, key: number) => (
-          <li key={key} className="school-list-item">
-            <h2>{school.name}</h2>
-            <em>{school.description}</em>
-            <ul className="classes_list">{displayClasses(school)}</ul>
-          </li>
+  const displayClasses = useCallback(() => {
+    const school = schools.find((schoolItem) => schoolId === schoolItem._id);
+    const classElements = (
+      <ul id="classes_list">
+        {school?.classes.map((classItem: _Class, key: number) => (
+          <Link to={`/classes/${schoolId}/${classItem._id}`}>
+            <Class
+              key={key}
+              className={`class-list-item ${
+                classId
+                  ? classId === classItem._id
+                    ? "selected"
+                    : "not-selected"
+                  : ""
+              }`}
+            >
+              <div style={{ animationDelay: `0.${key * 2 + 4}s` }}>
+                {" "}
+                <h3>{classItem.name}</h3>
+              </div>
+            </Class>
+          </Link>
         ))}
       </ul>
     );
-  }, [displayClasses, schools]);
+
+    return classElements;
+  }, [schoolId, schools, classId]);
+
+  const displaySchools = useCallback(() => {
+    return (
+      <ul id={`schools_list`}>
+        {schools?.map((school: _School, key: number) => (
+          <Link to={`/classes/${school._id}`}>
+            <School
+              key={key}
+              className={`school-list-item ${
+                schoolId
+                  ? schoolId === school._id
+                    ? "selected"
+                    : "not-selected"
+                  : ""
+              }`}
+            >
+              <img
+                src={import.meta.env.VITE_APP_API_URL + school.logoUrl}
+                alt={school.name}
+              />
+              {!schoolId && (
+                <div style={{ animationDelay: `0.${key * 2 + 4}s` }}>
+                  {" "}
+                  <h3>{school.name}</h3>
+                  <i>{school.description}</i>
+                </div>
+              )}
+            </School>
+          </Link>
+        ))}
+      </ul>
+    );
+  }, [schools, schoolId]);
 
   return (
-    <div id="list">
-      <h1>Groupes</h1>
-      <em>Gestion des Ecoles, classes et utilisateurs indépendants</em>
-      <hr />
-      <div id="content">
-        <p>
-          {schoolsAmount} école{schoolsAmount > 1 && "s"} et {clasesAMount}{" "}
-          classe
-          {clasesAMount > 1 && "s"} trouvées
-        </p>
-
+    <aside>
+      <section id="schools" className={schoolId && "collapsed"}>
+        <h2>
+          <IoIosSchool /> {!schoolId && <span>ECOLES</span>}
+        </h2>
         {displaySchools()}
-      </div>
-    </div>
+      </section>
+
+      {schoolId && (
+        <section id="classes">
+          <h2>
+            <FaChalkboardTeacher /> <span>CLASSES</span>
+          </h2>
+          {displayClasses()}
+        </section>
+      )}
+    </aside>
   );
 };
 
+const School = styled.li`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px;
+  border-radius: 5px;
+  transition: 0.2s;
+  filter: grayscale(0.3);
+
+  &:hover,
+  &.selected {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    filter: grayscale(0);
+  }
+
+  &.not-selected {
+    filter: grayscale(1);
+  }
+
+  & > div {
+    transition: 0.2s;
+    transition-delay: 0.3s;
+    h3 {
+      font-size: 1rem;
+    }
+
+    i {
+      font-size: 0.9rem;
+      padding-left: 2px;
+      opacity: 0.7;
+    }
+  }
+
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+  }
+`;
+const Class = styled.li`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px;
+  border-radius: 5px;
+  transition: 0.2s;
+  opacity: 0.7;
+
+  &:hover,
+  &.selected {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+  }
+
+  &.not-selected {
+  }
+
+  & > div {
+    transition: 0.2s;
+    transition-delay: 0.3s;
+    h3 {
+      font-size: 1rem;
+    }
+
+    i {
+      font-size: 0.9rem;
+      padding-left: 2px;
+      opacity: 0.7;
+    }
+  }
+`;
 export default ClassList;

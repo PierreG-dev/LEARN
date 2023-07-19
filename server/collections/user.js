@@ -20,7 +20,8 @@ let schema = new Schema({
   hashedPassword: String,
   avatarUrl: String,
   timestamp: Number,
-  lastSeen: Number,
+  lastActivity: Number,
+  banned: Boolean,
   roles: [String],
 });
 
