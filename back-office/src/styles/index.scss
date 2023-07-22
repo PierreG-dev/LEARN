@@ -25,9 +25,74 @@ body {
   height: 100vh;
   min-height: 100vh;
   background: $color-light;
-  color: $color-special;
+  color: $color-main;
 }
 
 .logo-typo {
   font-family: "Silkscreen", cursive;
+}
+
+input.learn-input {
+  border: none;
+  background: #e07a5f33;
+  transition: 0.1s;
+  outline: 2px solid transparent;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #fafafa;
+  font-weight: bold;
+  transition: 0.2s outline 0.2s;
+
+  &::placeholder {
+    font-style: italic;
+  }
+
+  &:focus {
+    background: #e07a5f99;
+  }
+
+  &.error {
+    outline: 2px solid $color-error !important;
+  }
+}
+
+button.learn-button {
+  background: #e07a5f99;
+  padding: 10px 15px;
+  transition: 0.1s;
+  border-radius: 5px;
+  border: none;
+  color: #fafafa;
+
+  &:hover {
+    cursor: pointer;
+    background: #e07a5f;
+  }
+
+  &.sm {
+    font-size: 0.8rem;
+    padding: 5px 7.5px;
+  }
+}
+
+em.learn-error {
+  position: absolute;
+  top: -20px;
+  color: $color-error;
+  opacity: 0;
+  font-size: 0.9rem;
+  transition: 0.2s opacity 0.2s;
+
+  &.error {
+    opacity: 1;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }

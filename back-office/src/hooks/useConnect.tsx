@@ -16,7 +16,7 @@ const useConnect = () => {
     (state: RootState) => state.connection.token
   );
 
-  // --- Fonction qui vérifie si un JWT est enregistré dans le localStorage, et se connect en conséquence
+  // --- Fonction qui vérifie si un JWT est enregistré dans le localStorage, et se connecte en conséquence
   const tryConnect = useCallback(() => {
     const storedToken = localStorage.getItem("token");
     if (!storedToken) return;

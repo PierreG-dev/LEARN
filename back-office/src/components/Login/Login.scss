@@ -1,0 +1,36 @@
+@use "../../styles/_variables" as *;
+
+div#login_page {
+  h1 {
+    font-size: 4rem;
+    line-height: 35px;
+
+    span {
+      padding-left: 40px;
+      font-size: 1rem;
+    }
+  }
+
+  & > form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    gap: 20px;
+
+    & > div {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    & > input {
+      width: 100%;
+    }
+
+    & > button {
+      align-self: center;
+    }
+  }
+}
