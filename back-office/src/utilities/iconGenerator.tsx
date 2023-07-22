@@ -39,11 +39,11 @@ const iconsList: { [index: string]: IconType } = {
   ...FaBrands,
 };
 
-const useIcon = (iconName: string) => {
+const iconGenerator = (iconName: string) => {
   if (!iconName) return;
   const IconComponent = iconsList[iconName];
 
   return <IconComponent />;
 };
 
-export default useIcon;
+export default iconGenerator;

@@ -16,8 +16,8 @@ module.exports = async (req, res) => {
     !_username ||
     !_password ||
     !_signupCode ||
-    _firstName ||
-    _lastName
+    !_firstName ||
+    !_lastName
   )
     return res.status(400).send({
       code: 400,

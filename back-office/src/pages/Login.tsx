@@ -1,31 +1,24 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { io, Socket } from 'socket.io-client';
-import styled from 'styled-components';
-import { APIResponse } from '../types/types';
-import { RootState } from '../store/store';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState, useCallback } from "react";
+import { io, Socket } from "socket.io-client";
+import styled from "styled-components";
+import { APIResponse, IAuthContext } from "../types/types";
+import { RootState } from "../store/store";
+import { useSelector } from "react-redux";
+import { AuthContext } from "../contexts/Auth";
+import { useContext } from "react";
 
-interface Props {
-  handleLogin: (login: string, password: string) => Promise<APIResponse>;
-  tryConnect: () => void;
-}
-
-const Auth = ({ handleLogin, tryConnect }: Props) => {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  const [formError, setFormError] = useState('');
+const Login = () => {
+  const { handleLogin } = useContext(AuthContext) as IAuthContext;
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState("");
   const isConnected = useSelector(
     (state: RootState) => state.connection.isConnected
   );
 
-  
-
   const handleResetError = useCallback(() => {
-    setFormError('');
+    setFormError("");
   }, []);
-
-  //tente une connection avec un ancien potentiel JWT
-  useEffect(tryConnect, [tryConnect]);
 
   const loginChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(e.target.value);
@@ -41,7 +34,7 @@ const Auth = ({ handleLogin, tryConnect }: Props) => {
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      setPassword('');
+      setPassword("");
       if (!login || !password) return;
       const response: APIResponse = await handleLogin(login, password);
       if (response.code !== 200) setFormError(response.msg);
@@ -51,12 +44,12 @@ const Auth = ({ handleLogin, tryConnect }: Props) => {
 
   return (
     <MainContainer onClick={handleResetError}>
-      <h1 className="logo-typo">BIENVENUE</h1>
+      <h1 className="logo-typo">CONNEXION</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="">Login</label>
           <input
-            className={formError ? 'error' : ''}
+            className={formError ? "error" : ""}
             type="text"
             name="login"
             id=""
@@ -67,7 +60,7 @@ const Auth = ({ handleLogin, tryConnect }: Props) => {
         <div>
           <label htmlFor="">Mot de passe</label>
           <input
-            className={formError ? 'error' : ''}
+            className={formError ? "error" : ""}
             type="password"
             name="password"
             id=""
@@ -145,4 +138,4 @@ const MainContainer = styled.div`
   }
 `;
 
-export default Auth;
+export default Login;

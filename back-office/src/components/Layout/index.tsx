@@ -1,15 +1,22 @@
 import styled from "styled-components";
-import { ReactNode } from "react";
+import { ReactNode, FC, useContext } from "react";
 import Navbar from "./navbar";
 import "./index.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { AuthContext } from "../../contexts/Auth";
+import { IAuthContext } from "../../types/types";
 
 interface Props {
   children: ReactNode;
-  handleLogout: () => void;
-  isConnected: boolean;
 }
 
-const Layout = ({ children, handleLogout, isConnected }: Props) => {
+const Layout: FC<Props> = ({ children }) => {
+  const isConnected = useSelector(
+    (state: RootState) => state.connection.isConnected
+  );
+
+  const { handleLogout } = useContext(AuthContext) as IAuthContext;
   return (
     <MainContainer>
       {isConnected && (

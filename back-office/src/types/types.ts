@@ -1,5 +1,8 @@
 //Store
 //===== REDUX REDUCERS =====//
+
+import { Socket } from "socket.io-client";
+
 //connection
 export interface ConnectionState {
   isConnected: boolean;
@@ -134,4 +137,21 @@ export type DataPack = {
   user: User;
   schools?: School[];
   chapters?: Chapter[];
+};
+
+// ===== CONTEXT ===== //
+// --- AuthContext
+export type IAuthContext = {
+  socket: Socket | undefined;
+  handleLogin: (login: string, password: string) => Promise<APIResponse>;
+  handleSignup: (
+    signupCode: string,
+    firstName: string,
+    lastName: string,
+    login: string,
+    username: string,
+    password: string
+  ) => Promise<APIResponse>;
+  handleLogout: () => void;
+  tryConnect: () => void;
 };

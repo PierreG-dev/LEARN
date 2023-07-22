@@ -4,7 +4,7 @@ import { IoIosSchool } from "react-icons/io";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import useIcon from "../../utilities/useIcon";
+import useIcon from "../../utilities/iconGenerator";
 
 type Props = {
   schools: _School[];
