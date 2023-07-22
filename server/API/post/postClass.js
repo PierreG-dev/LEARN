@@ -32,6 +32,7 @@ module.exports = async (req, res) => {
     name: name,
     studentsAmount: studentsAmount,
     lastActivity: new Date().getTime(),
+    isDisabled: false,
     timestamp: new Date().getTime(),
   })
     .then(() =>

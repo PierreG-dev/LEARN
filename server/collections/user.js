@@ -8,7 +8,10 @@ const { model, Schema } = require("mongoose");
  * hashedPassword: mot de passe hashé
  * avatarUrl: url de l'image de profil
  * timestamp: date d'inscription
- * lastSeen: date de la dernière requête
+ * lastActivity: date de la dernière requête
+ * isBanned: booléen témoignant de la capacité du compte à s'authentifier
+ * globalChatAccess: booléen témoignant de la capacité du compte à chatter dans le chat global
+ * groupChatAccess: booléen témoignant de la capacité du compte à chatter dans le chat de groupe
  * roles: tableau des différents rôles associés au compte
  */
 
@@ -17,11 +20,15 @@ let schema = new Schema({
   signupCodeId: String,
   login: String,
   username: String,
+  firstName: String,
+  lastName: String,
   hashedPassword: String,
   avatarUrl: String,
   timestamp: Number,
   lastActivity: Number,
-  banned: Boolean,
+  isBanned: Boolean,
+  globalChatAccess: Boolean,
+  groupChatAccess: Boolean,
   roles: [String],
 });
 

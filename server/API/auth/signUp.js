@@ -4,15 +4,24 @@ const { sha256 } = require("js-sha256");
 module.exports = async (req, res) => {
   const {
     signupCode: _signupCode,
+    firstName: _firstName,
+    lastname: _lastName,
     login: _login,
     username: _username,
     password: _password,
   } = req.body;
 
-  if (!_login || !_username || !_password || !_signupCode)
+  if (
+    !_login ||
+    !_username ||
+    !_password ||
+    !_signupCode ||
+    _firstName ||
+    _lastName
+  )
     return res.status(400).send({
       code: 400,
-      msg: "Login, username, password and signupCode are all required",
+      msg: "Login, username, firstName, lastName, password and signupCode are all required",
     });
 
   const signupCode = await collections.SignupCode.findOne({
@@ -30,11 +39,16 @@ module.exports = async (req, res) => {
     signupCodeId: signupCode._id,
     login: _login,
     username: _username,
+    firstName: _firstName,
+    lastName: _lastName,
     hashedPassword: sha256(_password),
     timestamp: new Date().getTime(),
     avatarUrl: "",
-    banned: false,
-    roles: ["user"],
+    lastActivity: new Date().getTime(),
+    isBanned: false,
+    globalChatAccess: true,
+    groupChatAccess: true,
+    roles: ["student"],
   })
     .then(async () => {
       await collections.SignupCode.findOneAndUpdate(

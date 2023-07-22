@@ -12,6 +12,10 @@ module.exports = async (req, res) => {
     });
 
   const user = await collections.User.findOne({ login: _login });
+  const userClass = user.classId
+    ? await collections.Class.findOne({ _id: user.classId })
+    : undefined;
+  console.log(userClass);
   const _hashedPassword = sha256(_password);
 
   if (!user || _hashedPassword !== user.hashedPassword)
@@ -20,10 +24,16 @@ module.exports = async (req, res) => {
       msg: "Invalid credentials",
     });
 
-  if (user.banned)
+  if (user.isBanned)
     return res.status(403).send({
       code: 403,
-      msg: "You are banned",
+      msg: "Vous êtes banni",
+    });
+
+  if (userClass && userClass.isDisabled)
+    return res.status(403).send({
+      code: 403,
+      msg: "Vous ne pouvez pas vous connecter pour le moment, veuillez réessayer plus tard",
     });
 
   const token = jwt.sign(

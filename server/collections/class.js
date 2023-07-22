@@ -5,6 +5,7 @@ const { model, Schema } = require("mongoose");
  * schoolId: id de l'école associée à la classe (pas d'école si vide)
  * studentsAmount: nombre d'étudiants dans la classe
  * description: description de la classe
+ * isDisabled: booléen pour savoir si la classe est fonctionnelle ou non
  * timestamp: date de création de la classe
  */
 
@@ -13,8 +14,9 @@ let schema = new Schema({
   schoolId: String,
   name: String,
   studentsAmount: Number,
-  timestamp: Number,
+  isDisabled: Boolean,
   lastActivity: Number,
+  timestamp: Number,
 });
 
 schema.statics.createClass = (packet) => {
