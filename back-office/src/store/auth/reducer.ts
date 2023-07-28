@@ -1,6 +1,6 @@
-import { createReducer } from '@reduxjs/toolkit';
-import { ConnectionState } from '../../types/types';
-import { connect, disconnect } from './actions';
+import { createReducer } from "@reduxjs/toolkit";
+import { ConnectionState } from "../../types/types";
+import { connect, disconnect } from "./actions";
 
 const initialState: ConnectionState = {
   isConnected: false,
