@@ -1,12 +1,12 @@
-import { toast } from "react-toastify";
-import { connect, disconnect } from "../store/auth/actions";
-import { update } from "../store/data/actions";
-import { Socket, io } from "socket.io-client";
-import { useCallback } from "react";
-import { APIResponse } from "../types/types";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
+import { connect, disconnect } from '../store/auth/actions';
+import { update } from '../store/data/actions';
+import { Socket, io } from 'socket.io-client';
+import { useCallback } from 'react';
+import { APIResponse } from '../types/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { useState, useEffect } from 'react';
 
 const useConnect = () => {
   const [socket, setSocket] = useState<Socket>();
@@ -18,42 +18,42 @@ const useConnect = () => {
 
   // --- Fonction qui vérifie si un JWT est enregistré dans le localStorage, et se connecte en conséquence
   const tryConnect = useCallback(() => {
-    const storedToken = localStorage.getItem("token");
+    const storedToken = localStorage.getItem('token');
     if (!storedToken) return;
 
-    const newSocket = io("http://localhost:8000", {
+    const newSocket = io('http://localhost:8000', {
       auth: { token: storedToken },
     });
-    newSocket.on("connect", () => {
-      toast.success("Connexion établie", {
-        position: "top-right",
+    newSocket.on('connect', () => {
+      toast.success('Connexion établie', {
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: 'colored',
       });
       setSocket(newSocket);
       dispatch(connect({ token: storedToken }));
 
-      newSocket.off("dataProvider");
-      newSocket.on("dataProvider", (data) => {
+      newSocket.off('dataProvider');
+      newSocket.on('dataProvider', (data) => {
         dispatch(update({ data }));
       });
 
-      newSocket.off("disconnect");
-      newSocket.on("disconnect", () => {
-        toast.error("Connexion perdue", {
-          position: "top-right",
+      newSocket.off('disconnect');
+      newSocket.on('disconnect', () => {
+        toast.error('Connexion perdue', {
+          position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: 'colored',
         });
       });
     });
@@ -77,10 +77,10 @@ const useConnect = () => {
       username: string,
       password: string
     ): Promise<APIResponse> => {
-      return await fetch("http://localhost:8000/signup", {
-        method: "POST",
+      return await fetch('http://localhost:8000/signup', {
+        method: 'POST',
         headers: {
-          "Content-type": "application/json",
+          'Content-type': 'application/json',
         },
         body: JSON.stringify({
           signupCode,
@@ -105,10 +105,10 @@ const useConnect = () => {
    */
   const handleLogin = useCallback(
     async (login: string, password: string): Promise<APIResponse> => {
-      return await fetch("http://localhost:8000/login", {
-        method: "POST",
+      return await fetch('http://localhost:8000/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           login,
@@ -118,27 +118,27 @@ const useConnect = () => {
         .then((response) => response.json())
         .then((data) => {
           if (data.code === 200) {
-            localStorage.setItem("token", data.token);
+            localStorage.setItem('token', data.token);
             tryConnect();
           } else if (data.code === 401) {
-            toast.error("Identifiants invalides", {
-              position: "top-right",
+            toast.error('Identifiants invalides', {
+              position: 'top-right',
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
               draggable: true,
               progress: undefined,
-              theme: "colored",
+              theme: 'colored',
             });
           }
           return data;
         })
         .catch((error) => {
-          console.error("Erreur lors de la connexion", error);
+          console.error('Erreur lors de la connexion', error);
           return {
             code: 500,
-            msg: "Problème de réseau",
+            msg: 'Problème de réseau',
           };
         });
     },
@@ -148,13 +148,13 @@ const useConnect = () => {
   // --- Fonction qui déconnecte l'utilisateur et détruit son JWT
   const handleLogout = useCallback(() => {
     // Supprime le JWT du stockage local
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
 
     // Exemple d'appel d'API pour se déconnecter en utilisant le JWT
-    fetch("http://localhost:8000/logout", {
-      method: "POST",
+    fetch('http://localhost:8000/logout', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `${connectionToken}`, // Inclure le JWT dans les en-têtes de la requête
       },
     })
@@ -162,36 +162,53 @@ const useConnect = () => {
       .then((data) => {
         if (data.code === 200) {
           dispatch(disconnect());
-          localStorage.removeItem("token");
-          toast.warn("Déconnexion réussie", {
-            position: "top-right",
+          localStorage.removeItem('token');
+          toast.warn('Déconnexion réussie', {
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "colored",
+            theme: 'colored',
           });
         } else {
-          toast.error("Erreur lors de la déconnexion", {
-            position: "top-right",
+          toast.error('Erreur lors de la déconnexion', {
+            position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "colored",
+            theme: 'colored',
           });
         }
       })
       .catch((error) => {
-        console.error("Erreur lors de la déconnexion", error);
+        console.error('Erreur lors de la déconnexion', error);
       });
   }, [connectionToken, dispatch]);
 
+  // --- Fonction qui vérifie le signupCode (lors de l'inscription)
+  const signupCodeCheck = useCallback(async (signupCode: string) => {
+    return await fetch(`${import.meta.env.VITE_APP_API_URL}/signupCodeCheck`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        signupCode: signupCode,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch((err) => console.error(err));
+  }, []);
+
   // --- Tentative de connexion avec l'éventuel JWT stocké
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(tryConnect, []);
 
   return {
@@ -200,6 +217,7 @@ const useConnect = () => {
     handleLogin,
     handleSignup,
     handleLogout,
+    signupCodeCheck,
   };
 };
 

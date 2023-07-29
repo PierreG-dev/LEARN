@@ -1,4 +1,4 @@
-@use "../../styles/_variables" as *;
+@use '../../styles/_variables' as *;
 
 // --- Conteneur global (ecoles + classes)
 aside {
@@ -44,6 +44,13 @@ aside {
       flex-direction: column;
       gap: 20px;
 
+      & > em {
+        opacity: 0.6;
+        font-size: 0.9rem;
+        margin: auto;
+        display: inline-block;
+      }
+
       li > div {
         animation: 0.3s fadeIn 1 ease backwards;
       }
@@ -82,6 +89,13 @@ section#classes {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    & > em {
+      opacity: 0.6;
+      font-size: 0.9rem;
+      margin: auto;
+      display: inline-block;
+    }
 
     li {
       div {

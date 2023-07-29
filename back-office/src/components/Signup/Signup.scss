@@ -1,16 +1,31 @@
-@use "../../styles/_variables" as *;
+@use '../../styles/_variables' as *;
 
-div#login_page {
+div#signup_page {
   h1 {
-    margin-top: -30vh;
     font-size: 4rem;
+    line-height: 35px;
+
+    span {
+      padding-left: 40px;
+      font-size: 1rem;
+    }
   }
 
   & > form {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 450px;
     gap: 20px;
+
+    label {
+      font-size: 0.85rem;
+      em {
+        font-size: 0.7rem;
+        opacity: 0.6;
+        margin-left: 10px;
+      }
+    }
 
     & > div {
       width: 100%;
@@ -20,11 +35,14 @@ div#login_page {
     }
 
     fieldset {
-      display: flex;
-      border: none;
+      padding: 10px;
+      padding-top: 2px;
+      border: 1px solid $color-main;
 
       & > div {
-        width: 50%;
+        display: flex;
+        gap: 5px;
+        justify-content: space-between;
       }
     }
 

@@ -1,4 +1,4 @@
-@use "../../styles/_variables" as *;
+@use '../../styles/_variables' as *;
 
 div#login_page {
   h1 {
@@ -17,6 +17,10 @@ div#login_page {
     flex-direction: column;
     width: 450px;
     gap: 20px;
+
+    label {
+      font-size: 0.85rem;
+    }
 
     & > div {
       width: 100%;

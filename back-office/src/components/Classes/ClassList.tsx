@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Class as _Class, School as _School } from "../../types/types";
-import { IoIosSchool } from "react-icons/io";
-import { FaChalkboardTeacher } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
-import styled from "styled-components";
-import useIcon from "../../utilities/iconGenerator";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Class as _Class, School as _School } from '../../types/types';
+import { IoIosSchool } from 'react-icons/io';
+import { FaChalkboardTeacher } from 'react-icons/fa';
+import { Link, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import useIcon from '../../utilities/iconGenerator';
 
 type Props = {
   schools: _School[];
@@ -27,25 +27,29 @@ const ClassList: React.FC<Props> = ({ schools }) => {
     const school = schools.find((schoolItem) => schoolId === schoolItem._id);
     const classElements = (
       <ul id="classes_list">
-        {school?.classes.map((classItem: _Class, key: number) => (
-          <Link to={`/classes/${schoolId}/${classItem._id}`}>
-            <Class
-              key={key}
-              className={`class-list-item ${
-                classId
-                  ? classId === classItem._id
-                    ? "selected"
-                    : "not-selected"
-                  : ""
-              }`}
-            >
-              <div style={{ animationDelay: `0.${key * 2 + 4}s` }}>
-                {" "}
-                <h3>{classItem.name}</h3>
-              </div>
-            </Class>
-          </Link>
-        ))}
+        {school?.classes && school.classes.length !== 0 ? (
+          school.classes.map((classItem: _Class, key: number) => (
+            <Link to={`/classes/${schoolId}/${classItem._id}`}>
+              <Class
+                key={key}
+                className={`class-list-item ${
+                  classId
+                    ? classId === classItem._id
+                      ? 'selected'
+                      : 'not-selected'
+                    : ''
+                }`}
+              >
+                <div style={{ animationDelay: `0.${key * 2 + 4}s` }}>
+                  {' '}
+                  <h3>{classItem.name}</h3>
+                </div>
+              </Class>
+            </Link>
+          ))
+        ) : (
+          <em>Pas de classes pour le moment</em>
+        )}
       </ul>
     );
 
@@ -55,39 +59,43 @@ const ClassList: React.FC<Props> = ({ schools }) => {
   const displaySchools = useCallback(() => {
     return (
       <ul id={`schools_list`}>
-        {schools?.map((school: _School, key: number) => (
-          <Link to={`/classes/${school._id}`}>
-            <School
-              key={key}
-              className={`school-list-item ${
-                schoolId
-                  ? schoolId === school._id
-                    ? "selected"
-                    : "not-selected"
-                  : ""
-              }`}
-            >
-              <img
-                src={import.meta.env.VITE_APP_API_URL + school.logoUrl}
-                alt={school.name}
-              />
-              {!schoolId && (
-                <div style={{ animationDelay: `0.${key * 2 + 4}s` }}>
-                  {" "}
-                  <h3>{school.name}</h3>
-                  <i>{school.description}</i>
-                </div>
-              )}
-            </School>
-          </Link>
-        ))}
+        {schools.length !== 0 ? (
+          schools.map((school: _School, key: number) => (
+            <Link to={`/classes/${school._id}`}>
+              <School
+                key={key}
+                className={`school-list-item ${
+                  schoolId
+                    ? schoolId === school._id
+                      ? 'selected'
+                      : 'not-selected'
+                    : ''
+                }`}
+              >
+                <img
+                  src={import.meta.env.VITE_APP_API_URL + school.logoUrl}
+                  alt={school.name}
+                />
+                {!schoolId && (
+                  <div style={{ animationDelay: `0.${key * 2 + 4}s` }}>
+                    {' '}
+                    <h3>{school.name}</h3>
+                    <i>{school.description}</i>
+                  </div>
+                )}
+              </School>
+            </Link>
+          ))
+        ) : (
+          <em>Pas d'écoles pour le moment</em>
+        )}
       </ul>
     );
   }, [schools, schoolId]);
 
   return (
     <aside>
-      <section id="schools" className={schoolId && "collapsed"}>
+      <section id="schools" className={schoolId && 'collapsed'}>
         <h2>
           <IoIosSchool /> {!schoolId && <span>ECOLES</span>}
         </h2>

@@ -1,5 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
-import { MdLogout } from "react-icons/md";
+import { Link, useLocation } from 'react-router-dom';
+import { MdLogout } from 'react-icons/md';
 
 interface Props {
   handleLogout: () => void;
@@ -8,18 +8,17 @@ interface Props {
 
 const links = [
   {
-    link: "/classes",
-    name: "Classes",
+    link: '/classes',
+    name: 'Classes',
   },
   {
-    link: "/chapters",
-    name: "Chapitres",
+    link: '/chapters',
+    name: 'Chapitres',
   },
 ];
 
 const Navbar = ({ handleLogout, isConnected }: Props) => {
   const location = useLocation();
-  console.log(location);
 
   return (
     <nav>
@@ -34,7 +33,7 @@ const Navbar = ({ handleLogout, isConnected }: Props) => {
           {links.map((link, key) => (
             <li
               className={
-                location.pathname.includes(link.link) ? "selected" : ""
+                location.pathname.includes(link.link) ? 'selected' : ''
               }
               key={key}
             >

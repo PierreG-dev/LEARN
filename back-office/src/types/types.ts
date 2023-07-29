@@ -1,7 +1,7 @@
 //Store
 //===== REDUX REDUCERS =====//
 
-import { Socket } from "socket.io-client";
+import { Socket } from 'socket.io-client';
 
 //connection
 export interface ConnectionState {
@@ -16,14 +16,14 @@ export interface GlobalDataState {
 
 //===== REDUX ACTIONS =====//
 // Connection
-export type ConnectionAction = `connection/${"connect" | "disconnect"}`;
+export type ConnectionAction = `connection/${'connect' | 'disconnect'}`;
 
 export interface ConnectionPayload {
   token: string | null;
 }
 
 // Data update
-export type GlobalDataAction = `globalData/${"update"}`;
+export type GlobalDataAction = `globalData/${'update'}`;
 
 export interface GlobalDataUpdatePayload {
   data: Array<object>;
@@ -35,6 +35,9 @@ export interface APIResponse {
   code: number;
   msg: string;
   [key: string]: any;
+}
+export interface CodeCheckResponse extends APIResponse {
+  class: boolean;
 }
 
 // ===== DATA ===== //
@@ -154,4 +157,5 @@ export type IAuthContext = {
   ) => Promise<APIResponse>;
   handleLogout: () => void;
   tryConnect: () => void;
+  signupCodeCheck: (signupCode: string) => Promise<CodeCheckResponse>;
 };
