@@ -7,7 +7,7 @@ import '../components/Signup/Signup.scss';
 import useError from '../hooks/useError';
 import { Link } from 'react-router-dom';
 
-// A FAIRE: Gérer les events paste cut copy en plus de change sur les inputs
+// A FAIRE: Gérer la modification du bouton d'inscription pour confirmer l'application de cette derniere
 
 const Signup = () => {
   const { handleSignup, handleLogin, signupCodeCheck } = useContext(
@@ -29,48 +29,79 @@ const Signup = () => {
     disableError();
   }, [disableError]);
 
-  const loginChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setLogin(e.target.value);
-  }, []);
+  const loginChange = useCallback(
+    (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ClipboardEvent<HTMLInputElement>
+    ) => {
+      if ('value' in e.target) setLogin(e.target.value);
+    },
+    []
+  );
 
   const usernameChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setUsername(e.target.value);
+    (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ClipboardEvent<HTMLInputElement>
+    ) => {
+      if ('value' in e.target) setUsername(e.target.value);
     },
     []
   );
 
   const firstNameChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFirstName(e.target.value);
+    (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ClipboardEvent<HTMLInputElement>
+    ) => {
+      if ('value' in e.target) setFirstName(e.target.value);
     },
     []
   );
 
   const lastNameChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setLastName(e.target.value);
+    (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ClipboardEvent<HTMLInputElement>
+    ) => {
+      if ('value' in e.target) setLastName(e.target.value);
     },
     []
   );
 
   const passwordChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPassword(e.target.value);
+    (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ClipboardEvent<HTMLInputElement>
+    ) => {
+      if ('value' in e.target) setPassword(e.target.value);
     },
     []
   );
 
   const passwordConfirmChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPasswordConfirm(e.target.value);
+    (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ClipboardEvent<HTMLInputElement>
+    ) => {
+      if ('value' in e.target) setPasswordConfirm(e.target.value);
     },
     []
   );
 
   const signupCodeChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSignupCode(e.target.value);
+    (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ClipboardEvent<HTMLInputElement>
+    ) => {
+      if ('value' in e.target) setSignupCode(e.target.value);
     },
     []
   );
@@ -195,6 +226,9 @@ const Signup = () => {
             id=""
             value={login}
             onChange={loginChange}
+            onCut={loginChange}
+            onPaste={loginChange}
+            onCopy={loginChange}
           />
         </div>
         <div>
@@ -212,6 +246,9 @@ const Signup = () => {
             id=""
             value={username}
             onChange={usernameChange}
+            onCut={usernameChange}
+            onPaste={usernameChange}
+            onCopy={usernameChange}
           />
         </div>
         <fieldset>
@@ -230,6 +267,9 @@ const Signup = () => {
                 id=""
                 value={firstName}
                 onChange={firstNameChange}
+                onCut={firstNameChange}
+                onPaste={firstNameChange}
+                onCopy={firstNameChange}
               />
             </div>
             <div>
@@ -244,6 +284,9 @@ const Signup = () => {
                 id=""
                 value={lastName}
                 onChange={lastNameChange}
+                onCut={lastNameChange}
+                onPaste={lastNameChange}
+                onCopy={lastNameChange}
               />
             </div>
           </div>
@@ -263,6 +306,9 @@ const Signup = () => {
                 id=""
                 value={password}
                 onChange={passwordChange}
+                onCut={passwordChange}
+                onPaste={passwordChange}
+                onCopy={passwordChange}
               />
             </div>
             <div>
@@ -277,6 +323,9 @@ const Signup = () => {
                 id=""
                 value={passwordConfirm}
                 onChange={passwordConfirmChange}
+                onCut={passwordConfirmChange}
+                onPaste={passwordConfirmChange}
+                onCopy={passwordConfirmChange}
               />
             </div>
           </div>
@@ -297,6 +346,9 @@ const Signup = () => {
             id=""
             value={signupCode}
             onChange={signupCodeChange}
+            onCut={signupCodeChange}
+            onPaste={signupCodeChange}
+            onCopy={signupCodeChange}
           />
           <button className="learn-button" type="submit">
             S'inscrire
