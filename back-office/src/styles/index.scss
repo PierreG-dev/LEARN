@@ -1,10 +1,10 @@
-@use './_variables' as *;
+@use "./_variables" as *;
 //Lato - textes
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 //Poppins - titres
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 //Silkscreen - special
-@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
 
 :root {
   --toastify-color-success: rgba(51, 187, 102, 0.8);
@@ -29,7 +29,7 @@ body {
 }
 
 .logo-typo {
-  font-family: 'Silkscreen', cursive;
+  font-family: "Silkscreen", cursive;
 }
 
 input.learn-input {
@@ -43,6 +43,9 @@ input.learn-input {
   font-weight: bold;
   transition: 0.2s;
 
+  &:disabled {
+    opacity: 0.4;
+  }
   &::placeholder {
     font-style: italic;
   }
@@ -63,6 +66,18 @@ button.learn-button {
   border-radius: 5px;
   border: none;
   color: #fafafa;
+
+  &:disabled {
+    opacity: 0.2;
+    background: #e07a5f99 !important;
+    cursor: auto !important;
+    transform: scale3d(1, 1, 1) !important;
+  }
+
+  &:active {
+    transition: 0.1s;
+    transform: scale3d(0.95, 0.95, 1);
+  }
 
   &:hover {
     cursor: pointer;

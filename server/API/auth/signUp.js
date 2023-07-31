@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
   const {
     signupCode: _signupCode,
     firstName: _firstName,
-    lastname: _lastName,
+    lastName: _lastName,
     login: _login,
     username: _username,
     password: _password,

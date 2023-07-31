@@ -9,9 +9,19 @@ import Error404 from "../pages/Error404";
 
 import useConnectedRoute from "../hooks/useConnectedRoute";
 import useDisconnectedRoute from "../hooks/useDisconnectedRoute";
+import LegalUsage from "../pages/legal/LegalUsage";
+import LegalPrivacy from "../pages/legal/LegalPrivacy";
 
 const Router = () => {
   const routing = useRoutes([
+    {
+      path: "/legal/usage",
+      element: <LegalUsage />,
+    },
+    {
+      path: "/legal/privacy",
+      element: <LegalPrivacy />,
+    },
     useDisconnectedRoute({
       path: "/login",
       element: <Login />,

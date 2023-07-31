@@ -1,4 +1,4 @@
-const collections = require('@collections');
+const collections = require("@collections");
 
 module.exports = async (req, res) => {
   const { signupCode: _signupCode } = req.body;
@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
   if (!_signupCode)
     return res.status(400).send({
       code: 400,
-      msg: 'signupCode is required',
+      msg: "signupCode is required",
     });
 
   const signupCode = await collections.SignupCode.findOne({
@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
   if (!signupCode || signupCode.usagesAmount <= 0)
     return res.status(400).send({
       code: 400,
-      msg: 'Code invalide',
+      msg: "Code invalide",
     });
 
   if (signupCode.classId) {
@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
     return res.status(200).send({
       code: 200,
       class: false,
-      msg: 'Etudiant Indépendant',
+      msg: "Etudiant Indépendant",
     });
   }
 };
