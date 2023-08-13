@@ -1,9 +1,8 @@
-@use '../../styles/_variables' as *;
+@use "../../styles/_variables" as *;
 
 // --- Conteneur global (ecoles + classes)
 aside {
   height: 100%;
-  background: $color-main;
   display: flex;
 
   * {
@@ -17,6 +16,8 @@ aside {
     width: 230px;
     transition: 0.3s;
     height: 100%;
+    z-index: 2;
+    background: $color-main;
 
     &.collapsed {
       width: 60px;
@@ -62,11 +63,8 @@ aside {
 section#classes {
   width: 230px;
   transition: 0.3s;
-  background: rgba(0, 0, 0, 0.1);
-
-  &.collapsed {
-    width: 60px;
-  }
+  background: #c96e55;
+  animation: 0.5s 0.3s classesAppear_classes 1 ease backwards;
 
   h2 {
     width: 100%;
@@ -80,7 +78,7 @@ section#classes {
 
     span {
       font-family: $font-family-special;
-      animation: 0.3s fadeIn 0.3s 1 ease backwards;
+      animation: 0.3s 0.5s fadeIn 0.3s 1 ease backwards;
     }
   }
 
@@ -115,5 +113,16 @@ section#classes {
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes classesAppear_classes {
+  0% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
   }
 }

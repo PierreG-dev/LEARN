@@ -2,7 +2,7 @@ import { FC } from "react";
 import "../../components/Legal/index.scss";
 
 const LegalPrivacy: FC = () => (
-  <section id="privacy-policy">
+  <section id="privacy_policy">
     <h1>Politique de Confidentialité</h1>
     <p>
       Bienvenue sur <strong>LEARN</strong>, votre plateforme d'apprentissage en

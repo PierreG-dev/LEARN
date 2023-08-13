@@ -2,7 +2,7 @@ import { FC } from "react";
 import "../../components/Legal/index.scss";
 
 const LegalUsage: FC = () => (
-  <section id="terms-of-use">
+  <section id="terms_of_use">
     <h1>Conditions d'Utilisation</h1>
     <p>
       Bienvenue sur <strong>LEARN</strong>, votre plateforme d'apprentissage en

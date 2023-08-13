@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState } from "../store/index.ts";
 import { Navigate, RouteObject, RouteProps } from "react-router-dom";
 
 const useDisconnectedRoute = ({ element, ...rest }: RouteObject) => {
@@ -7,9 +7,20 @@ const useDisconnectedRoute = ({ element, ...rest }: RouteObject) => {
     (state: RootState) => state.connection.isConnected
   );
 
+  const isPending = useSelector(
+    (state: RootState) => state.connection.isPending
+  );
+
   return {
     ...rest,
-    element: isConnected ? <Navigate to="/" replace /> : element,
+    ...rest,
+    element: isPending ? (
+      <>Vérification de la connexion...</>
+    ) : !isConnected ? (
+      element
+    ) : (
+      <Navigate to="/" replace />
+    ),
   };
 };
 

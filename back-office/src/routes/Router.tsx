@@ -50,7 +50,7 @@ const Router = () => {
     }),
     useConnectedRoute({ path: "/classes/:schoolId", element: <Classes /> }),
     useConnectedRoute({ path: "/classes", element: <Classes /> }),
-    useConnectedRoute({ path: "*", element: <Error404 /> }),
+    { path: "*", element: <Error404 /> },
   ]);
 
   return routing;

@@ -1,12 +1,13 @@
 //Store
 //===== REDUX REDUCERS =====//
 
-import { Socket } from 'socket.io-client';
+import { Socket } from "socket.io-client";
 
 //connection
 export interface ConnectionState {
   isConnected: boolean;
   token: string | null;
+  isPending: boolean;
 }
 
 //globalData
@@ -16,17 +17,17 @@ export interface GlobalDataState {
 
 //===== REDUX ACTIONS =====//
 // Connection
-export type ConnectionAction = `connection/${'connect' | 'disconnect'}`;
+export type ConnectionAction = `connection/${"connect" | "disconnect"}`;
 
 export interface ConnectionPayload {
   token: string | null;
 }
 
 // Data update
-export type GlobalDataAction = `globalData/${'update'}`;
+export type GlobalDataAction = `globalData/${"update"}`;
 
 export interface GlobalDataUpdatePayload {
-  data: Array<object>;
+  data: DataPack;
 }
 
 //===== API =====//
@@ -137,7 +138,7 @@ export type Exercise = {
 
 // --- DataPack
 export type DataPack = {
-  user: User;
+  user?: User;
   schools?: School[];
   chapters?: Chapter[];
 };

@@ -1,6 +1,7 @@
 @use "../../styles/_variables" as *;
 
-section {
+section#terms_of_use,
+section#privacy_policy {
   width: 60vw !important;
   margin: auto;
   padding: 50px 0;

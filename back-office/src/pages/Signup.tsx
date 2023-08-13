@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import { APIResponse, IAuthContext, CodeCheckResponse } from "../types/types";
+import { APIResponse, IAuthContext, CodeCheckResponse } from "../types";
 import { AuthContext } from "../contexts/Auth";
 import { useContext } from "react";
 import "../components/Signup/Signup.scss";

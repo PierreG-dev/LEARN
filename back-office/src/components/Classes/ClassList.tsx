@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Class as _Class, School as _School } from '../../types/types';
-import { IoIosSchool } from 'react-icons/io';
-import { FaChalkboardTeacher } from 'react-icons/fa';
-import { Link, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import useIcon from '../../utilities/iconGenerator';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Class as _Class, School as _School } from "../../types";
+import { IoIosSchool } from "react-icons/io";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { Link, useParams } from "react-router-dom";
+import styled from "styled-components";
+import useIcon from "../../utilities/iconGenerator";
 
 type Props = {
   schools: _School[];
@@ -35,13 +35,13 @@ const ClassList: React.FC<Props> = ({ schools }) => {
                 className={`class-list-item ${
                   classId
                     ? classId === classItem._id
-                      ? 'selected'
-                      : 'not-selected'
-                    : ''
+                      ? "selected"
+                      : "not-selected"
+                    : ""
                 }`}
               >
-                <div style={{ animationDelay: `0.${key * 2 + 4}s` }}>
-                  {' '}
+                <div style={{ animationDelay: `${0.7 + 0.2 * key}s` }}>
+                  {" "}
                   <h3>{classItem.name}</h3>
                 </div>
               </Class>
@@ -67,9 +67,9 @@ const ClassList: React.FC<Props> = ({ schools }) => {
                 className={`school-list-item ${
                   schoolId
                     ? schoolId === school._id
-                      ? 'selected'
-                      : 'not-selected'
-                    : ''
+                      ? "selected"
+                      : "not-selected"
+                    : ""
                 }`}
               >
                 <img
@@ -77,8 +77,8 @@ const ClassList: React.FC<Props> = ({ schools }) => {
                   alt={school.name}
                 />
                 {!schoolId && (
-                  <div style={{ animationDelay: `0.${key * 2 + 4}s` }}>
-                    {' '}
+                  <div style={{ animationDelay: `${0.7 + 0.2 * key}s` }}>
+                    {" "}
                     <h3>{school.name}</h3>
                     <i>{school.description}</i>
                   </div>
@@ -95,7 +95,7 @@ const ClassList: React.FC<Props> = ({ schools }) => {
 
   return (
     <aside>
-      <section id="schools" className={schoolId && 'collapsed'}>
+      <section id="schools" className={schoolId && "collapsed"}>
         <h2>
           <IoIosSchool /> {!schoolId && <span>ECOLES</span>}
         </h2>

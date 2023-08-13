@@ -3,9 +3,9 @@ import { ReactNode, FC, useContext } from "react";
 import Navbar from "./navbar";
 import "./index.scss";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../store/index.ts";
 import { AuthContext } from "../../contexts/Auth";
-import { IAuthContext } from "../../types/types";
+import { IAuthContext } from "../../types";
 
 interface Props {
   children: ReactNode;

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { School, Class } from "../../types/types";
+import { School, Class } from "../../types";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { AiFillEdit, AiOutlineArrowRight } from "react-icons/ai";

@@ -1,0 +1,25 @@
+@use "../../styles/_variables" as *;
+
+main#error_404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+
+  h1 {
+    color: $color-main;
+    font-family: "Silkscreen", cursive !important;
+    text-align: center;
+
+    span {
+      font-family: "Silkscreen", cursive !important;
+      font-size: 5rem;
+    }
+  }
+
+  button {
+    margin-top: 20px;
+    font-size: 1.8rem;
+  }
+}
