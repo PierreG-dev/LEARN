@@ -1,7 +1,9 @@
-import globalDataReducer from "./globalDataReducer";
-import connectionReducer from "./connectionReducer";
+import dataReducer from "./dataReducer";
+import globalsReducer from "./globalsReducers";
+import authReducer from "./authReducer";
 
 export default {
-  globalDataReducer,
-  connectionReducer,
+  dataReducer,
+  authReducer,
+  globalsReducer,
 };

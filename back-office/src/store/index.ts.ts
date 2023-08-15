@@ -4,8 +4,9 @@ import reducers from "./reducers";
 
 const store = configureStore({
   reducer: {
-    connection: reducers.connectionReducer,
-    globalData: reducers.globalDataReducer,
+    auth: reducers.authReducer,
+    data: reducers.dataReducer,
+    globals: reducers.globalsReducer,
   },
   devTools: true,
 });

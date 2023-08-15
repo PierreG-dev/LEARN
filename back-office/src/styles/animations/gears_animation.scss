@@ -1,0 +1,40 @@
+#gears-container {
+  position: absolute;
+  top: 25px;
+
+  i {
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: -13px;
+    left: -40px;
+    background: url(https://i.imgur.com/lOBxb.png);
+    background-size: cover;
+    -webkit-animation: gearRotate 5s infinite linear;
+  }
+
+  i:last-of-type {
+    top: -5px;
+    left: -23px;
+    -webkit-animation-name: invertGearRotate;
+    animation-delay: 0.15s;
+  }
+  @-webkit-keyframes gearRotate {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @-webkit-keyframes invertGearRotate {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(-360deg);
+    }
+  }
+}

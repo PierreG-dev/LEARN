@@ -1,10 +1,6 @@
-import React, { useCallback } from "react";
-import { School, Class } from "../../types";
+import React from "react";
+import { School } from "../../types";
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
-import { AiFillEdit, AiOutlineArrowRight } from "react-icons/ai";
-import ClassView from "./ClassView";
-import ClassEdit from "./ClassEdit";
 import ClassList from "./ClassList";
 import "./index.scss";
 
@@ -13,8 +9,6 @@ type Props = {
 };
 
 const Index: React.FC<Props> = ({ schools }) => {
-  const { classId, schoolId } = useParams();
-
   return (
     <MainContainer>{schools && <ClassList schools={schools} />}</MainContainer>
   );

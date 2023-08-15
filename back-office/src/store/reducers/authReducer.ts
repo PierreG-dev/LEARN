@@ -5,7 +5,7 @@ import {
   disconnect,
   startPending,
   stopPending,
-} from "../actions/connectionActions";
+} from "../actions/authActions";
 
 const initialState: ConnectionState = {
   isConnected: false,
@@ -19,7 +19,6 @@ const initialState: ConnectionState = {
 const connectionReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(connect, (state, action) => {
-      console.log(action.payload);
       state.isConnected = true;
       state.token = action.payload.token;
     })

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ReactNode, FC, useContext } from "react";
-import Navbar from "./navbar";
+import Navbar from "./Navbar.tsx";
 import "./index.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/index.ts";
@@ -12,16 +12,12 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children }) => {
-  const isConnected = useSelector(
-    (state: RootState) => state.connection.isConnected
-  );
+  const isConnected = useSelector((state: RootState) => state.auth.isConnected);
 
   const { handleLogout } = useContext(AuthContext) as IAuthContext;
   return (
     <MainContainer>
-      {isConnected && (
-        <Navbar handleLogout={handleLogout} isConnected={isConnected} />
-      )}
+      {isConnected && <Navbar handleLogout={handleLogout} />}
       <main className={isConnected ? "connected" : ""}>{children}</main>
     </MainContainer>
   );

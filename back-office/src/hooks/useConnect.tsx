@@ -2,41 +2,77 @@ import { toast } from "react-toastify";
 import actions from "../store/actions";
 import { Socket, io } from "socket.io-client";
 import { useCallback } from "react";
-import {
-  APIResponse,
-  ConnectionPayload,
-  GlobalDataUpdatePayload,
-} from "../types";
+import { APIResponse } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/index.ts";
 import { useState, useEffect } from "react";
+import testConnection from "../utilities/testConnection.ts";
 
 const useConnect = () => {
   const [socket, setSocket] = useState<Socket>();
   const dispatch = useDispatch();
 
-  const connectionToken = useSelector((state: RootState) => {
-    return state.connection.token;
+  useEffect(() => {
+    testConnection().catch(() =>
+      dispatch(actions.globalsActions.serverOffline())
+    );
   });
 
-  const isConnected = useSelector(
-    (state: RootState) => state.connection.isConnected
+  const connectionToken = useSelector((state: RootState) => {
+    return state.auth.token;
+  });
+
+  const isServerOnline = useSelector(
+    (state: RootState) => state.globals.isServerOnline
   );
+
+  const isPending = useSelector((state: RootState) => state.auth.isPending);
 
   // --- Fonction qui vérifie si un JWT est enregistré dans le localStorage, et se connecte en conséquence
   const tryConnect = useCallback(() => {
-    console.log("essai de connection");
-    if (isConnected) return;
+    // --- Récupération du JWT
     const storedToken = localStorage.getItem("token");
+
+    // --- Si aucun JWT n'est présent dans le local storage, on arrête tout et on laisse l'utilisateur se connecter
     if (!storedToken) {
-      dispatch(actions.connectionActions.stopPending());
+      dispatch(actions.authActions.stopPending());
       return;
     }
 
+    // --- Connexion au serveur socket.io
     const newSocket = io("http://localhost:8000", {
       auth: { token: storedToken },
     });
+
+    // --- Si le JWT est invalide ou périmé, il est supprimé pour éviter de futures connexions inutiles
+    newSocket.on("connect_error", (error) => {
+      if (error.message === "Invalid or expired token") {
+        console.info(
+          "Erreur d'authentification, le JWT est probablement périmé"
+        );
+        localStorage.removeItem("token");
+      }
+      if (error.message === "xhr poll error") {
+        console.info("Le serveur est injoignable");
+        isServerOnline && dispatch(actions.globalsActions.serverOffline());
+        newSocket.off("connect_error");
+      }
+
+      isPending && dispatch(actions.authActions.stopPending());
+    });
+
+    // --- Reconnexion du socket
+    newSocket.on("reconnect_attempt", () => {
+      console.info("Tentative de reconnexion...");
+    });
+
+    // --- Echec de la reconnexion
+    newSocket.on("reconnect_failed", () => {
+      console.info("La reconnexion a échouée");
+    });
+
     newSocket.on("connect", () => {
+      dispatch(actions.globalsActions.serverOnline());
       toast.success("Connexion établie", {
         position: "top-right",
         autoClose: 5000,
@@ -48,16 +84,17 @@ const useConnect = () => {
         theme: "colored",
       });
       setSocket(newSocket);
-      dispatch(actions.connectionActions.connect({ token: storedToken }));
-      dispatch(actions.connectionActions.stopPending());
+      dispatch(actions.authActions.connect({ token: storedToken }));
+      dispatch(actions.authActions.stopPending());
 
       newSocket.off("dataProvider");
       newSocket.on("dataProvider", (data) => {
-        dispatch(actions.globalDataActions.update({ data }));
+        dispatch(actions.dataActions.update({ data }));
       });
 
       newSocket.off("disconnect");
       newSocket.on("disconnect", () => {
+        isServerOnline && dispatch(actions.globalsActions.serverOffline());
         toast.error("Connexion perdue", {
           position: "top-right",
           autoClose: 5000,
@@ -70,7 +107,7 @@ const useConnect = () => {
         });
       });
     });
-  }, [isConnected, dispatch]);
+  }, [dispatch, isPending, isServerOnline]);
 
   // --- Fonction qui tente de créer un compte avec les paramètres fournis
   /**
@@ -174,7 +211,7 @@ const useConnect = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.code === 200) {
-          dispatch(actions.connectionActions.disconnect());
+          dispatch(actions.authActions.disconnect());
           localStorage.removeItem("token");
           toast.warn("Déconnexion réussie", {
             position: "top-right",

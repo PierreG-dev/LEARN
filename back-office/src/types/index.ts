@@ -10,9 +10,16 @@ export interface ConnectionState {
   isPending: boolean;
 }
 
-//globalData
-export interface GlobalDataState {
-  data: DataPack;
+//data
+export interface DataState {
+  user?: User;
+  schools?: School[];
+  chapters?: Chapter[];
+}
+
+// global
+export interface GlobalsState {
+  isServerOnline: boolean;
 }
 
 //===== REDUX ACTIONS =====//
@@ -24,10 +31,10 @@ export interface ConnectionPayload {
 }
 
 // Data update
-export type GlobalDataAction = `globalData/${"update"}`;
+export type DataAction = `globalData/${"update"}`;
 
-export interface GlobalDataUpdatePayload {
-  data: DataPack;
+export interface DataUpdatePayload {
+  data: DataState;
 }
 
 //===== API =====//
@@ -134,13 +141,6 @@ export type Exercise = {
   solutionFileUrl?: string;
   wiki?: string;
   links?: Link[];
-};
-
-// --- DataPack
-export type DataPack = {
-  user?: User;
-  schools?: School[];
-  chapters?: Chapter[];
 };
 
 // ===== CONTEXT ===== //

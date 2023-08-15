@@ -1,0 +1,55 @@
+@use "../../styles/_variables" as *;
+
+main#server_error_page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 20vh 0;
+  align-items: center;
+  background: $color-secondary;
+  gap: 5px;
+
+  h1 {
+    font-family: $font-family-special;
+    font-size: 4rem;
+    margin-bottom: 30px;
+  }
+
+  & > svg {
+    margin-top: 30px;
+    font-size: 5rem;
+    color: $color-special;
+  }
+  & > h2 {
+    color: $color-special;
+  }
+
+  button {
+    font-size: 1.2rem;
+    margin-top: 40px;
+    span {
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        opacity: 0.8;
+      }
+    }
+    #request_pending {
+      animation: 0.5s rotate infinite linear;
+    }
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

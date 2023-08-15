@@ -9,77 +9,101 @@ nav {
   align-items: center;
   justify-content: space-between;
 
-  * {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p,
+  li,
+  a {
     color: $color-light;
   }
 
   & > div {
     display: flex;
-    gap: 50px;
+    align-items: center;
 
-    a {
-      text-decoration: none;
-      transition: 0.1s;
-
-      &:hover,
-      &:hover h2,
-      &:hover h2 sup {
-        color: $color-secondary;
-      }
-
-      h2 {
-        font-family: $font-family-special;
-        letter-spacing: 1px;
-        font-size: 1.3rem;
-        transition: 0.1s;
-
-        sup {
-          font-size: 0.7rem;
-          transition: 0.1s;
-        }
-      }
-    }
-
-    ul {
+    & > div {
       display: flex;
-      list-style: none;
       align-items: center;
-      gap: 20px;
+      gap: 50px;
 
-      li {
-        padding: 5px;
+      a {
+        text-decoration: none;
         transition: 0.1s;
 
-        &::after {
-          content: "";
-          background: $color-light;
-          width: 0;
-          margin: auto;
-          height: 2px;
-          display: block;
-          transition: 0.2s;
-          border-radius: 2px;
+        &:hover,
+        &:hover h2,
+        &:hover h2 sup {
+          color: $color-secondary;
         }
 
-        &.selected {
-          a {
-            color: $color-secondary !important;
+        h2 {
+          font-family: $font-family-special;
+          letter-spacing: 1px;
+          font-size: 1.3rem;
+          transition: 0.1s;
+
+          sup {
+            font-size: 0.7rem;
+            transition: 0.1s;
           }
+        }
+      }
+
+      ul {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        gap: 20px;
+
+        li {
+          padding: 5px;
+          transition: 0.1s;
 
           &::after {
-            width: 80%;
+            content: "";
+            background: $color-light;
+            width: 0;
+            margin: auto;
+            height: 2px;
+            display: block;
+            transition: 0.2s;
+            border-radius: 2px;
           }
-        }
 
-        a {
-          text-decoration: none;
-          font-family: $font-family-special;
+          &.selected {
+            a {
+              color: $color-secondary !important;
+            }
+
+            &::after {
+              width: 80%;
+            }
+          }
+
+          a {
+            text-decoration: none;
+            font-family: $font-family-special;
+          }
         }
       }
     }
   }
 
-  & > button {
+  svg#connection_status {
+    font-size: 2.5rem;
+    opacity: 0.7;
+    cursor: help;
+    transition: 0.1s;
+
+    &:hover {
+      transform: scale3d(1.2, 1.2, 1);
+    }
+  }
+
+  button {
     border: none;
     background: #fff2;
     padding: 5px;

@@ -3,7 +3,7 @@ import { RootState } from "../store/index.ts";
 import styled from "styled-components";
 
 const Chapter = () => {
-  const data = useSelector((state: RootState) => state.globalData.data);
+  const data = useSelector((state: RootState) => state.data.data);
   console.log(data);
 
   return (

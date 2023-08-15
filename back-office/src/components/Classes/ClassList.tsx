@@ -29,9 +29,8 @@ const ClassList: React.FC<Props> = ({ schools }) => {
       <ul id="classes_list">
         {school?.classes && school.classes.length !== 0 ? (
           school.classes.map((classItem: _Class, key: number) => (
-            <Link to={`/classes/${schoolId}/${classItem._id}`}>
+            <Link to={`/classes/${schoolId}/${classItem._id}`} key={key}>
               <Class
-                key={key}
                 className={`class-list-item ${
                   classId
                     ? classId === classItem._id
@@ -61,9 +60,8 @@ const ClassList: React.FC<Props> = ({ schools }) => {
       <ul id={`schools_list`}>
         {schools.length !== 0 ? (
           schools.map((school: _School, key: number) => (
-            <Link to={`/classes/${school._id}`}>
+            <Link to={`/classes/${school._id}`} key={key}>
               <School
-                key={key}
                 className={`school-list-item ${
                   schoolId
                     ? schoolId === school._id

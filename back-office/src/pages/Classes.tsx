@@ -7,9 +7,9 @@ type Props = {
   edit?: boolean;
 };
 
-const Classes: React.FC<Props> = ({ edit = false }) => {
-  const dataPack = useSelector((state: RootState) => state.globalData.data);
-  return <ClassesPage edit={edit} schools={dataPack.schools} />;
+const Classes: React.FC<Props> = () => {
+  const data = useSelector((state: RootState) => state.data);
+  return <ClassesPage schools={data.schools} />;
 };
 
 export default Classes;
