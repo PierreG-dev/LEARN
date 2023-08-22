@@ -1,19 +1,21 @@
-const collections = require("@collections");
-const { default: mongoose } = require("mongoose");
-const path = require("path");
-const fs = require("fs");
+const collections = require('@collections');
+const { default: mongoose } = require('mongoose');
+const path = require('path');
+const fs = require('fs');
 
 module.exports = async (req, res) => {
+  console.log(req.body);
+  console.log(req.files);
   if (!req.body.description || !req.body.name || !req.body.teacherId)
     return res.status(400).send({
       code: 400,
-      msg: "School name, school description and teacherID are all required",
+      msg: 'School name, school description and teacherID are all required',
     });
 
   if (req.files.logo && !/^image\/.*$/.test(req.files.logo.mimetype))
     return res.status(400).send({
       code: 400,
-      msg: "invalid logo format",
+      msg: 'invalid logo format',
     });
 
   const newId = new mongoose.Types.ObjectId();
@@ -27,7 +29,7 @@ module.exports = async (req, res) => {
       ? `/res/schools/logo/logo_school_${newId.toString()}${path.extname(
           req.files.logo.name
         )}`
-      : "",
+      : '',
     lastActivity: new Date().getTime(),
     order: (await collections.School.countDocuments()) + 1,
     timestamp: new Date().getTime(),
@@ -52,10 +54,10 @@ module.exports = async (req, res) => {
     )
     .catch((err) => {
       console.error(err);
-      console.error("Error when creating the school " + req.body.name);
+      console.error('Error when creating the school ' + req.body.name);
       res.status(500).send({
         code: 500,
-        msg: "Error when creating the school " + req.body.name,
+        msg: 'Error when creating the school ' + req.body.name,
       });
     });
 };

@@ -34,9 +34,12 @@ const ClassCreation: FC<IProps> = ({ options }) => {
     if (!school) throw new Error('No schoolId while trying to create a class');
 
     await request.fetchToAPI('/api/postClass', 'POST', {
-      name: name,
-      studentsAmount: studentsAmount,
-      schoolId: school?._id,
+      type: 'application/json',
+      content: JSON.stringify({
+        name: name,
+        studentsAmount: studentsAmount,
+        schoolId: school?._id,
+      }),
     });
 
     if (request.data.code === 200) {
@@ -47,7 +50,7 @@ const ClassCreation: FC<IProps> = ({ options }) => {
 
   return (
     <>
-      <h1>Créer une classe</h1>
+      <h1>Ajouter une classe</h1>
       <InlineSchoolDisplayer title={school?.description}>
         <img
           src={`${import.meta.env.VITE_APP_API_URL}${school?.logoUrl}`}
@@ -55,7 +58,7 @@ const ClassCreation: FC<IProps> = ({ options }) => {
         />{' '}
         <figcaption>{school?.name}</figcaption>
       </InlineSchoolDisplayer>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onClick={request.errorHandler.disableError}>
         <em
           className={`learn-error ${
             request.errorHandler.error.status && 'error'
@@ -84,7 +87,7 @@ const ClassCreation: FC<IProps> = ({ options }) => {
         </div>
 
         <button type="submit" className="learn-button">
-          Terminé {request.statusIcon}
+          Ajouter {request.statusIcon}
         </button>
       </form>
     </>

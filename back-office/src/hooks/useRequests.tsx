@@ -41,17 +41,29 @@ const useRequests = () => {
   }, [data, pendingRequest]);
 
   const fetchToAPI = useCallback(
-    (endpoint: string, method: 'POST' | 'PUT' | 'DELETE', body: object) => {
+    (
+      endpoint: string,
+      method: 'POST' | 'PUT' | 'DELETE',
+      body: {
+        type: 'application/json' | 'multipart/form-data';
+        content: string | FormData;
+      }
+    ) => {
       errorHandler.disableError();
       enablePending();
       setData('fetching...');
+      const headers: Record<string, string> = {
+        Authorization: `${connectionToken}`,
+      };
+
+      if (body.type !== 'multipart/form-data') {
+        headers['content-type'] = body.type;
+      }
+
       fetch(`${import.meta.env.VITE_APP_API_URL}${endpoint}`, {
         method: method,
-        headers: {
-          'content-type': 'application/json',
-          Authorization: `${connectionToken}`,
-        },
-        body: JSON.stringify(body),
+        headers,
+        body: body.content,
       })
         .then((response) => {
           return response.json();

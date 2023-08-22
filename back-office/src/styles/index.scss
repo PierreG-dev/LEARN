@@ -79,7 +79,39 @@ select.learn-select {
   }
 }
 
-input.learn-input {
+input.learn-fileInput {
+  border: none;
+  background: #e07a5f33;
+  transition: 0.1s;
+  outline: 2px solid transparent;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #fafafa;
+  font-weight: bold;
+  transition: 0.2s;
+
+  button {
+    border: 1px solid red;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+  }
+  &::placeholder {
+    font-style: italic;
+  }
+
+  &:focus {
+    background: #e07a5f99;
+  }
+
+  &.error {
+    outline: 2px solid $color-error !important;
+  }
+}
+
+input.learn-input,
+textarea.learn-input {
   border: none;
   background: #e07a5f33;
   transition: 0.1s;
