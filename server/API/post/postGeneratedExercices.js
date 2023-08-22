@@ -1,4 +1,4 @@
-const { Configuration, OpenAIApi } = require("openai");
+const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
   if (!req.body.chapter || !req.body.subChapter)
     return res.status(400).send({
       code: 400,
-      message: "Missing parameters",
+      message: 'Missing parameters',
     });
   const openai = new OpenAIApi(configuration);
   let parsed = false;
@@ -14,10 +14,10 @@ module.exports = async (req, res) => {
   do {
     try {
       response = await openai.createChatCompletion({
-        model: "gpt-3.5-turbo",
+        model: 'gpt-4',
         messages: [
           {
-            role: "user",
+            role: 'user',
             content: `
           Créé deux exercices pour s'entrainer à la programmation:
           thème: ${req.body.chapter}
@@ -45,15 +45,15 @@ module.exports = async (req, res) => {
         ],
       });
     } catch (err) {
-      // console.error(err);
+      console.error(err);
     }
 
     try {
       response = JSON.parse(
         response.data.choices[0].message.content
-          .slice(response.data.choices[0].message.content.indexOf("{"))
-          .replace(/{\\n/g, "{")
-          .replace(/\\n}/g, "}")
+          .slice(response.data.choices[0].message.content.indexOf('{'))
+          .replace(/{\\n/g, '{')
+          .replace(/\\n}/g, '}')
       );
     } catch (err) {
       // console.error(err);

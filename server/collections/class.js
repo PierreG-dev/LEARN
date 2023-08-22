@@ -1,4 +1,4 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema } = require('mongoose');
 
 /**
  * signupCodeId: id du code d'inscription associé à la classe
@@ -13,6 +13,7 @@ let schema = new Schema({
   signupCodeId: String,
   schoolId: String,
   name: String,
+  icon: String,
   studentsAmount: Number,
   isDisabled: Boolean,
   lastActivity: Number,
@@ -25,7 +26,7 @@ schema.statics.createClass = (packet) => {
     .then((snapshot) => snapshot)
     .catch((err) => {
       console.error(
-        "Group.create failed when saving " + packet.username + " ==> ",
+        'Group.create failed when saving ' + packet.username + ' ==> ',
         err
       );
       throw err;
@@ -33,7 +34,7 @@ schema.statics.createClass = (packet) => {
 };
 
 const make = (connection) => {
-  const Class = connection.model("Class", schema);
+  const Class = connection.model('Class', schema);
   return Class;
 };
 

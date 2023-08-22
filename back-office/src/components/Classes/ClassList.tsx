@@ -23,23 +23,28 @@ const ClassList: React.FC<Props> = ({ schools }) => {
   const { schoolId, classId } = useParams();
   const modal = useContext<IModalContext>(ModalContext);
 
-  const onAddButtonClick = useCallback((type: 'school' | 'class') => {
-    if (!schoolId) {
-      throw new Error('Missing school id when creating a new class');
-    }
-    return () => {
-      switch (type) {
-        case 'school':
-          modal.displayModal('SchoolCreation', { selectedSchoolId: schoolId });
-          break;
-        case 'class':
-          modal.displayModal('ClassCreation', { selectedSchoolId: schoolId });
-          break;
-        default:
-          throw new Error('Switch addButton classList error');
+  const onAddButtonClick = useCallback(
+    (type: 'school' | 'class') => {
+      if (!schoolId && type === 'class') {
+        throw new Error('Missing school id when creating a new class');
       }
-    };
-  }, []);
+      return () => {
+        switch (type) {
+          case 'school':
+            modal.displayModal('SchoolCreation', {
+              selectedSchoolId: schoolId,
+            });
+            break;
+          case 'class':
+            modal.displayModal('ClassCreation', { selectedSchoolId: schoolId });
+            break;
+          default:
+            throw new Error('Switch addButton classList error');
+        }
+      };
+    },
+    [schoolId, modal]
+  );
 
   const displayClasses = useCallback(() => {
     const school = schools.find((schoolItem) => schoolId === schoolItem._id);
