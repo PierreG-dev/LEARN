@@ -90,6 +90,7 @@ aside {
       flex-direction: column;
       gap: 20px;
       height: 85%;
+      overflow-y: auto;
 
       & > em {
         opacity: 0.6;
@@ -148,6 +149,7 @@ section#classes {
     flex-direction: column;
     gap: 20px;
     height: 85%;
+    overflow-y: auto;
 
     & > em {
       opacity: 0.6;

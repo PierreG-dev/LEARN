@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useCallback, ReactNode, FC } from 'react';
 import { FaTimes } from 'react-icons/fa';
@@ -29,6 +30,7 @@ const ModalContent: FC<ModalContentProps> = ({
       <div id="modal_dark_background" onClick={hideModal} />
       <div
         id="modal_content"
+        style={{ animation: '0.4s modal_fadeIn 1 ease backwards' }}
         dangerouslySetInnerHTML={
           custom ? { __html: DOMPurify.sanitize(content as string) } : undefined
         }

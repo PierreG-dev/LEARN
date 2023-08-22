@@ -33,7 +33,7 @@ dialog#modal {
     max-height: 90%;
     border: 6px solid $color-main;
     border-radius: 5px;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     & > svg {
       position: absolute;
@@ -75,5 +75,15 @@ dialog#modal {
         }
       }
     }
+  }
+}
+@keyframes modal_fadeIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -50px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
