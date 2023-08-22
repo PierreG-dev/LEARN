@@ -1,10 +1,19 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Class as _Class, School as _School } from "../../types";
-import { IoIosSchool } from "react-icons/io";
-import { FaChalkboardTeacher } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
-import styled from "styled-components";
-import useIcon from "../../utilities/iconGenerator";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useContext,
+} from 'react';
+import { IModalContext, Class as _Class, School as _School } from '../../types';
+import { IoIosSchool } from 'react-icons/io';
+import { FaChalkboardTeacher } from 'react-icons/fa';
+import { BsChevronLeft } from 'react-icons/bs';
+import { Link, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import useIcon from '../../utilities/iconGenerator';
+import { ModalContext } from '../../contexts/Modal';
+import iconGenerator from '../../utilities/iconGenerator';
 
 type Props = {
   schools: _School[];
@@ -12,19 +21,29 @@ type Props = {
 
 const ClassList: React.FC<Props> = ({ schools }) => {
   const { schoolId, classId } = useParams();
+  const modal = useContext<IModalContext>(ModalContext);
 
-  // const schoolsAmount = useMemo(() => schools.length, [schools]);
-  // const clasesAMount = useMemo(
-  //   () =>
-  //     schools.reduce(
-  //       (accumulator, school) => accumulator + school.classes.length,
-  //       0
-  //     ),
-  //   [schools]
-  // );
+  const onAddButtonClick = useCallback((type: 'school' | 'class') => {
+    if (!schoolId) {
+      throw new Error('Missing school id when creating a new class');
+    }
+    return () => {
+      switch (type) {
+        case 'school':
+          modal.displayModal('SchoolCreation', { selectedSchoolId: schoolId });
+          break;
+        case 'class':
+          modal.displayModal('ClassCreation', { selectedSchoolId: schoolId });
+          break;
+        default:
+          throw new Error('Switch addButton classList error');
+      }
+    };
+  }, []);
 
   const displayClasses = useCallback(() => {
     const school = schools.find((schoolItem) => schoolId === schoolItem._id);
+
     const classElements = (
       <ul id="classes_list">
         {school?.classes && school.classes.length !== 0 ? (
@@ -34,13 +53,14 @@ const ClassList: React.FC<Props> = ({ schools }) => {
                 className={`class-list-item ${
                   classId
                     ? classId === classItem._id
-                      ? "selected"
-                      : "not-selected"
-                    : ""
+                      ? 'selected'
+                      : 'not-selected'
+                    : ''
                 }`}
               >
                 <div style={{ animationDelay: `${0.7 + 0.2 * key}s` }}>
-                  {" "}
+                  {' '}
+                  {classItem?.icon && iconGenerator(classItem.icon)}
                   <h3>{classItem.name}</h3>
                 </div>
               </Class>
@@ -65,9 +85,9 @@ const ClassList: React.FC<Props> = ({ schools }) => {
                 className={`school-list-item ${
                   schoolId
                     ? schoolId === school._id
-                      ? "selected"
-                      : "not-selected"
-                    : ""
+                      ? 'selected'
+                      : 'not-selected'
+                    : ''
                 }`}
               >
                 <img
@@ -76,7 +96,7 @@ const ClassList: React.FC<Props> = ({ schools }) => {
                 />
                 {!schoolId && (
                   <div style={{ animationDelay: `${0.7 + 0.2 * key}s` }}>
-                    {" "}
+                    {' '}
                     <h3>{school.name}</h3>
                     <i>{school.description}</i>
                   </div>
@@ -93,19 +113,32 @@ const ClassList: React.FC<Props> = ({ schools }) => {
 
   return (
     <aside>
-      <section id="schools" className={schoolId && "collapsed"}>
+      <section id="schools" className={schoolId && 'collapsed'}>
         <h2>
           <IoIosSchool /> {!schoolId && <span>ECOLES</span>}
         </h2>
         {displaySchools()}
+        <button
+          className="add-button"
+          disabled={schoolId ? true : false}
+          onClick={onAddButtonClick('school')}
+        >
+          + <span>Ajouter une école</span>
+        </button>
       </section>
 
       {schoolId && (
         <section id="classes">
           <h2>
+            <Link to={'/classes'}>
+              <BsChevronLeft />
+            </Link>
             <FaChalkboardTeacher /> <span>CLASSES</span>
           </h2>
           {displayClasses()}
+          <button className="add-button" onClick={onAddButtonClick('class')}>
+            + <span>Ajouter une classe</span>
+          </button>
         </section>
       )}
     </aside>
@@ -178,6 +211,15 @@ const Class = styled.li`
   & > div {
     transition: 0.2s;
     transition-delay: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    svg {
+      font-size: 1.5rem;
+    }
+
     h3 {
       font-size: 1rem;
     }

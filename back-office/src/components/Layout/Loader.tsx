@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { RootState } from "../../store/index.ts";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { RootState } from '../../store/index.ts';
+import { useSelector } from 'react-redux';
 
 const Loader: React.FC = () => {
   const [displayLoader, setDisplayLoader] = useState(true);
@@ -17,14 +17,14 @@ const Loader: React.FC = () => {
   return (
     <MainContainer
       style={{
-        opacity: displayLoader ? "1" : "0",
-        zIndex: displayLoader ? "5" : "-1",
-        transition: "opacity 0.3s ease 0s, z-index 0s linear 0.3s",
+        opacity: displayLoader ? '1' : '0',
+        zIndex: displayLoader ? '5' : '-1',
+        transition: 'opacity 0.3s ease 0s, z-index 0s linear 0.3s',
       }}
     >
       <h1
         className="logo-typo"
-        style={{ color: "#E07A5F !important", fontSize: "3rem" }}
+        style={{ color: '#E07A5F !important', fontSize: '3rem' }}
       >
         LEARN
       </h1>
@@ -45,6 +45,7 @@ const MainContainer = styled.div`
   left: 0;
   height: 100vh;
   width: 100vw;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   background: rgba(0, 0, 0, 0)

@@ -1,7 +1,8 @@
 //Store
 //===== REDUX REDUCERS =====//
 
-import { Socket } from "socket.io-client";
+import { ReactNode } from 'react';
+import { Socket } from 'socket.io-client';
 
 //connection
 export interface ConnectionState {
@@ -24,14 +25,14 @@ export interface GlobalsState {
 
 //===== REDUX ACTIONS =====//
 // Connection
-export type ConnectionAction = `connection/${"connect" | "disconnect"}`;
+export type ConnectionAction = `connection/${'connect' | 'disconnect'}`;
 
 export interface ConnectionPayload {
   token: string | null;
 }
 
 // Data update
-export type DataAction = `globalData/${"update"}`;
+export type DataAction = `globalData/${'update'}`;
 
 export interface DataUpdatePayload {
   data: DataState;
@@ -47,6 +48,15 @@ export interface APIResponse {
 export interface CodeCheckResponse extends APIResponse {
   class: boolean;
 }
+
+// ===== MODAL ===== //
+
+export type IContentType =
+  | 'SchoolCreation'
+  | 'ClassCreation'
+  | 'ChapterCreation'
+  | 'SubchapterCreation'
+  | 'ExerciceCreation';
 
 // ===== DATA ===== //
 
@@ -82,6 +92,7 @@ export type Class = {
   signupCodeId: string;
   schoolId: string;
   name: string;
+  icon: string;
   studentsAmount: number;
   registeredStudentsAmount: number;
   timestamp: number;
@@ -159,4 +170,12 @@ export type IAuthContext = {
   handleLogout: () => void;
   tryConnect: () => void;
   signupCodeCheck: (signupCode: string) => Promise<CodeCheckResponse>;
+};
+// --- ModalContext
+export type IModalContext = {
+  Content: React.FC;
+  displayModal: (
+    type: IContentType | 'custom' | 'default',
+    customContent?: string
+  ) => void;
 };

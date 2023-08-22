@@ -1,0 +1,79 @@
+@use '../../styles/_variables' as *;
+
+dialog#modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+
+  #modal_dark_background {
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  #modal_content {
+    z-index: 1;
+    background: $color-light;
+    position: relative;
+    width: 85%;
+    min-height: 30%;
+    max-height: 90%;
+    border: 6px solid $color-main;
+    border-radius: 5px;
+    overflow-y: scroll;
+
+    & > svg {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      cursor: pointer;
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    #content {
+      padding: 20px;
+      height: 100%;
+      color: $color-main;
+
+      h1 {
+        color: $color-special;
+      }
+
+      & > form {
+        padding-left: 10px;
+        position: relative;
+
+        & > div {
+          display: flex;
+          flex-direction: column;
+          width: fit-content;
+          margin-bottom: 10px;
+          padding-left: 10px;
+
+          label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-left: -10px;
+          }
+        }
+      }
+    }
+  }
+}

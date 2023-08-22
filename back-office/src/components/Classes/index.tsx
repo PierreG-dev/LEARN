@@ -1,8 +1,8 @@
-import React from "react";
-import { School } from "../../types";
-import styled from "styled-components";
-import ClassList from "./ClassList";
-import "./index.scss";
+import React from 'react';
+import { School } from '../../types';
+import styled from 'styled-components';
+import ClassList from './ClassList';
+import './index.scss';
 
 type Props = {
   schools?: School[];
@@ -14,10 +14,14 @@ const Index: React.FC<Props> = ({ schools }) => {
   );
 };
 
-const MainContainer = styled.main`
-  min-height: 100%;
+const MainContainer = styled.div`
+  height: 100%;
   margin: 0;
   display: flex;
+
+  * {
+    box-sizing: border-box !important;
+  }
 `;
 
 export default Index;
