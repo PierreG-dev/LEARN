@@ -46,25 +46,29 @@ module.exports = async (req, res) => {
     });
 
   // ===== OK ===== //
+  let icon;
+  try {
+    let response = await openai.createChatCompletion({
+      model: 'gpt-4',
+      messages: [
+        {
+          role: 'user',
+          content: `
+          trouves moi une icone de la librairie react-icon qui irait bien avec le nom de la classe ${_name}.
+          Donnes moi le résultat au format json: {iconName: 'ICON_NAME'}.
+  
+          Je n'ai besoin de rien de plus que du nom de l'icone et je veux obligatoirement une réponse au format JSON, meme si aucune icone ne convient je veux celle qui parait la plus logique.`,
+        },
+      ],
+    });
 
-  let response = await openai.createChatCompletion({
-    model: 'gpt-4',
-    messages: [
-      {
-        role: 'user',
-        content: `
-        trouves moi une icone de la librairie react-icon qui irait bien avec le nom de la classe ${_name}.
-        Donnes moi le résultat au format json: {iconName: 'ICON_NAME'}.
-
-        Je n'ai besoin de rien de plus que du nom de l'icone et je veux obligatoirement une réponse au format JSON, meme si aucune icone ne convient je veux celle qui parait la plus logique.`,
-      },
-    ],
-  });
-
-  const jsonMatch = response.data.choices[0].message.content.match(
-    /\{\s*"iconName":\s*"([^"]+)"\s*\}/
-  );
-  const icon = jsonMatch ? JSON.parse(jsonMatch[0]).iconName : 'AiFillBug';
+    const jsonMatch = response.data.choices[0].message.content.match(
+      /\{\s*"iconName":\s*"([^"]+)"\s*\}/
+    );
+    icon = jsonMatch ? JSON.parse(jsonMatch[0]).iconName : 'AiFillBug';
+  } catch {
+    icon = 'AiFillBug';
+  }
 
   const newId = new mongoose.Types.ObjectId();
 
