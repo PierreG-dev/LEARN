@@ -1,0 +1,59 @@
+@use '../../../styles/_variables' as *;
+
+section#class_panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+
+  ul#tab_list {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+    height: 50px;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    position: relative;
+
+    li {
+      opacity: 0.8;
+      transition: 0.2s;
+      color: $color-main;
+      &:hover {
+        color: $color-special;
+        opacity: 1;
+      }
+      button {
+        background: none;
+        border: none;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        color: inherit;
+        padding-right: 1px;
+
+        svg {
+          z-index: -1;
+          color: $color-special;
+        }
+      }
+    }
+
+    hr {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      border-color: $color-special;
+      transition: transform 0.4s ease, 0.4s;
+      transform: translateX(0);
+    }
+  }
+}

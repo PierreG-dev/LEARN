@@ -3,14 +3,16 @@ import { School } from '../../types';
 import styled from 'styled-components';
 import ClassList from './ClassList';
 import './index.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/index.ts';
+import ClassPanel from './PanelViews/ClassPanel.tsx';
 
-type Props = {
-  schools?: School[];
-};
-
-const Index: React.FC<Props> = ({ schools }) => {
+const Index: React.FC = () => {
   return (
-    <MainContainer>{schools && <ClassList schools={schools} />}</MainContainer>
+    <MainContainer>
+      <ClassList />
+      <ClassPanel />
+    </MainContainer>
   );
 };
 

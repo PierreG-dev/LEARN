@@ -1,34 +1,26 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useContext,
-} from 'react';
+import React, { useCallback, useContext } from 'react';
 import { IModalContext, Class as _Class, School as _School } from '../../types';
 import { IoIosSchool } from 'react-icons/io';
 import { FaChalkboardTeacher } from 'react-icons/fa';
 import { BsChevronLeft } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import useIcon from '../../utilities/iconGenerator';
 import { ModalContext } from '../../contexts/Modal';
 import iconGenerator from '../../utilities/iconGenerator';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/index.ts';
 
-type Props = {
-  schools: _School[];
-};
-
-const ClassList: React.FC<Props> = ({ schools }) => {
+const ClassList: React.FC = () => {
   const { schoolId, classId } = useParams();
   const modal = useContext<IModalContext>(ModalContext);
+  const schools = useSelector((state: RootState) => state.data.schools || []);
 
   const onAddButtonClick = useCallback(
     (type: 'school' | 'class') => {
-      if (!schoolId && type === 'class') {
-        throw new Error('Missing school id when creating a new class');
-      }
       return () => {
+        if ((!schoolId && type === 'class') || !schoolId) {
+          throw new Error('Missing school id when creating a new class');
+        }
         switch (type) {
           case 'school':
             modal.displayModal('SchoolCreation', {
@@ -53,7 +45,10 @@ const ClassList: React.FC<Props> = ({ schools }) => {
       <ul id="classes_list">
         {school?.classes && school.classes.length !== 0 ? (
           school.classes.map((classItem: _Class, key: number) => (
-            <Link to={`/classes/${schoolId}/${classItem._id}`} key={key}>
+            <Link
+              to={`/classes/${schoolId}/${classItem._id}`}
+              key={classItem._id}
+            >
               <Class
                 className={`class-list-item ${
                   classId
@@ -63,7 +58,7 @@ const ClassList: React.FC<Props> = ({ schools }) => {
                     : ''
                 }`}
               >
-                <div style={{ animationDelay: `${0.7 + 0.2 * key}s` }}>
+                <div style={{ animationDelay: `${0.7 + 0.15 * key}s` }}>
                   {' '}
                   {classItem?.icon && iconGenerator(classItem.icon)}
                   <h3>{classItem.name}</h3>
@@ -85,7 +80,7 @@ const ClassList: React.FC<Props> = ({ schools }) => {
       <ul id={`schools_list`}>
         {schools.length !== 0 ? (
           schools.map((school: _School, key: number) => (
-            <Link to={`/classes/${school._id}`} key={key}>
+            <Link to={`/classes/${school._id}`} key={school._id}>
               <School
                 className={`school-list-item ${
                   schoolId
