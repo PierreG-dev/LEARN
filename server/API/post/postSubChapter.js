@@ -1,7 +1,7 @@
-const { default: mongoose } = require("mongoose");
-const collections = require("../../collections");
-const uuid = require("uuid");
-module.exports = async (req, res) => {
+const { default: mongoose } = require('mongoose');
+const collections = require('../../collections');
+const uuid = require('uuid');
+module.exports = async (req, res, next) => {
   const {
     title: _title,
     description: _description,
@@ -11,13 +11,13 @@ module.exports = async (req, res) => {
   if (!_chapterId || !_title || !_description)
     return res.status(400).send({
       code: 400,
-      msg: "ChapterId, title and description are required to proceed",
+      msg: 'ChapterId, title and description are required to proceed',
     });
 
   if (!mongoose.Types.ObjectId.isValid(_chapterId)) {
     return res.status(400).send({
       code: 400,
-      msg: "Invalid chapter id",
+      msg: 'Invalid chapter id',
     });
   }
 
@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
   if (!chapter)
     return res.status(400).send({
       code: 400,
-      msg: "Invalid chapter id",
+      msg: 'Invalid chapter id',
     });
 
   collections.SubChapter.create({
@@ -37,17 +37,18 @@ module.exports = async (req, res) => {
         chapterId: _chapterId,
       })) + 1,
   })
-    .then(() =>
+    .then(() => {
       res.status(200).send({
         code: 200,
-        msg: "Successfully created " + _title + " subchapter",
-      })
-    )
+        msg: 'Successfully created ' + _title + ' subchapter',
+      });
+      next();
+    })
     .catch((err) =>
       res.status(500).send({
         code: 500,
         msg:
-          "An error occured during the creation of " + _title + " subchapter",
+          'An error occured during the creation of ' + _title + ' subchapter',
       })
     );
 };

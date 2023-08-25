@@ -1,6 +1,6 @@
-const collections = require("../../collections");
+const collections = require('../../collections');
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   const {
     title: _title,
     description: _description,
@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
   )
     return res.status(400).send({
       code: 400,
-      msg: "chapterName, description, difficulty, categories, languages and iconName are all required",
+      msg: 'chapterName, description, difficulty, categories, languages and iconName are all required',
     });
 
   collections.Chapter.create({
@@ -34,13 +34,14 @@ module.exports = async (req, res) => {
     order: (await collections.Chapter.countDocuments({})) + 1,
   })
     .then(() => {
-      return res.status(200).send({
+      res.status(200).send({
         code: 200,
         msg: `Chapter ${_title} successfully created`,
       });
+      next();
     })
     .catch((error) => {
-      console.error("ERROR 500 when creating a Chapter", error);
+      console.error('ERROR 500 when creating a Chapter', error);
       res.status(500).send({
         code: 200,
         msg: `Chapter ${_title} could not be created.`,

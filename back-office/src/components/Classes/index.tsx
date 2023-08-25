@@ -18,12 +18,10 @@ const Index: React.FC = () => {
 
 const MainContainer = styled.div`
   height: 100%;
+  width: 100%;
   margin: 0;
   display: flex;
-
-  * {
-    box-sizing: border-box !important;
-  }
+  box-sizing: border-box;
 `;
 
 export default Index;

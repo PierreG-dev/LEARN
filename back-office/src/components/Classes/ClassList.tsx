@@ -18,7 +18,7 @@ const ClassList: React.FC = () => {
   const onAddButtonClick = useCallback(
     (type: 'school' | 'class') => {
       return () => {
-        if ((!schoolId && type === 'class') || !schoolId) {
+        if (!schoolId && type === 'class') {
           throw new Error('Missing school id when creating a new class');
         }
         switch (type) {

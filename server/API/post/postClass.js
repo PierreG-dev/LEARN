@@ -8,7 +8,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   const {
     schoolId: _schoolId,
     studentsAmount: _studentsAmount,
@@ -85,7 +85,7 @@ module.exports = async (req, res) => {
       msg: 'Error when creating ' + name + "'s signup code",
     });
 
-  collections.Class.create({
+  await collections.Class.create({
     _id: newId,
     signupCodeId: signupCode._id,
     schoolId: _schoolId,
@@ -96,11 +96,12 @@ module.exports = async (req, res) => {
     isDisabled: false,
     timestamp: new Date().getTime(),
   })
-    .then(() =>
+    .then(() => {
       res.status(200).send({
         code: 200,
         msg: `New class ${_name} created successfully`,
-      })
-    )
+      });
+    })
     .catch((err) => console.error('Error when creating the class ' + _name));
+  next();
 };

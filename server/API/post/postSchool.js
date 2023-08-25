@@ -3,7 +3,7 @@ const { default: mongoose } = require('mongoose');
 const path = require('path');
 const fs = require('fs');
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   console.log(req.body);
   console.log(req.files);
   if (!req.body.description || !req.body.name || !req.body.teacherId)
@@ -46,12 +46,13 @@ module.exports = async (req, res) => {
         );
       }
     })
-    .then(() =>
+    .then(() => {
       res.status(200).send({
         code: 200,
         msg: `New school ${req.body.name} created successfully`,
-      })
-    )
+      });
+      next();
+    })
     .catch((err) => {
       console.error(err);
       console.error('Error when creating the school ' + req.body.name);

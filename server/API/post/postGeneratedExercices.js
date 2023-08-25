@@ -2,7 +2,7 @@ const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   if (!req.body.chapter || !req.body.subChapter)
     return res.status(400).send({
       code: 400,

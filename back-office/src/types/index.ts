@@ -90,6 +90,7 @@ export type School = {
 export type Class = {
   _id?: string;
   signupCodeId: string;
+  signupCode: string;
   schoolId: string;
   name: string;
   icon: string;
@@ -97,6 +98,7 @@ export type Class = {
   registeredStudentsAmount: number;
   timestamp: number;
   exercises: Exercise[];
+  users?: User[];
 };
 
 // --- User
@@ -109,7 +111,7 @@ export type User = {
   hashedPassword?: string;
   avatarUrl: string;
   timestamp: number;
-  lastSeen?: number;
+  lastActivity?: number;
   roles?: [string];
 };
 

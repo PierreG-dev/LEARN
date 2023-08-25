@@ -1,25 +1,41 @@
-const collections = require("../../collections");
+const collections = require('../../collections');
 
+// === Récupération des classes / users / schools... === //
 const adminDataParser = async (socket) => {
-  // --- Récupération des classes / users / schools...
-  const schools = await collections.School.find().lean();
+  // --- Récupération des écoles
+  const schools = await collections.School.find({
+    teacherId: socket.user.id,
+  }).lean();
+
   const schoolsData = await Promise.all(
     schools.map(async (schoolItem) => {
+      // --- Récupération des classes
       const classes = await collections.Class.find({
         schoolId: schoolItem._id,
       }).lean();
       const classesData = await Promise.all(
         classes.map(async (classItem) => {
+          // --- Récupération du nombre d'étudiants inscrits à cette classe
           const registeredStudentsAmount =
             await collections.User.countDocuments({
               classId: classItem._id,
             });
+
+          // --- Récupération des utilisateurs inscrits sur cette classe
           const users = await collections.User.find({
             classId: classItem._id,
           }).lean();
 
+          // --- Récupération du code de la classe
+          const signupCode = (
+            await collections.SignupCode.findOne({
+              _id: classItem.signupCodeId,
+            }).lean()
+          ).code;
+
           return {
             ...classItem,
+            signupCode,
             registeredStudentsAmount,
             users,
           };

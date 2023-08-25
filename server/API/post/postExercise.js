@@ -1,10 +1,10 @@
-const { default: mongoose } = require("mongoose");
-const collections = require("../../collections");
-const { v4: uuidv4 } = require("uuid");
-const path = require("path");
-const fs = require("fs");
+const { default: mongoose } = require('mongoose');
+const collections = require('../../collections');
+const { v4: uuidv4 } = require('uuid');
+const path = require('path');
+const fs = require('fs');
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   // --- Récupération des paramètres & création des variables
   const {
     subChapterId: _subChapterId,
@@ -28,8 +28,8 @@ module.exports = async (req, res) => {
 
   const { solutionFile, baseFile } = req.files;
 
-  let solutionFileUrl = "";
-  let baseFileUrl = "";
+  let solutionFileUrl = '';
+  let baseFileUrl = '';
 
   // --- Vérification des pré requis
   if (
@@ -44,14 +44,14 @@ module.exports = async (req, res) => {
   )
     return res.status(400).send({
       code: 400,
-      msg: "missing parameters",
+      msg: 'missing parameters',
     });
 
   // --- Vérification du format de l'id
   if (!mongoose.Types.ObjectId.isValid(_subChapterId))
     return res.status(400).send({
       code: 400,
-      msg: "Invalis subchapterId format",
+      msg: 'Invalis subchapterId format',
     });
 
   // --- Vérification de l'existence du sous-chapitre
@@ -70,10 +70,10 @@ module.exports = async (req, res) => {
   // --- Création d'un nom pour le futur fichier de la solution
   if (solutionFile) {
     // --- Vérification du format du fichier
-    if (solutionFile.mimetype !== "application/zip")
+    if (solutionFile.mimetype !== 'application/zip')
       return res.status(400).send({
         code: 400,
-        msg: "Wrong solutionFile format => must be .zip",
+        msg: 'Wrong solutionFile format => must be .zip',
       });
     solutionFileUrl = `/res/exercises/solutionFiles/solution_${newId.toString()}${path.extname(
       solutionFile.name
@@ -82,10 +82,10 @@ module.exports = async (req, res) => {
 
   // --- Création d'un nom pour le futur fichier de base
   if (baseFile) {
-    if (baseFile.mimetype !== "application/zip")
+    if (baseFile.mimetype !== 'application/zip')
       return res.status(400).send({
         code: 400,
-        msg: "Wrong baseFile format => must be .zip",
+        msg: 'Wrong baseFile format => must be .zip',
       });
     baseFileUrl = `/res/exercises/baseFiles/base_${newId.toString()}${path.extname(
       baseFile.name
@@ -141,39 +141,40 @@ module.exports = async (req, res) => {
     })
     .then(() => {
       console.log(
-        "The exercise " +
+        'The exercise ' +
           _title +
-          " from the " +
+          ' from the ' +
           subChapter.title +
-          " subchapter has been successfully created"
+          ' subchapter has been successfully created'
       );
-      return res.status(200).send({
+      res.status(200).send({
         code: 200,
         msg:
-          "The exercise " +
+          'The exercise ' +
           _title +
-          " from the " +
+          ' from the ' +
           subChapter.title +
-          " subchapter has been successfully created",
+          ' subchapter has been successfully created',
       });
+      next();
     })
     .catch((err) => {
       console.error(err);
       console.error(
-        "Error while creating the exercice " +
+        'Error while creating the exercice ' +
           _title +
-          " from the " +
+          ' from the ' +
           subChapter.title +
-          " subchapter."
+          ' subchapter.'
       );
       res.status(500).send({
         code: 500,
         msg:
-          "Error while creating the exercice " +
+          'Error while creating the exercice ' +
           _title +
-          " from the " +
+          ' from the ' +
           subChapter.title +
-          " subchapter.",
+          ' subchapter.',
       });
     });
 };

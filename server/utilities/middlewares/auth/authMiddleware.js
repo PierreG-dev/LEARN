@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const collections = require("@collections");
+const jwt = require('jsonwebtoken');
+const collections = require('@collections');
 /**
  * Middleware qui se lance à chaque requête reçue, et qui vérifie l'authenticité du JWT proposé
  * Le payload du token est passé dans socket.user
@@ -25,10 +25,10 @@ module.exports = async (socket, next) => {
       next();
     } catch (error) {
       // --- JWT invalide ou expiré
-      next(new Error("Invalid or expired token"));
+      next(new Error('Invalid or expired token'));
     }
   } else {
     // --- JWT non fourni
-    next(new Error("No token provided"));
+    next(new Error('No token provided'));
   }
 };

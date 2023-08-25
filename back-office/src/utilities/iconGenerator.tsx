@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import * as AiIcons from 'react-icons/ai';
 import * as BiIcons from 'react-icons/bi';
 import * as BsIcons from 'react-icons/bs';
@@ -39,8 +40,8 @@ const iconsList: { [index: string]: IconType } = {
   ...FaBrands,
 };
 
-const iconGenerator = (iconName: string) => {
-  if (!iconName || !iconsList[iconName]) return;
+const iconGenerator = (iconName: string = 'AiFillBug') => {
+  if (!iconsList[iconName]) return;
   const IconComponent = iconsList[iconName];
 
   return <IconComponent />;

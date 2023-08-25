@@ -4,6 +4,7 @@ import ClassView from './View/ClassView';
 import ClassAccess from './Accesses/ClassAccess';
 import iconGenerator from '../../../utilities/iconGenerator';
 import './index.scss';
+import { useParams } from 'react-router-dom';
 
 const tabs = [
   {
@@ -31,6 +32,7 @@ type TabIDs = (typeof tabs)[number]['id'];
 const ClassPanel: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<TabIDs>(1);
   const selectedButton = useRef<HTMLButtonElement | null>(null);
+  const { classId } = useParams();
 
   const barPosition = useMemo(() => {
     if (!selectedTab) return 0;
@@ -47,15 +49,15 @@ const ClassPanel: React.FC = () => {
   );
 
   return (
-    <section id="class_panel">
+    <section id="class_panel" style={{ opacity: classId ? 1 : 0 }}>
       <ul id="tab_list">
         {tabs.map((tab) => (
           <li key={tab.id}>
             <button
               id={tab.id.toString()}
               onClick={handleTabChange}
-              ref={(el) => {
-                if (selectedTab === tab.id) selectedButton.current = el;
+              ref={(button) => {
+                if (selectedTab === tab.id) selectedButton.current = button;
               }}
             >
               {iconGenerator(tab.icon)} {tab.name}
@@ -69,9 +71,8 @@ const ClassPanel: React.FC = () => {
           }}
         />
       </ul>
-      <section id="tab">
-        {selectedTab && tabs.find((tab) => selectedTab === tab.id)?.tab}
-      </section>
+
+      <>{selectedTab && tabs.find((tab) => selectedTab === tab.id)?.tab}</>
     </section>
   );
 };

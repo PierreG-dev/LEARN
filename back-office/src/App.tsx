@@ -13,8 +13,12 @@ import { AuthContext } from './contexts/Auth';
 import { IAuthContext, IModalContext } from './types';
 import useModal from './hooks/modal/useModal.tsx';
 import { ModalContext } from './contexts/Modal.tsx';
-
+import moment from 'moment';
+import 'moment/dist/locale/fr';
 const App: React.FC = () => {
+  // --- Configuration de moment en FR
+  moment.locale('fr');
+
   // --- Contexte possédant toutes les fonctions de gestion de la connexion
   const authContextValue: IAuthContext = useConnect();
 

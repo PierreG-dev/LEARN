@@ -1,7 +1,7 @@
-const collections = require("@collections");
-const { sha256 } = require("js-sha256");
+const collections = require('@collections');
+const { sha256 } = require('js-sha256');
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   const {
     signupCode: _signupCode,
     firstName: _firstName,
@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
   )
     return res.status(400).send({
       code: 400,
-      msg: "Login, username, firstName, lastName, password and signupCode are all required",
+      msg: 'Login, username, firstName, lastName, password and signupCode are all required',
     });
 
   const signupCode = await collections.SignupCode.findOne({
@@ -31,11 +31,11 @@ module.exports = async (req, res) => {
   if (!signupCode || signupCode.usagesAmount <= 0)
     return res.status(400).send({
       code: 400,
-      msg: "Invalid code",
+      msg: 'Invalid code',
     });
 
   collections.User.create({
-    classId: signupCode.classId || "",
+    classId: signupCode.classId || '',
     signupCodeId: signupCode._id,
     login: _login,
     username: _username,
@@ -43,12 +43,12 @@ module.exports = async (req, res) => {
     lastName: _lastName,
     hashedPassword: sha256(_password),
     timestamp: new Date().getTime(),
-    avatarUrl: "",
+    avatarUrl: `https://api.multiavatar.com/${_login}.png`,
     lastActivity: new Date().getTime(),
     isBanned: false,
     globalChatAccess: true,
     groupChatAccess: true,
-    roles: ["student"],
+    roles: ['student'],
   })
     .then(async () => {
       await collections.SignupCode.findOneAndUpdate(
@@ -56,17 +56,18 @@ module.exports = async (req, res) => {
         { usagesAmount: signupCode.usagesAmount - 1 }
       );
 
-      return res.status(200).send({
+      res.status(200).send({
         code: 200,
-        msg: "Welcome aboard " + _username,
+        msg: 'Welcome aboard ' + _username,
       });
+      next();
     })
     .catch(() => {
-      console.error("Error during the account creation of " + login);
+      console.error('Error during the account creation of ' + login);
       return res.status(500).send({
         code: 500,
         msg:
-          "An internal error occured during " +
+          'An internal error occured during ' +
           _username +
           "'s account creation.",
       });
