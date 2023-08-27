@@ -34,7 +34,7 @@ section#dashboard {
     height: fit-content;
     padding: 3px 10px;
     border-radius: 5px;
-    transition: max-width 1s ease, transform 0.1s;
+    transition: background 0.2s, max-width 1s ease, transform 0.1s;
     width: fit-content;
     max-width: 200px;
     white-space: nowrap;
@@ -42,6 +42,11 @@ section#dashboard {
     text-overflow: ellipsis;
     cursor: pointer;
     user-select: none;
+    position: relative;
+
+    &.copied {
+      background: rgba(78, 114, 220, 0.568);
+    }
 
     &:hover {
       max-width: 500px;
@@ -61,61 +66,5 @@ section#dashboard {
     margin-top: 15px;
     flex-grow: 1;
     overflow-y: auto;
-
-    table#students_table {
-      width: 100%;
-      border-collapse: collapse;
-
-      thead {
-        position: sticky;
-        top: 0px;
-        text-align: left;
-        z-index: 1;
-        //espace en dessous du head
-        &::after {
-          content: '';
-          height: 10px;
-          display: block;
-        }
-        tr {
-          th {
-            background: $color-light;
-          }
-        }
-      }
-
-      tbody {
-        tr {
-          position: relative;
-
-          td {
-            padding: 15px 0;
-            &.avatar {
-              img {
-                height: 35px;
-                width: 35px;
-                object-fit: cover;
-              }
-            }
-          }
-
-          &::after {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            display: block;
-            margin-left: 5%;
-            content: '';
-            height: 1px;
-            background: $color-main;
-            opacity: 0.2;
-            width: 90%;
-          }
-          &:last-child::after {
-            display: none;
-          }
-        }
-      }
-    }
   }
 }

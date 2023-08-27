@@ -6,6 +6,7 @@ import { RootState } from '../../../../store/index.ts';
 import iconGenerator from '../../../../utilities/iconGenerator.tsx';
 import { User } from '../../../../types/index.ts';
 import moment from 'moment';
+import UsersTable from '../../../../utilities/UsersTable/index.tsx';
 
 const ClassView: React.FC = () => {
   const { classId, schoolId } = useParams();
@@ -33,44 +34,13 @@ const ClassView: React.FC = () => {
       try {
         await navigator.clipboard.writeText(codeTag.textContent);
         setCodeCopyAnimation(true);
-        setTimeout(() => setCodeCopyAnimation(false), 1500);
+        setTimeout(() => setCodeCopyAnimation(false), 1000);
       } catch (err) {
         console.error('La copie du code a échouée');
       }
     },
     []
   );
-
-  const avatarPicker = useCallback(
-    (user: User) => <img src={`${user.avatarUrl}`} alt={user.login} />,
-    []
-  );
-
-  const rolePicker = useCallback((user: User) => {
-    if (user.roles?.includes('admin')) return 'Administrateur';
-    else if (user.roles?.includes('teacher')) return 'Enseignant';
-    else if (user.roles?.includes('delegate')) return 'Délégué';
-    else if (user.roles?.includes('student')) return 'Étudiant';
-  }, []);
-
-  // ---
-  const statusPicker = useCallback((user: User) => {
-    if (!user) return;
-
-    return moment(user.lastActivity).fromNow();
-  }, []);
-
-  const signupDatePicker = useCallback((user: User) => {
-    return (
-      <>
-        {new Date(user.timestamp).toLocaleDateString('fr')}
-        <br />
-        <em className="learn-note">{moment(user.timestamp).fromNow()}</em>
-      </>
-    );
-  }, []);
-
-  console.log(selectedClass);
 
   return (
     <section id="dashboard">
@@ -83,7 +53,11 @@ const ClassView: React.FC = () => {
         </div>
 
         <div>
-          <h3 id="signup_code_tag" onClick={handleSignupCodeCopy}>
+          <h3
+            id="signup_code_tag"
+            onClick={handleSignupCodeCopy}
+            className={codeCopyAnimation ? 'copied' : ''}
+          >
             {selectedClass?.signupCode}
           </h3>
           <h3 id="students_amount">
@@ -94,46 +68,15 @@ const ClassView: React.FC = () => {
       </div>
       <hr className="learn-separator w-100" />
       <div className="table-container">
-        <table id="students_table">
-          <thead>
-            <tr>
-              <th className="avatar">Avatar</th>
-              <th className="name">Nom</th>
-              <th className="role">Rôles</th>
-              <th className="status">Statut</th>
-              <th className="signup">Date d'inscription</th>
-              <th className="actions">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {selectedClass?.users?.length > 0 ? (
-              selectedClass?.users?.map((user) => (
-                <>
-                  <tr key={user._id}>
-                    <td className="avatar">{avatarPicker(user)}</td>
-                    <td className="name">
-                      {user.login}
-                      <br />
-                      {user.username}
-                    </td>
-                    <td className="role">{rolePicker(user)}</td>
-                    <td className="status">{statusPicker(user)}</td>
-                    <td className="signup">{signupDatePicker(user)}</td>
-                    <td className="actions">
-                      <div className="row">
-                        <Link to={`/users/${user._id}`}>
-                          {iconGenerator('AiFillEye')}
-                        </Link>
-                      </div>
-                    </td>
-                  </tr>
-                </>
-              ))
-            ) : (
-              <em className="learn-note">La classe est vide</em>
-            )}
-          </tbody>
-        </table>
+        <UsersTable
+          users={selectedClass?.users}
+          avatar
+          name
+          roles
+          status
+          timestamp
+          actions
+        />
       </div>
     </section>
   );

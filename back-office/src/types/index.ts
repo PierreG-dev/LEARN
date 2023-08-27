@@ -16,6 +16,7 @@ export interface DataState {
   user?: User;
   schools?: School[];
   chapters?: Chapter[];
+  activeUsers?: ActiveUserData[];
 }
 
 // global
@@ -32,10 +33,16 @@ export interface ConnectionPayload {
 }
 
 // Data update
-export type DataAction = `globalData/${'update'}`;
+export type DataAction = `globalData/${
+  | 'UPDATE_GLOBAL_DATA'
+  | 'UPDATE_PRESENCE'}`;
 
 export interface DataUpdatePayload {
   data: DataState;
+}
+
+export interface PresenceUpdatePayload {
+  data: ActiveUserData[];
 }
 
 //===== API =====//
@@ -74,6 +81,14 @@ type Solution = {
 type Link = {
   title: string;
   link: string;
+};
+
+// --- ActiveUsersData
+export type ActiveUserData = {
+  id: string;
+  roles: [string];
+  username: string;
+  avatarUrl: string;
 };
 
 // --- School

@@ -1,0 +1,72 @@
+@use '../../styles/_variables' as *;
+
+table#users_table {
+  width: 100%;
+  border-collapse: collapse;
+
+  div.row {
+    display: flex;
+    align-items: center;
+  }
+
+  thead {
+    position: sticky;
+    top: 0px;
+    text-align: left;
+    z-index: 1;
+    //espace en dessous du head
+    &::after {
+      content: '';
+      height: 10px;
+      display: block;
+    }
+    tr {
+      th {
+        background: $color-light;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      position: relative;
+
+      td {
+        padding: 15px 0;
+        &.avatar {
+          img {
+            height: 35px;
+            width: 35px;
+            object-fit: cover;
+          }
+        }
+
+        &.status {
+          svg {
+            font-size: 2rem;
+          }
+
+          em {
+            font-size: 0.8rem;
+          }
+        }
+      }
+
+      &::after {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: block;
+        margin-left: 5%;
+        content: '';
+        height: 1px;
+        background: $color-main;
+        opacity: 0.2;
+        width: 90%;
+      }
+      &:last-child::after {
+        display: none;
+      }
+    }
+  }
+}

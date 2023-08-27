@@ -3,10 +3,11 @@ import actions from '../store/actions';
 import { Socket, io } from 'socket.io-client';
 import { useCallback } from 'react';
 import { APIResponse } from '../types';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/index.ts';
 import { useState, useEffect } from 'react';
 import testConnection from '../utilities/testConnection.ts';
+import { updatePresence } from '../store/actions/dataActions.ts';
 
 const useConnect = () => {
   const [socket, setSocket] = useState<Socket>();
@@ -87,6 +88,13 @@ const useConnect = () => {
       dispatch(actions.authActions.connect({ token: storedToken }));
       dispatch(actions.authActions.stopPending());
 
+      // --- Utilisateurs actifs (mise a jour auto)
+      newSocket.off('activeUsers');
+      newSocket.on('activeUsers', (data) => {
+        dispatch(actions.dataActions.updatePresence({ data }));
+      });
+
+      // --- Données de l'application (classe, user, cours...)
       newSocket.off('dataProvider');
       newSocket.on('dataProvider', (data) => {
         dispatch(actions.dataActions.update({ data }));
@@ -211,8 +219,18 @@ const useConnect = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.code === 200) {
+          // --- Fermeture du socket
+          if (socket) socket.close();
+
+          // --- (La fermeture du socket déclenche la mise hors ligne du serveur => on remet)
+          dispatch(actions.globalsActions.serverOnline());
+
+          // --- Nettoyage du store
           dispatch(actions.authActions.disconnect());
+
+          // --- Suppression du token de connexion des cookies
           localStorage.removeItem('token');
+
           toast.warn('Déconnexion réussie', {
             position: 'top-right',
             autoClose: 5000,
@@ -239,7 +257,7 @@ const useConnect = () => {
       .catch((error) => {
         console.error('Erreur lors de la déconnexion', error);
       });
-  }, [connectionToken, dispatch]);
+  }, [connectionToken, socket, dispatch]);
 
   // --- Fonction qui vérifie le signupCode (lors de l'inscription)
   const signupCodeCheck = useCallback(async (signupCode: string) => {
