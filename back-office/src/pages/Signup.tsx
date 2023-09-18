@@ -1,12 +1,12 @@
-import React, { useState, useCallback } from "react";
-import styled from "styled-components";
-import { APIResponse, IAuthContext, CodeCheckResponse } from "../types";
-import { AuthContext } from "../contexts/Auth";
-import { useContext } from "react";
-import "../components/Signup/Signup.scss";
-import useError from "../hooks/useError";
-import { Link } from "react-router-dom";
-import { AiOutlineCheck } from "react-icons/ai";
+import React, { useState, useCallback } from 'react';
+import styled from 'styled-components';
+import { APIResponse, IAuthContext, CodeCheckResponse } from '../types';
+import { AuthContext } from '../contexts/Auth';
+import { useContext } from 'react';
+import '../components/Signup/Signup.scss';
+import useError from '../hooks/useError';
+import { Link } from 'react-router-dom';
+import { AiOutlineCheck } from 'react-icons/ai';
 
 // A FAIRE: Gérer la modification du bouton d'inscription pour confirmer l'application de cette derniere
 
@@ -15,13 +15,13 @@ const Signup = () => {
     AuthContext
   ) as IAuthContext;
   const { error, changeErrorMsg, enableError, disableError } = useError();
-  const [login, setLogin] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-  const [signupCode, setSignupCode] = useState<string>("");
+  const [login, setLogin] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+  const [signupCode, setSignupCode] = useState<string>('');
   const [isFetchingCodeConfirm, setIsFetchingCodeConfirm] =
     useState<boolean>(false);
   const [codeConfirmResponse, setCodeConfirmResponse] =
@@ -38,7 +38,7 @@ const Signup = () => {
         | React.ChangeEvent<HTMLInputElement>
         | React.ClipboardEvent<HTMLInputElement>
     ) => {
-      if ("value" in e.target) setLogin(e.target.value);
+      if ('value' in e.target) setLogin(e.target.value);
     },
     []
   );
@@ -49,7 +49,7 @@ const Signup = () => {
         | React.ChangeEvent<HTMLInputElement>
         | React.ClipboardEvent<HTMLInputElement>
     ) => {
-      if ("value" in e.target) setUsername(e.target.value);
+      if ('value' in e.target) setUsername(e.target.value);
     },
     []
   );
@@ -60,7 +60,7 @@ const Signup = () => {
         | React.ChangeEvent<HTMLInputElement>
         | React.ClipboardEvent<HTMLInputElement>
     ) => {
-      if ("value" in e.target) setFirstName(e.target.value);
+      if ('value' in e.target) setFirstName(e.target.value);
     },
     []
   );
@@ -71,7 +71,7 @@ const Signup = () => {
         | React.ChangeEvent<HTMLInputElement>
         | React.ClipboardEvent<HTMLInputElement>
     ) => {
-      if ("value" in e.target) setLastName(e.target.value);
+      if ('value' in e.target) setLastName(e.target.value);
     },
     []
   );
@@ -82,7 +82,7 @@ const Signup = () => {
         | React.ChangeEvent<HTMLInputElement>
         | React.ClipboardEvent<HTMLInputElement>
     ) => {
-      if ("value" in e.target) setPassword(e.target.value);
+      if ('value' in e.target) setPassword(e.target.value);
     },
     []
   );
@@ -93,7 +93,7 @@ const Signup = () => {
         | React.ChangeEvent<HTMLInputElement>
         | React.ClipboardEvent<HTMLInputElement>
     ) => {
-      if ("value" in e.target) setPasswordConfirm(e.target.value);
+      if ('value' in e.target) setPasswordConfirm(e.target.value);
     },
     []
   );
@@ -104,7 +104,7 @@ const Signup = () => {
         | React.ChangeEvent<HTMLInputElement>
         | React.ClipboardEvent<HTMLInputElement>
     ) => {
-      if ("value" in e.target) setSignupCode(e.target.value);
+      if ('value' in e.target) setSignupCode(e.target.value);
     },
     []
   );
@@ -132,7 +132,7 @@ const Signup = () => {
       }
 
       if (!login) {
-        changeErrorMsg("Entrez un identifiant");
+        changeErrorMsg('Entrez un identifiant');
         enableError();
         return;
       }
@@ -142,29 +142,29 @@ const Signup = () => {
         return;
       }
       if (!firstName) {
-        changeErrorMsg("Entrez un prénom");
+        changeErrorMsg('Entrez un prénom');
         enableError();
         return;
       }
       if (!lastName) {
-        changeErrorMsg("Entrez un nom");
+        changeErrorMsg('Entrez un nom');
         enableError();
         return;
       }
       if (!password) {
-        changeErrorMsg("Entrez un mot de passe");
+        changeErrorMsg('Entrez un mot de passe');
         enableError();
         return;
       }
       if (!passwordConfirm) {
-        changeErrorMsg("Confirmez votre mot de passe");
+        changeErrorMsg('Confirmez votre mot de passe');
         enableError();
         return;
       }
       if (password !== passwordConfirm) {
-        changeErrorMsg("Les mots de passe ne correspondent pas");
+        changeErrorMsg('Les mots de passe ne correspondent pas');
         enableError();
-        setPasswordConfirm("");
+        setPasswordConfirm('');
         return;
       }
       if (!signupCode) {
@@ -204,20 +204,22 @@ const Signup = () => {
   );
   console.log(codeConfirmResponse);
   return (
-    <MainContainer onClick={handleResetError} id="signup_page">
-      <h1 className="logo-typo">
-        INSCRIPTION <br />
+    <div onClick={handleResetError} id="signup_page">
+      <header>
+        <h1 className="logo-typo">
+          INSCRIPTION <br />
+        </h1>
         <span>
-          Déjà un compte ?{" "}
+          Déjà un compte ?{' '}
           <Link to="/login">
             <button className="learn-button sm">Se connecter</button>
           </Link>
         </span>
-      </h1>
+      </header>
 
       <form onSubmit={handleSubmit}>
         <legend>
-          <em className={`learn-error ${error.status ? "error" : ""}`}>
+          <em className={`learn-error ${error.status ? 'error' : ''}`}>
             {error.msg}
           </em>
         </legend>
@@ -226,7 +228,7 @@ const Signup = () => {
             Identifiant <em>Sert à se connecter</em>
           </label>
           <input
-            className={`learn-input ${error.status && !login ? "error" : ""}`}
+            className={`learn-input ${error.status && !login ? 'error' : ''}`}
             type="text"
             name="login"
             placeholder="Identifiant"
@@ -245,12 +247,12 @@ const Signup = () => {
         </div>
         <div>
           <label htmlFor="username_input">
-            Nom d'utilisateur{" "}
+            Nom d'utilisateur{' '}
             <em>Sert à vous identifier auprès des autres utilisateurs</em>
           </label>
           <input
             className={`learn-input ${
-              error.status && !username ? "error" : ""
+              error.status && !username ? 'error' : ''
             }`}
             type="text"
             name="username"
@@ -276,7 +278,7 @@ const Signup = () => {
               <label htmlFor="first_name_input">Prénom</label>
               <input
                 className={`learn-input ${
-                  error.status && !firstName ? "error" : ""
+                  error.status && !firstName ? 'error' : ''
                 }`}
                 type="text"
                 name="firstName"
@@ -298,7 +300,7 @@ const Signup = () => {
               <label htmlFor="last_name_input">Nom</label>
               <input
                 className={`learn-input ${
-                  error.status && !lastName ? "error" : ""
+                  error.status && !lastName ? 'error' : ''
                 }`}
                 type="text"
                 name="lastName"
@@ -325,7 +327,7 @@ const Signup = () => {
               <label htmlFor="password_input">Mot de passe</label>
               <input
                 className={`learn-input ${
-                  error.status && !password ? "error" : ""
+                  error.status && !password ? 'error' : ''
                 }`}
                 type="password"
                 name="password"
@@ -349,8 +351,8 @@ const Signup = () => {
                 className={`learn-input ${
                   (error.status && !passwordConfirm) ||
                   passwordConfirm !== password
-                    ? "error"
-                    : ""
+                    ? 'error'
+                    : ''
                 }`}
                 type="password"
                 name="password_confirm"
@@ -370,17 +372,19 @@ const Signup = () => {
             </div>
           </div>
         </fieldset>
-        <div
+        <fieldset
           id="code-button-container"
-          className={`${codeConfirmResponse?.code === 200 ? "confirmed" : ""}`}
+          className={`${codeConfirmResponse?.code === 200 ? 'confirmed' : ''}`}
         >
+          <legend>Code d'inscription</legend>
+
           <input
             className={`learn-input ${
               error.status &&
               (!signupCode ||
                 (codeConfirmResponse && codeConfirmResponse.code === 400))
-                ? "error"
-                : ""
+                ? 'error'
+                : ''
             }`}
             type="text"
             name="signupCode"
@@ -415,15 +419,20 @@ const Signup = () => {
                 {isFetchingCodeConfirm ? (
                   <div className="lds-dual-ring"></div>
                 ) : (
-                  "Tester le code"
+                  <div>Tester le code</div>
                 )}
               </span>
               <span>
-                <strong>{codeConfirmResponse?.msg}</strong> <AiOutlineCheck />
+                {codeConfirmResponse?.code === 200 && (
+                  <>
+                    <strong>{codeConfirmResponse?.msg}</strong>{' '}
+                    <AiOutlineCheck />
+                  </>
+                )}
               </span>
             </div>
           </button>
-        </div>
+        </fieldset>
 
         <div id="legal_checkbox_container">
           <input
@@ -438,13 +447,13 @@ const Signup = () => {
           />
           <label
             htmlFor="terms"
-            className={codeConfirmResponse?.code === 200 ? "confirmed" : ""}
+            className={codeConfirmResponse?.code === 200 ? 'confirmed' : ''}
           >
-            J'accepte les{" "}
+            J'accepte les{' '}
             <a target="_blank" href="/legal/usage">
               Conditions d'utilisation
-            </a>{" "}
-            et la{" "}
+            </a>{' '}
+            et la{' '}
             <a target="_blank" href="/legal/privacy">
               Politique de confidentialité
             </a>
@@ -454,8 +463,8 @@ const Signup = () => {
         <button
           className={`learn-button ${
             codeConfirmResponse?.code === 200 || !termsChecked
-              ? "confirmed"
-              : ""
+              ? 'confirmed'
+              : ''
           }`}
           disabled={
             codeConfirmResponse?.code !== 200 || !termsChecked ? true : false
@@ -464,17 +473,8 @@ const Signup = () => {
           S'inscrire
         </button>
       </form>
-    </MainContainer>
+    </div>
   );
 };
-
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  gap: 20px;
-`;
 
 export default Signup;

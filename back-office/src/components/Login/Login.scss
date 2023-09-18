@@ -11,7 +11,7 @@ div#login_page {
   max-width: 1000px;
   gap: 60px;
 
-  header {
+  & > header {
     display: flex;
     flex-direction: column;
     gap: 25px;
