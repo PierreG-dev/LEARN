@@ -1,19 +1,19 @@
-import React, { useState, useCallback } from "react";
-import styled from "styled-components";
-import { APIResponse, IAuthContext } from "../types";
-import { RootState } from "../store/index.ts";
-import { useSelector } from "react-redux";
-import { AuthContext } from "../contexts/Auth";
-import { useContext } from "react";
-import "../components/Login/Login.scss";
-import useError from "../hooks/useError";
-import { Link } from "react-router-dom";
+import React, { useState, useCallback } from 'react';
+import styled from 'styled-components';
+import { APIResponse, IAuthContext } from '../types';
+import { RootState } from '../store/index.ts';
+import { useSelector } from 'react-redux';
+import { AuthContext } from '../contexts/Auth';
+import { useContext } from 'react';
+import '../components/Login/Login.scss';
+import useError from '../hooks/useError';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const { handleLogin } = useContext(AuthContext) as IAuthContext;
   const { error, changeErrorMsg, enableError, disableError } = useError();
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleResetError = useCallback(() => {
     disableError();
@@ -33,19 +33,19 @@ const Login = () => {
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      setPassword("");
+      setPassword('');
       if (!login && !password) {
-        changeErrorMsg("Entrez un identifiant et un mot de passe");
+        changeErrorMsg('Entrez un identifiant et un mot de passe');
         enableError();
         return;
       }
       if (!login) {
-        changeErrorMsg("Entrez un identifiant");
+        changeErrorMsg('Entrez un identifiant');
         enableError();
         return;
       }
       if (!password) {
-        changeErrorMsg("Entrez un mot de passe");
+        changeErrorMsg('Entrez un mot de passe');
         enableError();
         return;
       }
@@ -60,25 +60,27 @@ const Login = () => {
   );
 
   return (
-    <MainContainer onClick={handleResetError} id="login_page">
-      <h1 className="logo-typo">
-        CONNEXION <br />
+    <div onClick={handleResetError} id="login_page">
+      <header>
+        <h1 className="logo-typo">
+          CONNEXION <br />
+        </h1>
         <span>
-          Pas encore de compte ?{" "}
+          Pas encore de compte ?{' '}
           <Link to="/signup">
             <button className="learn-button sm">S'inscrire</button>
           </Link>
         </span>
-      </h1>
+      </header>
 
       <form onSubmit={handleSubmit}>
-        <em className={`learn-error ${error.status ? "error" : ""}`}>
+        <em className={`learn-error ${error.status ? 'error' : ''}`}>
           {error.msg}
         </em>
         <div>
           <label htmlFor="">Identifiant</label>
           <input
-            className={`learn-input ${error.status && !login ? "error" : ""}`}
+            className={`learn-input ${error.status && !login ? 'error' : ''}`}
             type="text"
             name="login"
             placeholder="Entrez votre identifiant"
@@ -91,7 +93,7 @@ const Login = () => {
           <label htmlFor="">Mot de passe</label>
           <input
             className={`learn-input ${
-              error.status && !password ? "error" : ""
+              error.status && !password ? 'error' : ''
             }`}
             type="password"
             name="password"
@@ -105,17 +107,8 @@ const Login = () => {
           Se connecter
         </button>
       </form>
-    </MainContainer>
+    </div>
   );
 };
-
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  gap: 60px;
-`;
 
 export default Login;

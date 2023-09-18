@@ -1,13 +1,33 @@
 @use '../../styles/_variables' as *;
 
 div#login_page {
-  h1 {
-    font-size: 4rem;
-    line-height: 35px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  max-width: 1000px;
+  gap: 60px;
 
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    h1 {
+      font-size: 4em;
+      line-height: 35px;
+
+      @media screen and (max-width: 768px) {
+        font-size: 3em;
+      }
+    }
     span {
       padding-left: 40px;
       font-size: 1rem;
+      display: flex;
+      gap: 10px;
     }
   }
 
@@ -15,22 +35,21 @@ div#login_page {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 450px;
-    gap: 20px;
 
-    label {
-      font-size: 0.85rem;
-    }
+    width: 80%;
+    gap: 20px;
 
     & > div {
       width: 100%;
       display: flex;
       flex-direction: column;
       gap: 10px;
-    }
-
-    & > input {
-      width: 100%;
+      & > label {
+        font-size: 0.85rem;
+      }
+      & > input {
+        width: 100%;
+      }
     }
 
     & > button {
