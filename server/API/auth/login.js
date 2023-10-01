@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
     });
 
   const user = await collections.User.findOne({ login: _login });
-  const userClass = user.classId
+  const userClass = user?.classId
     ? await collections.Class.findOne({ _id: user.classId })
     : undefined;
   console.log(userClass);
