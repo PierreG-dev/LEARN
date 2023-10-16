@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 // --- Déclenche une animation du favicon synchronisée sur les FPS max de la machine
 const initiateFaviconAnimation = () => {
@@ -9,13 +9,13 @@ const initiateFaviconAnimation = () => {
     faviconId = faviconId >= 360 ? 1 : faviconId + 1;
     const link: HTMLLinkElement =
       document.querySelector("link[rel*='icon']") ||
-      document.createElement('link');
+      document.createElement("link");
 
-    link.type = 'image/x-icon';
-    link.rel = 'shortcut icon';
+    link.type = "image/svg+xml";
+    link.rel = "icon";
     link.href = `/favicon/favicon_${faviconId}.svg`;
     // console.log('Favicon updated' + faviconId);
-    requestAnimationFrame(animation);
+    setTimeout(() => requestAnimationFrame(animation), 10);
   };
   requestAnimationFrame(animation);
 };
@@ -26,7 +26,7 @@ const initiateFaviconAnimation = () => {
 // <-> Score < 500 => Moyen | Bas
 // <-> Score > 500 => Médiocre
 const performanceTest = () => {
-  console.info('Test de performances en cours...');
+  console.info("Test de performances en cours...");
   const startTime = performance.now();
 
   let sum = 0;
