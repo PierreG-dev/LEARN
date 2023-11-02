@@ -34,7 +34,7 @@ const performanceTest = () => {
     sum += Math.sqrt(i);
   }
 
-  const endTime = performance.now();
+  const endTime = performance.now(); 
   const duration = endTime - startTime;
 
   console.log(`Score de performances: ` + duration);

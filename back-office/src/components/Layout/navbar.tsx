@@ -1,8 +1,11 @@
-import { Link, useLocation } from 'react-router-dom';
-import { MdLogout } from 'react-icons/md';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/index.ts.ts';
-import { BsDot } from 'react-icons/bs';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { MdLogout } from "react-icons/md";
+import { BsDot, BsFillGearFill } from "react-icons/bs";
+import { FaChevronDown } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/index.ts.ts";
+import { useState } from "react";
+import { BiSolidUser } from "react-icons/bi";
 
 interface Props {
   handleLogout: () => void;
@@ -10,34 +13,36 @@ interface Props {
 
 const user_links = [
   {
-    link: '/courses',
-    name: 'Cours',
+    link: "/courses",
+    name: "Cours",
   },
   {
-    link: '/exercices',
-    name: 'Exercices',
+    link: "/exercices",
+    name: "Exercices",
   },
 ];
 
 const admin_links = [
   {
-    link: '/classes',
-    name: 'Classes',
+    link: "/classes",
+    name: "Classes",
   },
   {
-    link: '/chapters',
-    name: 'Chapitres',
+    link: "/chapters",
+    name: "Chapitres",
   },
 ];
 
 const Navbar = ({ handleLogout }: Props) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const connectedUser = useSelector((state: RootState) => state.data.user);
   const isServerOnline = useSelector(
     (state: RootState) => state.globals.isServerOnline
   );
 
-  console.log(connectedUser?.avatarUrl);
+  const [isUserMenuDeployed, setIsUserMenuDeployed] = useState(false);
+
   return (
     <nav>
       <div>
@@ -49,8 +54,8 @@ const Navbar = ({ handleLogout }: Props) => {
             </div>
             <h2>
               LEARN
-              {(connectedUser?.roles?.includes('teacher') ||
-                connectedUser?.roles?.includes('admin')) && <sup>Manager</sup>}
+              {(connectedUser?.roles?.includes("teacher") ||
+                connectedUser?.roles?.includes("admin")) && <sup>Manager</sup>}
             </h2>
           </Link>
 
@@ -58,7 +63,7 @@ const Navbar = ({ handleLogout }: Props) => {
             {user_links.map((link, key) => (
               <li
                 className={
-                  location.pathname.includes(link.link) ? 'selected' : ''
+                  location.pathname.includes(link.link) ? "selected" : ""
                 }
                 key={key}
               >
@@ -73,7 +78,7 @@ const Navbar = ({ handleLogout }: Props) => {
             {admin_links.map((link, key) => (
               <li
                 className={
-                  location.pathname.includes(link.link) ? 'selected' : ''
+                  location.pathname.includes(link.link) ? "selected" : ""
                 }
                 key={key}
               >
@@ -84,26 +89,41 @@ const Navbar = ({ handleLogout }: Props) => {
         </div>
       </div>
 
-      <div id="profile_container">
+      <div
+        id="profile_container"
+        className={isUserMenuDeployed ? "deployed" : ""}
+        onClick={() => setIsUserMenuDeployed((prevstate) => !prevstate)}
+      >
         <img src={connectedUser?.avatarUrl} alt={connectedUser?.username} />
+        <h4>{connectedUser?.username}</h4>
         <ul id="navbar_profile_selector">
-          <li>
-            <a href="/profile">Mon compte</a>
+          <li style={{ animationDelay: "0.1s" }}>
+            <BiSolidUser />
+            <Link to="/profile">Mon compte</Link>
           </li>
-          <li>
-            <a href="/settings">Paramètres</a>
+          <li style={{ animationDelay: "0.2s" }}>
+            <BsFillGearFill />
+            <Link to="/settings">Paramètres</Link>
           </li>
-          <li value="" onClick={handleLogout}>
-            Se déconnecter
+          <li
+            value=""
+            onClick={() => {
+              handleLogout();
+              navigate("/");
+            }}
+            style={{ animationDelay: "0.3s" }}
+          >
             <MdLogout />
+            <span>Se déconnecter</span>
           </li>
         </ul>
 
         <BsDot
           id="connection_status"
-          title={isServerOnline ? 'En ligne' : 'Tentative de reconnexion...'}
-          style={{ color: isServerOnline ? 'green' : 'orangered' }}
+          title={isServerOnline ? "En ligne" : "Tentative de reconnexion..."}
+          style={{ color: isServerOnline ? "green" : "orangered" }}
         />
+        <FaChevronDown id="user_menu_chevron" />
       </div>
     </nav>
   );
