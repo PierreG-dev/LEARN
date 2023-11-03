@@ -4,7 +4,7 @@ import { BsDot, BsFillGearFill } from "react-icons/bs";
 import { FaChevronDown } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/index.ts.ts";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiSolidUser } from "react-icons/bi";
 
 interface Props {
@@ -36,12 +36,33 @@ const admin_links = [
 const Navbar = ({ handleLogout }: Props) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const userMenuRef = useRef(null);
   const connectedUser = useSelector((state: RootState) => state.data.user);
   const isServerOnline = useSelector(
     (state: RootState) => state.globals.isServerOnline
   );
 
   const [isUserMenuDeployed, setIsUserMenuDeployed] = useState(false);
+
+  const handleOutsideClick = (event: any) => {
+    // Si un clic en dehors du profile_container est détecté
+    if (
+      userMenuRef.current &&
+      !(userMenuRef.current as HTMLElement).contains(event.target)
+    ) {
+      setIsUserMenuDeployed(false); // Fermez le menu utilisateur
+    }
+  };
+
+  useEffect(() => {
+    // Ajoutez l'écouteur d'événements lorsque le composant est monté
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    // Nettoyez l'écouteur d'événements lorsque le composant est démonté
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <nav>
@@ -91,6 +112,7 @@ const Navbar = ({ handleLogout }: Props) => {
 
       <div
         id="profile_container"
+        ref={userMenuRef}
         className={isUserMenuDeployed ? "deployed" : ""}
         onClick={() => setIsUserMenuDeployed((prevstate) => !prevstate)}
       >
@@ -118,7 +140,6 @@ const Navbar = ({ handleLogout }: Props) => {
             <span>Se déconnecter</span>
           </li>
         </ul>
-
         <BsDot
           id="connection_status"
           title={isServerOnline ? "En ligne" : "Tentative de reconnexion..."}
