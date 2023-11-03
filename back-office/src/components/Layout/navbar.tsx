@@ -97,11 +97,11 @@ const Navbar = ({ handleLogout }: Props) => {
         <img src={connectedUser?.avatarUrl} alt={connectedUser?.username} />
         <h4>{connectedUser?.username}</h4>
         <ul id="navbar_profile_selector">
-          <li style={{ animationDelay: "0.1s" }}>
+          <li style={{ animationDelay: "0.1s" }} id="user_menu_account">
             <BiSolidUser />
-            <Link to="/profile">Mon compte</Link>
+            <Link to="/account">Mon compte</Link>
           </li>
-          <li style={{ animationDelay: "0.2s" }}>
+          <li style={{ animationDelay: "0.2s" }} id="user_menu_settings">
             <BsFillGearFill />
             <Link to="/settings">Paramètres</Link>
           </li>
@@ -112,6 +112,7 @@ const Navbar = ({ handleLogout }: Props) => {
               navigate("/");
             }}
             style={{ animationDelay: "0.3s" }}
+            id="user_menu_logout"
           >
             <MdLogout />
             <span>Se déconnecter</span>

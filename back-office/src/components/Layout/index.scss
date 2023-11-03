@@ -165,6 +165,10 @@ nav {
         display: flex;
         align-items: center;
         gap: 10px;
+
+        svg {
+          transition: 0.1s;
+        }
       }
     }
 
@@ -210,6 +214,16 @@ nav {
 
           &:hover {
             opacity: 1;
+
+            &#user_menu_account svg {
+              transform: scale3d(1.15, 1.15, 1);
+            }
+            &#user_menu_settings svg {
+              transform: scale3d(1.15, 1.15, 1);
+            }
+            &#user_menu_logout svg {
+              transform: scale3d(1.15, 1.15, 1);
+            }
           }
         }
       }
