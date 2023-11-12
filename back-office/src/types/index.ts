@@ -16,6 +16,9 @@ export interface DataState {
   user?: User;
   schools?: School[];
   chapters?: Chapter[];
+  teacher?: Teacher;
+  class?: Class;
+  school?: School;
   activeUsers?: ActiveUserData[];
 }
 
@@ -91,28 +94,36 @@ export type ActiveUserData = {
   avatarUrl: string;
 };
 
+// --- Teacher
+export type Teacher = {
+  userName: string;
+  firstName: string;
+  lastName: string;
+  avatarUrl: string;
+};
+
 // --- School
 export type School = {
   _id?: string;
   name: string;
   description: string;
   logoUrl: string;
-  timestamp: number;
-  classes: Class[];
+  timestamp?: number;
+  classes?: Class[];
 };
 
 // --- Class
 export type Class = {
   _id?: string;
-  signupCodeId: string;
-  signupCode: string;
-  schoolId: string;
+  signupCodeId?: string;
+  signupCode?: string;
+  schoolId?: string;
   name: string;
   icon: string;
-  studentsAmount: number;
-  registeredStudentsAmount: number;
-  timestamp: number;
-  exercises: Exercise[];
+  studentsAmount?: number;
+  registeredStudentsAmount?: number;
+  timestamp?: number;
+  exercises?: Exercise[];
   users?: User[];
 };
 
