@@ -12,6 +12,11 @@ nav {
 
   #user_navlinks {
     margin-left: 50px;
+
+    @media (max-width: 1000px) {
+      margin-left: 0px;
+      gap: 0px;
+    }
   }
 
   #navbar_separator {
@@ -39,6 +44,10 @@ nav {
       display: flex;
       align-items: center;
       gap: 30px;
+
+      @media (max-width: 1000px) {
+        gap: 5px;
+      }
 
       a {
         text-decoration: none;
@@ -69,6 +78,10 @@ nav {
         align-items: center;
         padding-left: 0;
         gap: 20px;
+
+        @media (max-width: 1000px) {
+          gap: 0px;
+        }
 
         li {
           padding: 5px;
@@ -123,7 +136,7 @@ nav {
   }
 
   #profile_container {
-    min-width: 160px;
+    min-width: 180px;
     opacity: 0.7;
     transition: 0.2s;
     background: rgba(255, 255, 255, 0.2);
