@@ -23,5 +23,8 @@ module.exports = (req,res,next) => {
         theme: _theme,
         username: _username
       })
-      .then(res.status(200).send("Updated !"))
+      .then(() => {
+        res.status(200).send("Updated !")
+        next()
+      })
     }

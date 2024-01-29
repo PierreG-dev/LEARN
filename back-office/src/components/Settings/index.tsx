@@ -6,12 +6,15 @@ import { RootState } from "../../store/index.ts";
 import useRequests from "../../hooks/useRequests.tsx";
 
 const Settings: React.FC = () => {
+  // --- Pour accéder aux informations de l'utilisateur
   const connectedUser = useSelector((state: RootState) => state.data.user);
-  console.log(connectedUser);
+  // --- Pour gérer les requêtes
   const request = useRequests();
 
   const [pseudo, setPseudo] = useState(connectedUser?.username);
   const [theme, setTheme] = useState(connectedUser?.theme);
+
+  console.log(connectedUser);
 
   const hasModificationsBeenDone = () => {
     if (pseudo !== connectedUser?.username) return true;
@@ -22,6 +25,8 @@ const Settings: React.FC = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
+    console.log(connectedUser);
+    console.log(theme, pseudo);
     request.fetchToAPI("/api/updateUser", "PUT", {
       type: "application/json",
       content: JSON.stringify({
