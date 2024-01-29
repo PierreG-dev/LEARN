@@ -46,5 +46,6 @@ module.exports = (app, io) => {
     '/api/updateExerciseSolutionAccess:id?',
     API.updateExerciceSolutionAccess
   );
+  app.put('/api/updateUser', API.updateUser, updater(io))
   //----------- Errors ------------};
 };

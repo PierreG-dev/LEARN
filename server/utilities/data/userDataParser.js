@@ -2,7 +2,6 @@ const collections = require('../../collections');
 
 // === Récupération des classes / users / schools... === //
 const userDataParser = async (socket) => {
-  console.log(socket.user);
 
   // --- Récupération des données de l'utilisateur
   const userData = await collections.User.findOne({
@@ -31,6 +30,9 @@ const userDataParser = async (socket) => {
     avatarUrl: userData.avatarUrl,
     timestamp: userData.timestamp,
     roles: userData.roles,
+    firstName: userData.firstName,
+    lastName: userData.lastName,
+    theme: userData.theme
   };
 
   const userSchool = {

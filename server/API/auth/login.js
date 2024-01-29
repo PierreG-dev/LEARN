@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
   const userClass = user?.classId
     ? await collections.Class.findOne({ _id: user.classId })
     : undefined;
-  console.log(userClass);
+
   const _hashedPassword = sha256(_password);
 
   if (!user || _hashedPassword !== user.hashedPassword)

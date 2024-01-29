@@ -42,6 +42,9 @@ const signUp = require('@API/auth/signUp');
 const createAdmin = require('@API/auth/createAdmin');
 const signupCodeCheck = require('@API/auth/signupCodeCheck');
 
+// ----- SETTINGS ----- //
+const updateUser = require('@API/settings/updateUser')
+
 module.exports = {
   postChapter,
   postSubChapter,
@@ -70,4 +73,5 @@ module.exports = {
   signUp,
   createAdmin,
   signupCodeCheck,
+  updateUser
 };

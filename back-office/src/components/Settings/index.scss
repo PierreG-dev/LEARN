@@ -1,0 +1,68 @@
+@use '../../styles/_variables' as *;
+
+#settings_container {
+    width: 100vw;
+    max-width: 1000px;
+    margin: auto;
+    padding: 50px;
+
+    
+h1 {
+    margin-bottom: 50px;
+}
+
+img {
+    border-radius: 50%;
+    border: 3px solid $color-main;
+    margin: auto;
+    width: 300px;
+    height: 300px;
+    max-width: 100%;
+    max-height: 100%;
+    margin-bottom: 20px;
+}
+
+form {
+    // Pour superposer
+    div {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        // Pour mettre en ligne
+        &.inline {
+            flex-direction: row;
+            gap: 10px;
+        }
+    }
+
+    fieldset {
+        padding: 15px;
+        border-radius: 5px;
+        border: 2px solid $color-main;
+    }
+
+    input[type="checkbox"] {
+        width: 18px;
+
+        &:checked {
+            accent-color: green;
+        }
+    }
+
+    // Bouton de suppression de compte
+    button#account_delete {
+        background: red;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
+    button[type="submit"] {
+        margin-top: 15px;
+    }
+    
+}
+}
