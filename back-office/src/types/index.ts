@@ -64,9 +64,13 @@ export interface CodeCheckResponse extends APIResponse {
 export type IContentType =
   | 'SchoolCreation'
   | 'ClassCreation'
+  | 'CourseCreation'
+  | 'ExerciceCreation'
+  | 'ExerciceSetCreation'
   | 'ChapterCreation'
   | 'SubchapterCreation'
-  | 'ExerciceCreation';
+  | 'LessonCreation'
+  | 'StepCreation';
 
 // ===== DATA ===== //
 

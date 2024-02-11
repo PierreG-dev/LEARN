@@ -1,11 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useCallback, ReactNode, FC } from 'react';
-import { FaTimes } from 'react-icons/fa';
-import { IContentType } from '../../types';
-import './index.scss';
-import content from './content';
-import DOMPurify from 'dompurify';
+import { useState, useCallback, ReactNode, FC } from "react";
+import { FaTimes } from "react-icons/fa";
+import { IContentType } from "../../types";
+import content from "./content";
+import DOMPurify from "dompurify";
+import "./index.scss";
 
 const contentSelector = (type: IContentType, options: any) => {
   const Content = content[type];
@@ -30,7 +30,7 @@ const ModalContent: FC<ModalContentProps> = ({
       <div id="modal_dark_background" onClick={hideModal} />
       <div
         id="modal_content"
-        style={{ animation: '0.4s modal_fadeIn 1 ease backwards' }}
+        style={{ animation: "0.4s modal_fadeIn 1 ease backwards" }}
         dangerouslySetInnerHTML={
           custom ? { __html: DOMPurify.sanitize(content as string) } : undefined
         }
@@ -52,15 +52,15 @@ const useModal = () => {
   //     - Une modal prédéfini avec un type et des options (type = '...' & options)
   //     - Un modal avec un HTML sous forme de string (type = custom & content)
   const displayModal = useCallback(
-    (type: IContentType | 'custom' | 'default', options: any = {}) => {
-      if (type === 'default' || (type === 'custom' && !options.customContent))
+    (type: IContentType | "custom" | "default", options: any = {}) => {
+      if (type === "default" || (type === "custom" && !options.customContent))
         return;
       setContent(
-        type === 'custom'
+        type === "custom"
           ? options.customContent
           : contentSelector(type, options)
       );
-      setCustom(type === 'custom');
+      setCustom(type === "custom");
       setDisplayed(true);
     },
     []

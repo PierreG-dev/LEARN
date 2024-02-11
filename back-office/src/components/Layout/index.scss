@@ -1,7 +1,16 @@
-@use '../../styles/_variables' as *;
+@use "../../styles/_variables" as *;
+
+main.connected {
+  padding-top: 60px;
+  min-height: calc(100vh - 60px);
+}
 
 nav {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  width: 100vw;
   height: 60px;
   background: $color-main;
   display: flex;
@@ -88,7 +97,7 @@ nav {
           transition: 0.1s;
 
           &::after {
-            content: '';
+            content: "";
             background: $color-light;
             width: 0;
             margin: auto;
@@ -136,7 +145,8 @@ nav {
   }
 
   #profile_container {
-    min-width: 180px;
+    z-index: 15;
+    min-width: 160px;
     opacity: 0.7;
     transition: 0.2s;
     background: rgba(255, 255, 255, 0.2);
@@ -160,6 +170,14 @@ nav {
       object-fit: cover;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 50%;
+    }
+
+    h4 {
+      width: 60px;
+      text-align: start;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     ul {

@@ -1,14 +1,14 @@
-import React, { useCallback, useContext } from 'react';
-import { IModalContext, Class as _Class, School as _School } from '../../types';
-import { IoIosSchool } from 'react-icons/io';
-import { FaChalkboardTeacher } from 'react-icons/fa';
-import { BsChevronLeft } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { ModalContext } from '../../contexts/Modal';
-import iconGenerator from '../../utilities/iconGenerator';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/index.ts';
+import React, { useCallback, useContext } from "react";
+import { IModalContext, Class as _Class, School as _School } from "../../types";
+import { IoIosSchool } from "react-icons/io";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { BsChevronLeft } from "react-icons/bs";
+import { Link, useParams } from "react-router-dom";
+import styled from "styled-components";
+import { ModalContext } from "../../../contexts/Modal";
+import iconGenerator from "../../../utilities/iconGenerator";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/index.ts";
 
 const ClassList: React.FC = () => {
   const { schoolId, classId } = useParams();
@@ -16,22 +16,22 @@ const ClassList: React.FC = () => {
   const schools = useSelector((state: RootState) => state.data.schools || []);
 
   const onAddButtonClick = useCallback(
-    (type: 'school' | 'class') => {
+    (type: "school" | "class") => {
       return () => {
-        if (!schoolId && type === 'class') {
-          throw new Error('Missing school id when creating a new class');
+        if (!schoolId && type === "class") {
+          throw new Error("Missing school id when creating a new class");
         }
         switch (type) {
-          case 'school':
-            modal.displayModal('SchoolCreation', {
+          case "school":
+            modal.displayModal("SchoolCreation", {
               selectedSchoolId: schoolId,
             });
             break;
-          case 'class':
-            modal.displayModal('ClassCreation', { selectedSchoolId: schoolId });
+          case "class":
+            modal.displayModal("ClassCreation", { selectedSchoolId: schoolId });
             break;
           default:
-            throw new Error('Switch addButton classList error');
+            throw new Error("Switch addButton classList error");
         }
       };
     },
@@ -46,20 +46,20 @@ const ClassList: React.FC = () => {
         {school?.classes && school.classes.length !== 0 ? (
           school.classes.map((classItem: _Class, key: number) => (
             <Link
-              to={`/classes/${schoolId}/${classItem._id}`}
+              to={`/admin/classes/${schoolId}/${classItem._id}`}
               key={classItem._id}
             >
               <Class
                 className={`class-list-item ${
                   classId
                     ? classId === classItem._id
-                      ? 'selected'
-                      : 'not-selected'
-                    : ''
+                      ? "selected"
+                      : "not-selected"
+                    : ""
                 }`}
               >
                 <div style={{ animationDelay: `${0.7 + 0.15 * key}s` }}>
-                  {' '}
+                  {" "}
                   {classItem?.icon && iconGenerator(classItem.icon)}
                   <h3>{classItem.name}</h3>
                 </div>
@@ -80,14 +80,14 @@ const ClassList: React.FC = () => {
       <ul id={`schools_list`}>
         {schools.length !== 0 ? (
           schools.map((school: _School, key: number) => (
-            <Link to={`/classes/${school._id}`} key={school._id}>
+            <Link to={`/admin/classes/${school._id}`} key={school._id}>
               <School
                 className={`school-list-item ${
                   schoolId
                     ? schoolId === school._id
-                      ? 'selected'
-                      : 'not-selected'
-                    : ''
+                      ? "selected"
+                      : "not-selected"
+                    : ""
                 }`}
               >
                 <img
@@ -96,7 +96,7 @@ const ClassList: React.FC = () => {
                 />
                 {!schoolId && (
                   <div style={{ animationDelay: `${0.7 + 0.2 * key}s` }}>
-                    {' '}
+                    {" "}
                     <h3>{school.name}</h3>
                     <i>{school.description}</i>
                   </div>
@@ -113,7 +113,7 @@ const ClassList: React.FC = () => {
 
   return (
     <aside>
-      <section id="schools" className={schoolId && 'collapsed'}>
+      <section id="schools" className={schoolId && "collapsed"}>
         <h2>
           <IoIosSchool /> {!schoolId && <span>ECOLES</span>}
         </h2>
@@ -121,7 +121,7 @@ const ClassList: React.FC = () => {
         <button
           className="add-button"
           disabled={schoolId ? true : false}
-          onClick={onAddButtonClick('school')}
+          onClick={onAddButtonClick("school")}
         >
           + <span>Ajouter une école</span>
         </button>
@@ -130,13 +130,13 @@ const ClassList: React.FC = () => {
       {schoolId && (
         <section id="classes">
           <h2>
-            <Link to={'/classes'}>
+            <Link to={"/admin/classes"}>
               <BsChevronLeft />
             </Link>
             <FaChalkboardTeacher /> <span>CLASSES</span>
           </h2>
           {displayClasses()}
-          <button className="add-button" onClick={onAddButtonClick('class')}>
+          <button className="add-button" onClick={onAddButtonClick("class")}>
             + <span>Ajouter une classe</span>
           </button>
         </section>

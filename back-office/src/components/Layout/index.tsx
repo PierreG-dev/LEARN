@@ -26,16 +26,13 @@ const Layout: FC<Props> = ({ children }) => {
 const MainContainer = styled.div`
   width: 100%;
   height: 100vh;
-  min-height: 100vh;
+  overflow: scroll;
+  padding-top: 60px;
   padding: 0;
 
   main {
     width: 100%;
     height: 100%;
-
-    &.connected {
-      height: calc(100% - 60px) !important;
-    }
   }
 `;
 

@@ -1,0 +1,56 @@
+@use "../../styles/_variables" as *;
+ul#icons_list {
+  width: 250px;
+  max-height: 200px;
+  overflow: scroll;
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  left: 300px;
+  top: 26px;
+  border-radius: 2px;
+  background: $color-main;
+  animation: appearFromLeft 0.25s 1;
+  opacity: 0;
+  z-index: -1;
+
+  &.visible {
+    animation: appearFromLeft 0.25s 1;
+    animation-fill-mode: both;
+    z-index: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.1s;
+    color: $color-light;
+
+    &:hover {
+      background-color: #f0f0f0;
+      color: $color-main;
+    }
+
+    & svg {
+      margin-right: 8px;
+      font-size: 1.5rem;
+    }
+
+    & span {
+      font-weight: bold;
+    }
+  }
+}
+
+@keyframes appearFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translate3d(0, 0, 0);
+  }
+}

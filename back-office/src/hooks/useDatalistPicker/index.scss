@@ -1,0 +1,92 @@
+@use "../../styles/_variables" as *;
+ul#data_list {
+  width: 250px;
+  max-height: 200px;
+  overflow: scroll;
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  left: 300px;
+  top: 26px;
+  border-radius: 2px;
+  background: $color-main;
+  opacity: 0;
+  z-index: -1;
+
+  &.visible {
+    animation: appearFromLeft 0.25s 1;
+    animation-fill-mode: both;
+    z-index: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.1s;
+    color: $color-light;
+
+    &:hover {
+      background-color: #f0f0f0;
+      color: $color-main;
+    }
+
+    & svg {
+      margin-left: 8px;
+      font-size: 1rem;
+    }
+
+    & span {
+      font-weight: bold;
+    }
+  }
+}
+
+ul#selected_tag_list {
+  max-width: 300px;
+  padding-top: 10px;
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  transition: 1s;
+  height: fit-content;
+
+  li {
+    cursor: pointer;
+    background: $color-main;
+    color: $color-light;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: 0.05s;
+    animation: appearFromTop 0.75s 1;
+    animation-fill-mode: both;
+
+    &:hover {
+      background: orangered;
+    }
+  }
+}
+
+@keyframes appearFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes appearFromTop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -5px, 0);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translate3d(0, 0, 0);
+  }
+}

@@ -24,12 +24,12 @@ const user_links = [
 
 const admin_links = [
   {
-    link: "/classes",
+    link: "/admin/classes",
     name: "Classes",
   },
   {
-    link: "/chapters",
-    name: "Chapitres",
+    link: "/admin/content",
+    name: "Contenu",
   },
 ];
 

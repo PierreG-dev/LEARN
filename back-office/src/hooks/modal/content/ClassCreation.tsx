@@ -1,21 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useSelector } from 'react-redux';
-import { FC, useState, useCallback } from 'react';
-import { RootState } from '../../../store/index.ts';
-import NumberInput from '../../../utilities/NumberInput.tsx';
-import styled from 'styled-components';
-import useRequests from '../../useRequests.tsx';
-import { APIResponse } from '../../../types/index.ts';
-
-type IProps = {
-  options: {
-    [value: string]: any;
-  };
-};
+import { useSelector } from "react-redux";
+import { FC, useState, useCallback } from "react";
+import { RootState } from "../../../store/index.ts";
+import NumberInput from "../../../utilities/NumberInput.tsx";
+import styled from "styled-components";
+import useRequests from "../../useRequests.tsx";
+import { APIResponse } from "../../../types/index.ts";
+import { IProps } from "./index.ts";
 
 const ClassCreation: FC<IProps> = ({ options }) => {
   const [studentsAmount, setStudentsAmount] = useState<number>(0);
-  const [name, setName] = useState<string>('');
+  const [name, setName] = useState<string>("");
   const request = useRequests();
 
   const school = useSelector((state: RootState) =>
@@ -31,10 +26,10 @@ const ClassCreation: FC<IProps> = ({ options }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!school) throw new Error('No schoolId while trying to create a class');
+    if (!school) throw new Error("No schoolId while trying to create a class");
 
-    await request.fetchToAPI('/api/postClass', 'POST', {
-      type: 'application/json',
+    await request.fetchToAPI("/api/postClass", "POST", {
+      type: "application/json",
       content: JSON.stringify({
         name: name,
         studentsAmount: studentsAmount,
@@ -43,7 +38,7 @@ const ClassCreation: FC<IProps> = ({ options }) => {
     });
 
     if (request.data.code === 200) {
-      setName('');
+      setName("");
       setStudentsAmount(0);
     }
   };
@@ -55,13 +50,13 @@ const ClassCreation: FC<IProps> = ({ options }) => {
         <img
           src={`${import.meta.env.VITE_APP_API_URL}${school?.logoUrl}`}
           alt={school?.name}
-        />{' '}
+        />{" "}
         <figcaption>{school?.name}</figcaption>
       </InlineSchoolDisplayer>
       <form onSubmit={handleSubmit} onClick={request.errorHandler.disableError}>
         <em
           className={`learn-error ${
-            request.errorHandler.error.status && 'error'
+            request.errorHandler.error.status && "error"
           }`}
         >
           {request.errorHandler.error.msg}
@@ -71,7 +66,7 @@ const ClassCreation: FC<IProps> = ({ options }) => {
           <NumberInput
             getter={studentsAmount}
             setter={setStudentsAmount}
-            name={'studentsAmount'}
+            name={"studentsAmount"}
           />
         </div>
 

@@ -1,33 +1,33 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import ClassEdit from './Edit/ClassEdit';
-import ClassView from './View/ClassView';
-import ClassAccess from './Accesses/ClassAccess';
-import iconGenerator from '../../../utilities/iconGenerator';
-import './index.scss';
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import ClassEdit from "./Edit/ClassEdit";
+import ClassView from "./View/ClassView";
+import ClassAccess from "./Accesses/ClassAccess";
+import iconGenerator from "../../../../utilities/iconGenerator";
+import "./index.scss";
+import { useParams } from "react-router-dom";
 
 const tabs = [
   {
     id: 1,
-    icon: 'AiOutlineDashboard',
-    name: 'Tableau de bord',
+    icon: "AiOutlineDashboard",
+    name: "Tableau de bord",
     tab: <ClassView />,
   },
   {
     id: 2,
-    icon: 'AiFillLock',
-    name: 'Accès',
+    icon: "AiFillLock",
+    name: "Accès",
     tab: <ClassAccess />,
   },
   {
     id: 3,
-    icon: 'BsFillGearFill',
-    name: 'Paramètres',
+    icon: "BsFillGearFill",
+    name: "Paramètres",
     tab: <ClassEdit />,
   },
 ] as const;
 
-type TabIDs = (typeof tabs)[number]['id'];
+type TabIDs = (typeof tabs)[number]["id"];
 
 const ClassPanel: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<TabIDs>(1);

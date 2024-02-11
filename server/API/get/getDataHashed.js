@@ -1,5 +1,5 @@
-const collections = require('../../collections');
-const sha256 = require('js-sha256').sha256;
+const collections = require("../../collections");
+const sha256 = require("js-sha256").sha256;
 
 module.exports = async (req, res) => {
   const chapters = await collections.Chapter.find().lean();

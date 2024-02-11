@@ -15,6 +15,9 @@ const getGroup = require('@API/get/getGroup');
 const getSoluce = require('@API/get/getSoluce');
 const getGeneratedExercices = require('@API/post/postGeneratedExercices');
 
+// ----- COURSE ----- //
+const course = require('./course')
+
 // ----- DATA CREATION ----- //
 const postChapter = require('@API/post/postChapter');
 const postSubChapter = require('@API/post/postSubChapter');
@@ -46,6 +49,7 @@ const signupCodeCheck = require('@API/auth/signupCodeCheck');
 const updateUser = require('@API/settings/updateUser')
 
 module.exports = {
+  course,
   postChapter,
   postSubChapter,
   postExercise,

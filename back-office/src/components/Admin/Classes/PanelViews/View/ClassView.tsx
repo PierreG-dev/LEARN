@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import './index.scss';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../store/index.ts';
-import iconGenerator from '../../../../utilities/iconGenerator.tsx';
-import { User } from '../../../../types/index.ts';
-import moment from 'moment';
-import UsersTable from '../../../../utilities/UsersTable/index.tsx';
+import React, { useCallback, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import "./index.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../store/index.ts";
+import iconGenerator from "../../../../../utilities/iconGenerator.tsx";
+import { User } from "../../../../../types/index.ts";
+import moment from "moment";
+import UsersTable from "../../../../../utilities/UsersTable/index.tsx";
 
 const ClassView: React.FC = () => {
   const { classId, schoolId } = useParams();
@@ -36,7 +36,7 @@ const ClassView: React.FC = () => {
         setCodeCopyAnimation(true);
         setTimeout(() => setCodeCopyAnimation(false), 1000);
       } catch (err) {
-        console.error('La copie du code a échouée');
+        console.error("La copie du code a échouée");
       }
     },
     []
@@ -47,7 +47,7 @@ const ClassView: React.FC = () => {
       <div id="row">
         <div>
           <h2 id="class_name">
-            {iconGenerator(selectedClass?.icon)} Classe{' '}
+            {iconGenerator(selectedClass?.icon)} Classe{" "}
             <span>{selectedClass?.name}</span>
           </h2>
         </div>
@@ -56,12 +56,12 @@ const ClassView: React.FC = () => {
           <h3
             id="signup_code_tag"
             onClick={handleSignupCodeCopy}
-            className={codeCopyAnimation ? 'copied' : ''}
+            className={codeCopyAnimation ? "copied" : ""}
           >
             {selectedClass?.signupCode}
           </h3>
           <h3 id="students_amount">
-            {selectedClass?.registeredStudentsAmount} /{' '}
+            {selectedClass?.registeredStudentsAmount} /{" "}
             {selectedClass?.studentsAmount} étudiants
           </h3>
         </div>

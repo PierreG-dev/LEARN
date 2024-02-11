@@ -1,0 +1,109 @@
+@use "../../../styles/_variables" as *;
+
+#content_admin_page {
+  width: 80%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 25px;
+
+  // Conteneur du titre et du h3
+  & > div {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding-bottom: 5px;
+  }
+
+  // Séparation entre le titre et la liste
+  hr {
+    border: 1px solid $color-main;
+  }
+
+  h4 {
+    text-align: right;
+    width: 100%;
+    display: block;
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  // Grille des cours
+  & > ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 25px 5px;
+
+    // Element de liste (cours)
+    & > li {
+      border-radius: 5px;
+      box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
+      width: 250px;
+      height: 300px;
+      background: $color-secondary;
+      display: flex;
+      flex-direction: column;
+
+      // Titre du cours
+      h3 {
+        color: $color-light !important;
+        padding: 15px;
+        border-radius: 5px 5px 0 0;
+        background: $color-main;
+        align-items: center;
+        height: 60px;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      // Conteneur description & liste
+      & > div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        // Description du cours
+        p {
+          padding: 5px 15px;
+          color: $color-main !important;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 5;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        // Liste de tags
+        ul {
+          list-style: none;
+          display: flex;
+          gap: 20px 5px;
+          padding: 20px;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: end;
+          align-content: end;
+
+          // Tag
+          li {
+          }
+          // Lien
+          a {
+            border-radius: 5px;
+            padding: 10px 15px;
+            height: fit-content;
+            user-select: none;
+            color: $color-light;
+            background: $color-main;
+          }
+        }
+      }
+    }
+  }
+}
