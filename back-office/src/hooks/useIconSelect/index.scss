@@ -1,4 +1,21 @@
 @use "../../styles/_variables" as *;
+
+input {
+  padding-right: 25px !important;
+}
+
+svg.iconlist-chevron {
+  position: absolute;
+  top: 57%;
+  left: 240px;
+  transition: 0.3s;
+
+  &.rotated {
+    transform: rotate(-90deg);
+    color: $color-light;
+  }
+}
+
 ul#icons_list {
   width: 250px;
   max-height: 200px;
@@ -10,14 +27,26 @@ ul#icons_list {
   top: 26px;
   border-radius: 2px;
   background: $color-main;
-  animation: appearFromLeft 0.25s 1;
   opacity: 0;
   z-index: -1;
 
   &.visible {
     animation: appearFromLeft 0.25s 1;
     animation-fill-mode: both;
-    z-index: 0;
+    z-index: 6;
+  }
+
+  /* Pour Firefox */
+  & {
+    scrollbar-color: $color-light $color-main;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-main;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-light;
   }
 
   li {
@@ -50,7 +79,7 @@ ul#icons_list {
     transform: translate3d(-20px, 0, 0);
   }
   100% {
-    opacity: 0.7;
+    opacity: 0.9;
     transform: translate3d(0, 0, 0);
   }
 }

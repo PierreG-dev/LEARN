@@ -14,7 +14,7 @@ const getTechnologyName = (iconName: string) => {
 
 const deviconsNamesList = Object.keys(icons)
   .map((icon) => getTechnologyName(icon))
-  .reduce((acc, current) => {
+  .reduce((acc: string[], current: string) => {
     if (!acc.includes(current)) {
       acc.push(current);
     }
@@ -36,13 +36,15 @@ const getIconFromName = (name: string): any => {
   return IconComponent ? <IconComponent /> : null;
 };
 
+const languagesList = deviconsNamesList.filter((item) =>
+  new RegExp(
+    "\\b(R|C|Ceylon|Clojure|Clojurescript|Awk|Coffeescript|Crystal|Csharp|Dart|D|Erlang|Fsharp|Go|Groovy|Haskell|Java|Javascript|Julia|Kotlin|Lua|Matlab|Perl|Php|Python|Ruby|Rust|Scala|Scheme|Shell|Swift|Typescript|Vyper|Html5|Css3|Xml|Yaml|Mysql|Mariadb|Postgresql|Sqlite|Oracle|Mongodb|Neo4j|Cassandra|Couchbase|Redis|SqlServer|Dynamodb|Firebase|Cosmosdb)\\b"
+  ).test(item)
+);
+
 export default {
   list: deviconsNamesList,
-  languagesList: deviconsNamesList.filter((item) =>
-    new RegExp(
-      "\\b(R|C|Ceylon|Clojure|Clojurescript|Awk|Coffeescript|Crystal|Csharp|Dart|D|Erlang|Fsharp|Go|Groovy|Haskell|Java|Javascript|Julia|Kotlin|Lua|Matlab|Perl|Php|Python|Ruby|Rust|Scala|Scheme|Shell|Swift|Typescript|Vyper|Html5|Css3|Xml|Yaml|Mysql|Mariadb|Postgresql|Sqlite|Oracle|Mongodb|Neo4j|Cassandra|Couchbase|Redis|SqlServer|Dynamodb|Firebase|Cosmosdb)\\b"
-    ).test(item)
-  ),
+  languagesList,
   icons: icons,
   getIconFromName,
 };

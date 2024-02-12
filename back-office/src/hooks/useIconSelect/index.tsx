@@ -1,6 +1,8 @@
 import { useState, useEffect, ChangeEvent, FocusEvent } from "react";
 import { IconType } from "react-icons";
+import { IoChevronDown } from "react-icons/io5";
 import iconGenerator from "../../utilities/iconGenerator";
+
 import "./index.scss";
 
 // Import des icônes
@@ -92,11 +94,15 @@ const useIconSelect = () => {
     <div>
       <input
         onFocus={handleInputFocus}
-        className="learn-input"
+        className="learn-input md"
         onBlur={handleInputBlur}
         value={searchTerm}
         onChange={handleSearchChange}
-        placeholder="Chercher une icône..."
+        placeholder="Sélectionnez une icône..."
+      />
+
+      <IoChevronDown
+        className={`iconlist-chevron ${isInputFocused ? "rotated" : ""}`}
       />
 
       <ul id="icons_list" className={isInputFocused ? "visible" : ""}>

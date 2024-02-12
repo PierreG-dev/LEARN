@@ -12,13 +12,14 @@ const CourseCreation = () => {
   const categoriesSelector = useDatalistPicker({
     dataset: categoriesData,
     multiple: true,
-    placeholder: "Entrez un domaine",
+    placeholder: "Selectionnez des domaines",
   });
 
   const languagesSelector = useDatalistPicker({
     dataset: technologies.languagesList,
     multiple: true,
-    placeholder: "Entrez une technologie",
+    placeholder: "Selectionnez des technologies",
+    alt: "languages",
   });
 
   console.log(technologies.languagesList);
@@ -46,6 +47,16 @@ const CourseCreation = () => {
 
       <form onSubmit={() => {}}>
         <div>
+          <label htmlFor="title">Intitulé</label>
+          <input
+            type="text"
+            name="title"
+            className="learn-input md"
+            placeholder="Nom du cours"
+          />
+        </div>
+
+        <div>
           <label htmlFor="icon">Icône</label>
           {IconSelect}
         </div>
@@ -61,16 +72,6 @@ const CourseCreation = () => {
         </div>
 
         <div>
-          <label htmlFor="title">Intitulé</label>
-          <input
-            type="text"
-            name="title"
-            className="learn-input"
-            placeholder="Nom du cours"
-          />
-        </div>
-
-        <div>
           <label htmlFor="description">Description</label>
           <textarea
             name="description"
@@ -78,6 +79,7 @@ const CourseCreation = () => {
             cols={40}
             rows={5}
             style={{ resize: "none" }}
+            placeholder="Brève description"
           />
         </div>
       </form>

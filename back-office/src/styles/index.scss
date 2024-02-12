@@ -123,6 +123,18 @@ textarea.learn-input {
   font-weight: bold;
   transition: 0.2s;
 
+  &.ls {
+    width: 150px;
+  }
+
+  &.md {
+    width: 250px;
+  }
+
+  &.lg {
+    width: 350px;
+  }
+
   &:disabled {
     opacity: 0.4;
   }

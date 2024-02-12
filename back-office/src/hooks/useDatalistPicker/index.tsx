@@ -1,5 +1,6 @@
 import {
   ChangeEvent,
+  FocusEvent,
   MouseEvent,
   useCallback,
   useEffect,
@@ -7,36 +8,53 @@ import {
   useState,
 } from "react";
 import { FaCheck } from "react-icons/fa";
+import { IoChevronDown } from "react-icons/io5";
 import "./index.scss";
+import technologies from "../../utilities/technologies";
 
 /**
  * @typedef {Object} IProps - Les propriétés du composant.
  * @property {string[]} dataset - Les données à afficher dans la liste.
  * @property {boolean} [multiple=false] - Indique si la sélection multiple est activée.
  * @property {string} [placeholder] - Placeholder pour l'input.
+ * @property {string} [alt] - Permet de préciser une spécificité
  */
+
+type IProps = {
+  dataset: string[];
+  multiple: boolean;
+  placeholder?: string;
+  alt?: string;
+};
 
 /**
  * Hook personnalisé pour la sélection de données avec une liste déroulante.
  * @param {IProps} props - Les propriétés du composant.
  * @returns {{DatalistPicker: JSX.Element, selectedData: string[] | string, setSelectedData: Function}}
  */
-const useDatalistPicker = ({ dataset, multiple = false, placeholder }) => {
+const useDatalistPicker = ({
+  dataset,
+  multiple = false,
+  placeholder,
+  alt,
+}: IProps) => {
   /** Permet de savoir si l'input est en focus ou non */
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
   /** Donnée sélectionnée; peut être une chaîne ou un tableau de chaînes */
-  const [selectedData, setSelectedData] = useState(multiple ? [] : "");
+  const [selectedData, setSelectedData] = useState<string | string[]>(
+    multiple ? [] : ""
+  );
   /** Valeur de l'input de recherche */
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   /** Contenu de la liste à afficher (après filtrage) */
-  const [filteredOptions, setFilteredOptions] = useState([]);
+  const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
 
   /** Référence pour l'input */
-  const input = useRef(null);
+  const input = useRef<HTMLInputElement>(null);
   /** Référence pour la dataList */
-  const dataList = useRef(null);
+  const dataList = useRef<HTMLUListElement>(null);
   /** Référence pour la tagList */
-  const tagList = useRef(null);
+  const tagList = useRef<HTMLUListElement>(null);
 
   /**
    * Effet pour filtrer les options en fonction du terme de recherche.
@@ -53,7 +71,7 @@ const useDatalistPicker = ({ dataset, multiple = false, placeholder }) => {
    * @param {string} value - La valeur sélectionnée.
    */
   const handleDataSelect = useCallback(
-    (value) => {
+    (value: string) => {
       if (multiple) {
         setSelectedData((prevState) => {
           const alreadySelected = prevState.includes(value);
@@ -74,7 +92,7 @@ const useDatalistPicker = ({ dataset, multiple = false, placeholder }) => {
    * Fonction pour supprimer un élément sélectionné (uniquement pour la sélection multiple).
    * @param {string} value - La valeur à supprimer.
    */
-  const handleDeleteItem = useCallback((value) => {
+  const handleDeleteItem = useCallback((value: string) => {
     setTimeout(() => {
       setSelectedData((prevState) => {
         if (Array.isArray(prevState))
@@ -88,7 +106,7 @@ const useDatalistPicker = ({ dataset, multiple = false, placeholder }) => {
    * Fonction pour mettre à jour le terme de recherche.
    * @param {ChangeEvent<HTMLInputElement>} e - L'événement de changement de l'input.
    */
-  const handleSearchChange = useCallback((e) => {
+  const handleSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   }, []);
 
@@ -103,7 +121,7 @@ const useDatalistPicker = ({ dataset, multiple = false, placeholder }) => {
    * Fonction pour gérer le blur de l'input.
    * @param {MouseEvent} e - L'événement de clic.
    */
-  const handleInputBlur = useCallback((e) => {
+  const handleInputBlur = useCallback((e: any) => {
     if (
       e.target !== input.current &&
       e.target !== dataList.current &&
@@ -132,10 +150,14 @@ const useDatalistPicker = ({ dataset, multiple = false, placeholder }) => {
       <input
         ref={input}
         onFocus={handleInputFocus}
-        className="learn-input"
+        className="learn-input md"
         value={searchTerm}
         onChange={handleSearchChange}
         placeholder={placeholder || "Entrez votre recherche..."}
+      />
+
+      <IoChevronDown
+        className={`datalist-chevron ${isInputFocused ? "rotated" : ""}`}
       />
 
       <ul
@@ -150,7 +172,10 @@ const useDatalistPicker = ({ dataset, multiple = false, placeholder }) => {
               handleDataSelect(data);
             }}
           >
-            {data}
+            <div>
+              {alt === "languages" && technologies.getIconFromName(data)}
+              <span>{data}</span>
+            </div>
             <FaCheck style={{ opacity: selectedData.includes(data) ? 1 : 0 }} />
           </li>
         ))}

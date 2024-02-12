@@ -1,4 +1,20 @@
 @use "../../styles/_variables" as *;
+input {
+  padding-right: 25px !important;
+}
+
+svg.datalist-chevron {
+  position: absolute;
+  top: 50%;
+  left: 240px;
+  transition: 0.3s;
+
+  &.rotated {
+    transform: rotate(-90deg);
+    color: $color-light;
+  }
+}
+
 ul#data_list {
   width: 250px;
   max-height: 200px;
@@ -16,12 +32,26 @@ ul#data_list {
   &.visible {
     animation: appearFromLeft 0.25s 1;
     animation-fill-mode: both;
-    z-index: 0;
+    z-index: 5;
+  }
+
+  /* Pour Firefox */
+  & {
+    scrollbar-color: $color-light $color-main;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-main;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-light;
   }
 
   li {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 8px;
     cursor: pointer;
     transition: 0.1s;
@@ -32,13 +62,16 @@ ul#data_list {
       color: $color-main;
     }
 
-    & svg {
-      margin-left: 8px;
-      font-size: 1rem;
-    }
+    & > div {
+      display: flex;
+      align-items: center;
+      & svg {
+        font-size: 1rem;
+      }
 
-    & span {
-      font-weight: bold;
+      & span {
+        margin: 0 10px;
+      }
     }
   }
 }
@@ -75,7 +108,7 @@ ul#selected_tag_list {
     transform: translate3d(-20px, 0, 0);
   }
   100% {
-    opacity: 0.7;
+    opacity: 0.9;
     transform: translate3d(0, 0, 0);
   }
 }

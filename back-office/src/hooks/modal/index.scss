@@ -62,13 +62,22 @@ dialog#modal {
       & > form {
         padding-left: 10px;
         position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
 
         & > div {
+          position: relative;
           display: flex;
           flex-direction: column;
           width: fit-content;
+          width: 50%;
           margin-bottom: 10px;
           padding-left: 10px;
+
+          @media (max-width: 700px) {
+            width: 100%;
+          }
 
           label {
             font-size: 1.1rem;
