@@ -1,4 +1,4 @@
-import { ChangeEvent, memo, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import "./index.scss";
 
@@ -8,10 +8,13 @@ type IProps = {
   right?: number;
   bottom?: number;
   left?: number;
+  fixedDifficulty?: IDifficulty;
 };
 
-function useDifficultySelector(props: IProps) {
-  const [difficulty, setDifficulty] = useState<IDifficulty>(3); // Initial difficulty level
+function useDifficultySelector({ fixedDifficulty, ...props }: IProps) {
+  const [difficulty, setDifficulty] = useState<IDifficulty>(
+    fixedDifficulty || 3
+  );
 
   console.log("difficulty" + difficulty);
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -41,22 +44,27 @@ function useDifficultySelector(props: IProps) {
     }
   }, []);
 
-  const DifficultySelector = () => (
-    <div className="difficulty-container" style={props}>
-      <input
-        type="range"
-        min="1"
-        max="5"
-        className="difficulty-selector"
-        value={difficulty}
-        onChange={handleChange}
-      />
-      <em className="learn-note">{difficultyToText(difficulty)}</em>
-      <IoChevronDown
-        className="difficulty-pointer"
-        style={{ left: pointerPositionPicker(difficulty) }}
-      />
-    </div>
+  const DifficultySelector = useCallback(
+    () => (
+      <div className="difficulty-container" style={props}>
+        <input
+          type="range"
+          min="1"
+          max="5"
+          step="1"
+          className="difficulty-selector"
+          value={difficulty}
+          disabled={fixedDifficulty ? true : false}
+          onChange={handleChange}
+        />
+        <em className="learn-note">{difficultyToText(difficulty)}</em>
+        <IoChevronDown
+          className="difficulty-pointer"
+          style={{ left: pointerPositionPicker(difficulty) }}
+        />
+      </div>
+    ),
+    [difficulty]
   );
 
   return { difficulty, DifficultySelector };

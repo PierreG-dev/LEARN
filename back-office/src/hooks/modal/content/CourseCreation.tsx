@@ -10,7 +10,7 @@ const categoriesData = ["Front-end", "Back-end", "Dev-ops", "Outils"];
 const CourseCreation = () => {
   // --- HOOKS
   const { difficulty, DifficultySelector } = useDifficultySelector({
-    top: 67.5,
+    top: 60,
     left: 20,
   });
   const { IconSelect, selectedIcon } = useIconSelect();
@@ -48,8 +48,10 @@ const CourseCreation = () => {
   return (
     <>
       <h1>Nouveau cours</h1>
+      <br />
       <hr />
       <br />
+
       <DifficultySelector />
 
       <form onSubmit={() => {}}>

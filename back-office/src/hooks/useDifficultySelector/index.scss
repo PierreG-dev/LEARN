@@ -9,7 +9,8 @@ div.difficulty-container {
 
   svg.difficulty-pointer {
     position: absolute;
-    top: 3px;
+    top: -1px;
+    font-size: 1.3rem;
   }
 
   input[type="range"].difficulty-selector {
@@ -17,22 +18,22 @@ div.difficulty-container {
       to right,
       #2ecc71dd 0%,
       #2ecc71dd 17%,
-      #f1c40fdd 17%,
-      #f1c40fdd 38%,
-      #ffa500dd 38%,
-      #ffa500dd 60%,
-      #ff6a00dd 60%,
-      #ff6a00dd 82%,
-      #e74c3cdd 82%,
-      #e74c3cdd 100%
+      #f1e107dd 17%,
+      #f1e107dd 38%,
+      #ff8c00dd 38%,
+      #ff8c00dd 60%,
+      #ff5500dd 60%,
+      #ff5500dd 82%,
+      #ed1b1bdd 82%,
+      #ed1b1bdd 100%
     );
     padding: 0 !important;
     opacity: 0.8;
     margin-top: 15px;
     width: 120px;
-    height: 10px;
+    height: 8px;
     border-radius: 5px;
-    border: 1px solid $color-main;
+    border: 0.05px solid $color-main;
     box-shadow: 1px 1px 7px rgba($color-main, 0.3);
     cursor: pointer;
 
