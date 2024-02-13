@@ -11,6 +11,7 @@ import { FaCheck } from "react-icons/fa";
 import { IoChevronDown } from "react-icons/io5";
 import "./index.scss";
 import technologies from "../../utilities/technologies";
+import iconGenerator from "../../utilities/iconGenerator";
 
 /**
  * @typedef {Object} IProps - Les propriétés du composant.
@@ -24,7 +25,7 @@ type IProps = {
   dataset: string[];
   multiple: boolean;
   placeholder?: string;
-  alt?: string;
+  alt?: "icons" | "languages";
 };
 
 /**
@@ -82,6 +83,7 @@ const useDatalistPicker = ({
         });
       } else {
         setSelectedData(value);
+        setIsInputFocused(false);
         setSearchTerm(value);
       }
     },
@@ -130,7 +132,7 @@ const useDatalistPicker = ({
       !dataList.current?.contains(e.target) &&
       !tagList.current.contains(e.target)
     )
-      setIsInputFocused(false);
+      return setIsInputFocused(false);
   }, []);
 
   /**
@@ -150,6 +152,7 @@ const useDatalistPicker = ({
       <input
         ref={input}
         onFocus={handleInputFocus}
+        onBlur={() => setIsInputFocused(false)}
         className="learn-input md"
         value={searchTerm}
         onChange={handleSearchChange}
@@ -173,10 +176,13 @@ const useDatalistPicker = ({
             }}
           >
             <div>
+              {alt === "icons" && iconGenerator(data)}
               {alt === "languages" && technologies.getIconFromName(data)}
               <span>{data}</span>
             </div>
-            <FaCheck style={{ opacity: selectedData.includes(data) ? 1 : 0 }} />
+            <FaCheck
+              style={{ opacity: selectedData.includes(data) && !alt ? 1 : 0 }}
+            />
           </li>
         ))}
       </ul>

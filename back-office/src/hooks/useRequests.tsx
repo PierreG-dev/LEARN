@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useCallback, useMemo } from 'react';
-import styled from 'styled-components';
-import { FaCheck, FaTimes } from 'react-icons/fa';
-import { AiOutlineReload } from 'react-icons/ai';
-import { RootState } from '../store/index.ts';
-import { useSelector } from 'react-redux';
-import useError from './useError.ts';
+import { useState, useCallback, useMemo } from "react";
+import styled from "styled-components";
+import { FaCheck, FaTimes } from "react-icons/fa";
+import { AiOutlineReload } from "react-icons/ai";
+import { RootState } from "../store/index.ts";
+import { useSelector } from "react-redux";
+import useError from "./useError.ts";
 
 const useRequests = () => {
   const [pendingRequest, setPendingRequest] = useState<boolean>(false);
-  const [data, setData] = useState<any>('');
+  const [data, setData] = useState<any>("");
   const connectionToken = useSelector((state: RootState) => state.auth.token);
   const errorHandler = useError();
 
@@ -21,21 +21,21 @@ const useRequests = () => {
       return (
         <StatusIcon>
           <AiOutlineReload
-            style={{ animation: '0.3s rotate linear infinite' }}
+            style={{ animation: "0.3s rotate linear infinite" }}
           />
         </StatusIcon>
       );
-    else if (data === '') return <StatusIcon />;
-    else if (data === 'Error')
+    else if (data === "") return <StatusIcon />;
+    else if (data === "Error")
       return (
         <StatusIcon>
-          <FaTimes style={{ color: 'orangered', opacity: 0.7 }} />
+          <FaTimes style={{ color: "orangered", opacity: 0.7 }} />
         </StatusIcon>
       );
     else
       return (
         <StatusIcon>
-          <FaCheck style={{ color: 'green', opacity: 0.7 }} />
+          <FaCheck style={{ color: "green", opacity: 0.7 }} />
         </StatusIcon>
       );
   }, [data, pendingRequest]);
@@ -43,21 +43,21 @@ const useRequests = () => {
   const fetchToAPI = useCallback(
     (
       endpoint: string,
-      method: 'POST' | 'PUT' | 'DELETE',
+      method: "POST" | "PUT" | "DELETE",
       body: {
-        type: 'application/json' | 'multipart/form-data';
-        content: string | FormData;
+        type: "application/json" | "multipart/form-data";
+        content: any;
       }
     ) => {
       errorHandler.disableError();
       enablePending();
-      setData('fetching...');
+      setData("fetching...");
       const headers: Record<string, string> = {
         Authorization: `${connectionToken}`,
       };
 
-      if (body.type !== 'multipart/form-data') {
-        headers['content-type'] = body.type;
+      if (body.type !== "multipart/form-data") {
+        headers["content-type"] = body.type;
       }
 
       fetch(`${import.meta.env.VITE_APP_API_URL}${endpoint}`, {
@@ -82,7 +82,7 @@ const useRequests = () => {
           setTimeout(() => {
             disablePending();
             errorHandler.enableError();
-            setData('Error');
+            setData("Error");
           }, 1000);
         });
     },
@@ -115,7 +115,7 @@ const useRequests = () => {
         .catch(() => {
           setTimeout(() => {
             disablePending();
-            setData('Error');
+            setData("Error");
           }, 1000);
         });
     },
@@ -133,6 +133,7 @@ const useRequests = () => {
 };
 
 const StatusIcon = styled.div`
+  margin-left: 5px;
   @keyframes rotate {
     0% {
       transform: rotate(0deg);

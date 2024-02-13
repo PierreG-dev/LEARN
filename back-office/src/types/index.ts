@@ -1,7 +1,6 @@
 //Store
 //===== REDUX REDUCERS =====//
 
-import { ReactNode } from 'react';
 import { Socket } from 'socket.io-client';
 
 //connection

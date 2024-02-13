@@ -1,4 +1,5 @@
-const collections = require('../../collections');
+const collections = require("../../collections");
+const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res, next) => {
   const {
@@ -10,6 +11,20 @@ module.exports = async (req, res, next) => {
     languages: _languages,
   } = req.body;
 
+  // --- Décodage du token à l'aide de la clé d'encryption
+  const user = jwt.verify(req.headers.authorization, process.env.ENCRYPT_KEY);
+  // Test des droits à la création d'un cours
+  if (
+    !user ||
+    (!user.roles.includes("admin") && !user.roles.includes("teacher"))
+  ) {
+    return res.status(400).send({
+      code: 401,
+      msg: "Not allowed",
+    });
+  }
+
+  // --- Test présence des informations nécessaires
   if (
     !_title ||
     !_description ||
@@ -20,10 +35,11 @@ module.exports = async (req, res, next) => {
   )
     return res.status(400).send({
       code: 400,
-      msg: 'courseName, description, difficulty, categories, languages and iconName are all required',
+      msg: "courseName, description, difficulty, categories, languages and iconName are all required",
     });
 
   collections.Course.create({
+    teacherId: user.id,
     title: _title,
     description: _description,
     iconName: _iconName,
@@ -41,7 +57,7 @@ module.exports = async (req, res, next) => {
       next();
     })
     .catch((error) => {
-      console.error('ERROR 500 when creating a Course', error);
+      console.error("ERROR 500 when creating a Course", error);
       res.status(500).send({
         code: 200,
         msg: `Course ${_title} could not be created.`,

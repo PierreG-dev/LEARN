@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, memo, useCallback, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import "./index.scss";
 
@@ -16,14 +16,12 @@ function useDifficultySelector({ fixedDifficulty, ...props }: IProps) {
     fixedDifficulty || 3
   );
 
-  console.log("difficulty" + difficulty);
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
     setDifficulty(value as IDifficulty);
   }, []);
 
   const pointerPositionPicker = useCallback((difficulty: IDifficulty) => {
-    console.log((120 / 5) * difficulty - 120 / 6);
     return (120 / 5) * difficulty - 120 / 6;
   }, []);
 
@@ -44,28 +42,25 @@ function useDifficultySelector({ fixedDifficulty, ...props }: IProps) {
     }
   }, []);
 
-  const DifficultySelector = useCallback(
-    () => (
-      <div className="difficulty-container" style={props}>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          step="1"
-          className="difficulty-selector"
-          value={difficulty}
-          disabled={fixedDifficulty ? true : false}
-          onChange={handleChange}
-        />
-        <em className="learn-note">{difficultyToText(difficulty)}</em>
-        <IoChevronDown
-          className="difficulty-pointer"
-          style={{ left: pointerPositionPicker(difficulty) }}
-        />
-      </div>
-    ),
-    [difficulty]
-  );
+  const DifficultySelector = memo(() => (
+    <div className="difficulty-container" style={props}>
+      <input
+        type="range"
+        min="1"
+        max="5"
+        step="1"
+        className="difficulty-selector"
+        value={difficulty}
+        disabled={fixedDifficulty ? true : false}
+        onChange={handleChange}
+      />
+      <em className="learn-note">{difficultyToText(difficulty)}</em>
+      <IoChevronDown
+        className="difficulty-pointer"
+        style={{ left: pointerPositionPicker(difficulty) }}
+      />
+    </div>
+  ));
 
   return { difficulty, DifficultySelector };
 }
