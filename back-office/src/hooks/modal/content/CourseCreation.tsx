@@ -3,11 +3,16 @@ import useIconSelect from "../../useIconSelect";
 import useRequests from "../../useRequests";
 import useDatalistPicker from "../../useDatalistPicker";
 import technologies from "../../../utilities/technologies";
+import useDifficultySelector from "../../useDifficultySelector";
 
 const categoriesData = ["Front-end", "Back-end", "Dev-ops", "Outils"];
 
 const CourseCreation = () => {
   // --- HOOKS
+  const { difficulty, DifficultySelector } = useDifficultySelector({
+    top: 67.5,
+    left: 20,
+  });
   const { IconSelect, selectedIcon } = useIconSelect();
   const categoriesSelector = useDatalistPicker({
     dataset: categoriesData,
@@ -29,7 +34,6 @@ const CourseCreation = () => {
   // --- STATES
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [difficulty, setDifficulty] = useState(1);
   const [categories, setCategories] = useState([]);
   const [languages, setLanguages] = useState();
 
@@ -44,6 +48,9 @@ const CourseCreation = () => {
   return (
     <>
       <h1>Nouveau cours</h1>
+      <hr />
+      <br />
+      <DifficultySelector />
 
       <form onSubmit={() => {}}>
         <div>

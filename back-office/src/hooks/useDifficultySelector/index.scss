@@ -1,0 +1,86 @@
+@use "../../styles/_variables" as *;
+
+div.difficulty-container {
+  position: absolute;
+
+  em.learn-note {
+    margin-left: 10px;
+  }
+
+  svg.difficulty-pointer {
+    position: absolute;
+    top: 3px;
+  }
+
+  input[type="range"].difficulty-selector {
+    background: linear-gradient(
+      to right,
+      #2ecc71dd 0%,
+      #2ecc71dd 17%,
+      #f1c40fdd 17%,
+      #f1c40fdd 38%,
+      #ffa500dd 38%,
+      #ffa500dd 60%,
+      #ff6a00dd 60%,
+      #ff6a00dd 82%,
+      #e74c3cdd 82%,
+      #e74c3cdd 100%
+    );
+    padding: 0 !important;
+    opacity: 0.8;
+    margin-top: 15px;
+    width: 120px;
+    height: 10px;
+    border-radius: 5px;
+    border: 1px solid $color-main;
+    box-shadow: 1px 1px 7px rgba($color-main, 0.3);
+    cursor: pointer;
+
+    &::-webkit-slider-runnable-track {
+      /* Personnalisation de la trackbar pour Chrome, Safari, etc. */
+      width: 100%; /* Largeur de la trackbar */
+      height: 10px; /* Hauteur de la trackbar */
+      background-color: transparent; /* Couleur de la trackbar */
+      border-radius: 5px; /* Arrondi des coins de la trackbar */
+    }
+
+    &::-moz-range-track {
+      /* Personnalisation de la trackbar pour Firefox */
+      width: 100%; /* Largeur de la trackbar */
+      height: 10px; /* Hauteur de la trackbar */
+      background-color: transparent; /* Couleur de la trackbar */
+      border-radius: 5px; /* Arrondi des coins de la trackbar */
+    }
+
+    // --- PIVOT
+    &:hover::-webkit-slider-thumb {
+      cursor: pointer;
+    }
+    &:hover::-moz-range-thumb {
+      cursor: pointer;
+    }
+    &::-webkit-slider-thumb {
+      /* Personnalisation du pointeur pour Chrome, Safari, etc. */
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px; /* Largeur du pointeur */
+      height: 20px; /* Hauteur du pointeur */
+      background-color: transparent; /* Couleur du pointeur */
+      border-radius: 50%; /* Arrondi du pointeur */
+      cursor: pointer; /* Curseur au survol */
+      border: none;
+      cursor: auto;
+    }
+
+    &::-moz-range-thumb {
+      /* Personnalisation du pointeur pour Firefox */
+      width: 20px; /* Largeur du pointeur */
+      height: 20px; /* Hauteur du pointeur */
+      background-color: transparent; /* Couleur du pointeur */
+      border-radius: 50%; /* Arrondi du pointeur */
+      cursor: pointer; /* Curseur au survol */
+      border: none;
+      cursor: auto;
+    }
+  }
+}
