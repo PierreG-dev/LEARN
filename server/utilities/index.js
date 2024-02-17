@@ -8,8 +8,10 @@
 
 const data = require("./data");
 const middlewares = require("./middlewares");
+const auth = require("./auth");
 
 module.exports = {
   data,
   middlewares,
+  auth,
 };

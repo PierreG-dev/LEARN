@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 // --- Déclenche une animation du favicon synchronisée sur les FPS max de la machine
 const initiateFaviconAnimation = () => {
+  return
   let faviconId = 0;
   console.log("Initiation de l'animation du favicon...");
 

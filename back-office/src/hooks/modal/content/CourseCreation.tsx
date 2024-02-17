@@ -13,6 +13,7 @@ import useDifficultySelector from "../../useDifficultySelector";
 import iconsList from "../../../utilities/iconsList";
 
 const categoriesData = ["Front-end", "Back-end", "Dev-ops", "Outils"];
+const iconsData = Object.keys(iconsList);
 
 const CourseCreation = () => {
   const form = useRef<HTMLFormElement | null>(null);
@@ -22,7 +23,7 @@ const CourseCreation = () => {
     left: 20,
   });
   const iconSelector = useDatalistPicker({
-    dataset: Object.keys(iconsList),
+    dataset: iconsData,
     multiple: false,
     placeholder: "Selectionnez une icône",
     alt: "icons",

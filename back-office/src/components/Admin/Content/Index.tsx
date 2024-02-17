@@ -1,130 +1,27 @@
 import { Link } from "react-router-dom";
 import "./index.scss";
 import useModal from "../../../hooks/modal/useModal";
-const data = [
-  {
-    id: 1,
-    titre: "Introduction à la programmation",
-    description:
-      "Ce cours couvre les bases de la programmation informatique. lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet",
-  },
-  {
-    id: 2,
-    titre: "Développement web avancé",
-    description: "Ce cours explore les concepts avancés de développement web.",
-  },
-  {
-    id: 3,
-    titre: "Science des données",
-    description:
-      "Ce cours se concentre sur l'analyse et la visualisation des données.",
-  },
-  {
-    id: 4,
-    titre: "Algorithmique et structures de données",
-    description:
-      "Ce cours présente les algorithmes et les structures de données fondamentales.",
-  },
-  {
-    id: 5,
-    titre: "Systèmes d'exploitation",
-    description:
-      "Ce cours examine les principes et le fonctionnement des systèmes d'exploitation.",
-  },
-  {
-    id: 6,
-    titre: "Réseaux informatiques",
-    description:
-      "Ce cours aborde les principes et les technologies des réseaux informatiques.",
-  },
-  {
-    id: 7,
-    titre: "Programmation orientée objet",
-    description:
-      "Ce cours explore les concepts et les principes de la programmation orientée objet.",
-  },
-  {
-    id: 8,
-    titre: "Développement mobile",
-    description:
-      "Ce cours se concentre sur le développement d'applications mobiles.",
-  },
-  {
-    id: 9,
-    titre: "Intelligence artificielle",
-    description:
-      "Ce cours explore les fondements et les applications de l'intelligence artificielle.",
-  },
-  {
-    id: 10,
-    titre: "Bases de données",
-    description:
-      "Ce cours couvre les bases de la conception et de la gestion des bases de données.",
-  },
-  {
-    id: 11,
-    titre: "Ingénierie logicielle",
-    description:
-      "Ce cours se concentre sur les processus et les méthodes de l'ingénierie logicielle.",
-  },
-  {
-    id: 12,
-    titre: "Sécurité informatique",
-    description:
-      "Ce cours aborde les principes et les techniques de la sécurité informatique.",
-  },
-  {
-    id: 13,
-    titre: "Développement d'applications web",
-    description:
-      "Ce cours se concentre sur le développement d'applications web modernes.",
-  },
-  {
-    id: 14,
-    titre: "Cloud computing",
-    description:
-      "Ce cours explore les concepts et les technologies du cloud computing.",
-  },
-  {
-    id: 15,
-    titre: "Analyse des données",
-    description:
-      "Ce cours se concentre sur l'analyse et l'interprétation des données.",
-  },
-  {
-    id: 16,
-    titre: "Développement Agile",
-    description:
-      "Ce cours présente les principes et les pratiques du développement Agile.",
-  },
-  {
-    id: 17,
-    titre: "Génie logiciel",
-    description:
-      "Ce cours explore les principes et les méthodes du génie logiciel.",
-  },
-  {
-    id: 18,
-    titre: "Développement d'applications distribuées",
-    description:
-      "Ce cours couvre les concepts et les techniques du développement d'applications distribuées.",
-  },
-  {
-    id: 19,
-    titre: "Big Data",
-    description:
-      "Ce cours explore les technologies et les techniques pour le traitement et l'analyse du Big Data.",
-  },
-  {
-    id: 20,
-    titre: "Interface homme-machine",
-    description:
-      "Ce cours se concentre sur la conception et le développement d'interfaces utilisateur.",
-  },
-];
+import { FaLongArrowAltRight } from "react-icons/fa";
+import iconGenerator from "../../../utilities/iconGenerator";
+import { BiLock, BiLockOpen } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/index.ts";
+import { useCallback } from "react";
+import useRequests from "../../../hooks/useRequests.tsx";
 
 const ContentPage = () => {
   const modal = useModal();
+  const courses = useSelector((state: RootState) => state.data.courses || []);
+  const request = useRequests();
+
+  const handleCourseLock = useCallback((courseId: string) => {
+    request.fetchToAPI("/api/lockCourse", "PUT", {
+      type: "application/json",
+      content: JSON.stringify({
+        courseId,
+      }),
+    });
+  }, []);
 
   return (
     <div id="content_admin_page">
@@ -134,7 +31,6 @@ const ContentPage = () => {
         <button
           className="learn-button"
           onClick={() => {
-            console.log("issou");
             modal.displayModal("CourseCreation");
           }}
         >
@@ -142,30 +38,47 @@ const ContentPage = () => {
         </button>
       </div>
       <hr />
-      <h4>{data.length} cours</h4>
+      <h4>{courses.length} cours</h4>
       <ul>
-        {data.map((course, key) => (
+        {courses.map((course, key) => (
           <li key={key}>
-            <h3 title={course.titre}> {course.titre}</h3>
+            <header>
+              {iconGenerator(course.iconName)}
+              <h3 title={course.title}> {course.title}</h3>
+            </header>
             <div>
               <p>{course.description}</p>
               <ul>
                 <li>
-                  <a href={`/admin/content/${course.id}/exercices`}>
+                  <Link to={`/admin/content/${course._id}/exercices`}>
                     50 exercices
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href={`/admin/content/${course.id}`}>3 sets</a>
+                  <Link to={`/admin/content/${course._id}`}>3 sets</Link>
                 </li>
                 <li>
-                  <a href={`/admin/content/${course.id}/lessons`}>18 leçons</a>
+                  <Link to={`/admin/content/${course._id}/lessons`}>
+                    18 leçons
+                  </Link>
                 </li>
                 <li>
-                  <a href={`/admin/content/${course.id}`}>50 skills</a>
+                  <Link to={`/admin/content/${course._id}`}>50 skills</Link>
                 </li>
               </ul>
             </div>
+            <footer>
+              <button
+                className="lock-button"
+                onClick={() => handleCourseLock(course._id)}
+                style={course.isLocked ? { background: "orangered" } : {}}
+              >
+                {course.isLocked ? <BiLock /> : <BiLockOpen />}
+              </button>
+              <Link to={`/admin/content/${course._id}`}>
+                <FaLongArrowAltRight />
+              </Link>
+            </footer>
           </li>
         ))}
       </ul>

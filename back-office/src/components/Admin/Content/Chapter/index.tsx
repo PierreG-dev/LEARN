@@ -1,5 +1,9 @@
+import { useParams } from "react-router-dom";
+
 const ChapterPage = () => {
-  return <h1>ChapterPage</h1>;
+  const { pathname: url } = useParams();
+
+  return <h1>ChapterPage{url}</h1>;
 };
 
 export default ChapterPage;

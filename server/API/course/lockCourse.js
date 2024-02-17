@@ -1,15 +1,10 @@
 const collections = require("@collections");
+const utilities = require("@utilities");
 
 module.exports = async (req, res, next) => {
-  const { courseId: _courseId, updatedData } = req.body;
+  const { courseId: _courseId } = req.body;
 
-  if (
-    !_courseId ||
-    !updatedData ||
-    updatedData.timestamp !== undefined ||
-    updatedData.order !== undefined ||
-    updatedData.isLocked !== undefined
-  ) {
+  if (!_courseId) {
     res.status(400).send({
       code: 400,
       msg: "Invalid request",
@@ -35,14 +30,13 @@ module.exports = async (req, res, next) => {
     return;
   }
 
-  try {
-    await collections.Course.findOneAndUpdate(
-      { _id: course._id },
-      { $set: updatedData }
-    );
-    res.status(200).send("Course updated successfully");
-    next();
-  } catch (err) {
-    res.status(500).send(err);
-  }
+  await collections.Course.findOneAndUpdate(
+    { _id: course._id },
+    { isLocked: !course.isLocked }
+  )
+    .then(() => {
+      res.status(200).send("course lock updated successfully");
+      next();
+    })
+    .catch((err) => res.status(500).send(err));
 };

@@ -40,6 +40,7 @@ module.exports = async (req, res, next) => {
 
   collections.Course.create({
     teacherId: user.id,
+    isLocked: false,
     title: _title,
     description: _description,
     iconName: _iconName,

@@ -1,4 +1,4 @@
-const collections = require('../../collections');
+const collections = require("../../collections");
 
 // === Récupération des classes / users / schools... === //
 const adminDataParser = async (socket) => {
@@ -46,32 +46,50 @@ const adminDataParser = async (socket) => {
     })
   );
 
-  // --- Récupération des chapters / subchapters / exercises...
-  const chapters = await collections.Chapter.find().lean();
-  const chaptersData = await Promise.all(
-    chapters.map(async (chapterItem) => {
-      const subChapters = await collections.SubChapter.find({
-        chapterId: chapterItem._id,
-      }).lean();
-      const subChaptersData = await Promise.all(
-        subChapters.map(async (subChapterItem) => {
-          const exercices = await collections.Exercise.find({
-            subChapterId: subChapterItem._id,
-          }).lean();
-
-          return {
-            ...subChapterItem,
-            exercices,
-          };
-        })
-      );
+  // --- récupération des cours
+  const courses = await collections.Course.find().lean();
+  const coursesData = await Promise.all(
+    courses.map(async (courseItem) => {
+      // --- Récupération des skills de chaque cours
+      const skills = (
+        await collections.Skill.find({
+          courseId: courseItem._id,
+        }).lean()
+      ).map((skill) => skill.name);
 
       return {
-        ...chapterItem,
-        subChapters: subChaptersData,
+        ...courseItem,
+        skills,
       };
     })
   );
+
+  // --- Récupération des chapters / subchapters / exercises...
+  // const chapters = await collections.Chapter.find().lean();
+  // const chaptersData = await Promise.all(
+  //   chapters.map(async (chapterItem) => {
+  //     const subChapters = await collections.SubChapter.find({
+  //       chapterId: chapterItem._id,
+  //     }).lean();
+  //     const subChaptersData = await Promise.all(
+  //       subChapters.map(async (subChapterItem) => {
+  //         const exercices = await collections.Exercise.find({
+  //           subChapterId: subChapterItem._id,
+  //         }).lean();
+
+  //         return {
+  //           ...subChapterItem,
+  //           exercices,
+  //         };
+  //       })
+  //     );
+
+  //     return {
+  //       ...chapterItem,
+  //       subChapters: subChaptersData,
+  //     };
+  //   })
+  // );
 
   // --- Récupération des données de l'admin
   let userData = await collections.User.findOne({ _id: socket.user.id }).lean();
@@ -88,7 +106,7 @@ const adminDataParser = async (socket) => {
   return {
     user: user,
     schools: schoolsData,
-    chapters: chaptersData,
+    courses: coursesData,
   };
 };
 

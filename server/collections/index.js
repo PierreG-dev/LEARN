@@ -28,6 +28,8 @@ tryConnect();
 const Course = require("@collections/course.js")(connection);
 const CourseAccess = require("@collections/courseAccess.js")(connection);
 
+const Skill = require("@collections/skill.js")(connection);
+
 const Chapter = require("@collections/chapter.js")(connection);
 const ChapterAccess = require("@collections/chapterAccess.js")(connection);
 
@@ -49,6 +51,7 @@ const Message = require("@collections/message.js")(connection);
 const collections = {
   Course,
   CourseAccess,
+  Skill,
   Chapter,
   ChapterAccess,
   SubChapter,

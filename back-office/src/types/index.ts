@@ -14,7 +14,7 @@ export interface ConnectionState {
 export interface DataState {
   user?: User;
   schools?: School[];
-  chapters?: Chapter[];
+  courses?: Course[];
   teacher?: Teacher;
   class?: Class;
   school?: School;
@@ -143,6 +143,27 @@ export type User = {
   lastActivity?: number;
   roles?: [string];
 };
+
+// --- Course
+export type Course = {
+  _id: string,
+  teacherId?: string,
+  isLocked: boolean,
+  title: string,
+  description: string,
+  iconName: string,
+  difficulty: Difficulty,
+  skills: string[],
+  categories: [
+    {
+      type: string,
+      enum: ["Front-end", "Back-end", "Dev-ops", "Outils"],
+    },
+  ],
+  languages: [string],
+  timestamp?: number,
+  order: number,
+}
 
 // --- Chapter
 export type Chapter = {

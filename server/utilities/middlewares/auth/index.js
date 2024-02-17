@@ -1,5 +1,7 @@
-const authMiddleware = require("./authMiddleware");
+const APIAuthMiddleware = require("./APIAuthMiddleware");
+const SocketAuthMiddleware = require("./SocketAuthMiddleware");
 
 module.exports = {
-  authMiddleware,
+  APIAuthMiddleware,
+  SocketAuthMiddleware,
 };

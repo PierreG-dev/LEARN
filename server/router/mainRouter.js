@@ -1,7 +1,6 @@
 const API = require("../API");
 const utilities = require("../utilities");
 const updater = utilities.middlewares.clientUpdater.updateClientsData;
-const multer = require("multer");
 
 module.exports = (app, io) => {
   //----------- API ------------
@@ -20,9 +19,12 @@ module.exports = (app, io) => {
   // --- COURSE
   app.post("/api/postCourse", API.course.postCourse, updater(io));
   app.put("/api/putCourse", API.course.putCourse, updater(io));
+  app.put("/api/lockCourse", API.course.lockCourse, updater(io));
   app.get("/api/getCourse", API.course.getCourse);
 
   // --- SKILL
+  app.post("/api/postSkill", API.skill.postSkill, updater(io));
+  app.put("/api/deleteSkill", API.skill.deleteSkill, updater(io));
 
   // --- LANGUAGE
 

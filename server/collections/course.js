@@ -1,10 +1,12 @@
 const { Schema, model } = require("mongoose");
 
 /**
+ * teacherId: id du professeur à l'origine du cours
+ * isLocked: booléen permettant de savoir si le cours est verrouillé
  * title: nom du cours
  * description: description du cours
  * iconName: icone de la librairie react-icons correspondant au cours
- * difficulty: nnote allant de 1 à 5 représentant la difficultée de maitrise du cours
+ * difficulty: note allant de 1 à 5 représentant la difficultée de maitrise du cours
  * categories: tableau d'objets, représentants chacun une famille de compétences de dev WEB
  * languages: tableau de strings, représentant les différents languages utilisés dans ce cours
  * timestamp: date de création du cours
@@ -13,6 +15,7 @@ const { Schema, model } = require("mongoose");
 
 const schema = new Schema({
   teacherId: String,
+  isLocked: Boolean,
   title: String,
   description: String,
   iconName: String,

@@ -8,8 +8,14 @@
 
 const mainRouter = require("@router/mainRouter");
 const secondaryRouter = require("@router/secondaryRouter");
+const APIAuthMiddleware =
+  require("@utilities").middlewares.auth.APIAuthMiddleware;
 
 module.exports = (app, io) => {
+  // --- Auth middleware for Rest API
+  app.use(APIAuthMiddleware);
+
+  // --- Routers
   //Main router (Essentials routes)
   mainRouter(app, io);
 

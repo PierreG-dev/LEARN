@@ -1,0 +1,81 @@
+@use "../../../../styles/_variables" as *;
+
+div#course_admin_page {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 25px;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+
+  section {
+    position: relative;
+
+    h2 {
+      padding: 15px;
+      width: 100%;
+      color: $color-light;
+      background: $color-main;
+      border-radius: 5px 5px 0 0;
+    }
+
+    div.content {
+      flex: 1;
+      padding: 25px;
+      background: $color-secondary;
+      border-radius: 0 0 5px 5px;
+    }
+  }
+
+  section#title_difficulty {
+    display: flex;
+    background: $color-main;
+    justify-content: space-between;
+    align-items: center;
+    color: $color-light;
+    border-radius: 5px;
+    padding: 10px;
+
+    h1 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      svg {
+        font-size: 1.7rem;
+      }
+    }
+
+    div.difficulty-container {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 5px;
+      border-radius: 5px;
+      color: $color-main;
+
+      em.learn-note {
+        display: none;
+      }
+    }
+  }
+
+  section#languages_skills {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+
+    @media (max-width: 1000px) {
+      flex-direction: column;
+    }
+
+    article {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

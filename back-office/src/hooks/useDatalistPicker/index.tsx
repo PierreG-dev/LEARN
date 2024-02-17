@@ -19,6 +19,7 @@ import iconGenerator from "../../utilities/iconGenerator";
  * @property {boolean} [multiple=false] - Indique si la sélection multiple est activée.
  * @property {string} [placeholder] - Placeholder pour l'input.
  * @property {string} [alt] - Permet de préciser une spécificité
+ * @property {string[]} [defaultSet] - Permet de préciser une spécificité
  */
 
 type IProps = {
@@ -26,6 +27,7 @@ type IProps = {
   multiple: boolean;
   placeholder?: string;
   alt?: "icons" | "languages";
+  defaultSet?: string[];
 };
 
 /**
@@ -38,12 +40,13 @@ const useDatalistPicker = ({
   multiple = false,
   placeholder,
   alt,
+  defaultSet = [],
 }: IProps) => {
   /** Permet de savoir si l'input est en focus ou non */
   const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
   /** Donnée sélectionnée; peut être une chaîne ou un tableau de chaînes */
   const [selectedData, setSelectedData] = useState<string | string[]>(
-    multiple ? [] : ""
+    multiple ? defaultSet : ""
   );
   /** Valeur de l'input de recherche */
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -56,6 +59,8 @@ const useDatalistPicker = ({
   const dataList = useRef<HTMLUListElement>(null);
   /** Référence pour la tagList */
   const tagList = useRef<HTMLUListElement>(null);
+
+  console.log(defaultSet);
 
   /**
    * Effet pour filtrer les options en fonction du terme de recherche.
@@ -144,6 +149,13 @@ const useDatalistPicker = ({
     return () => document.removeEventListener("click", handleInputBlur);
   }, []);
 
+  // --- Met à jour le la liste par défaut des données si le default set à changé
+  useEffect(() => {
+    if (JSON.stringify(selectedData) !== JSON.stringify(defaultSet)) {
+      setSelectedData(defaultSet);
+    }
+  }, [defaultSet]);
+
   /**
    * Composant DatalistPicker.
    */
@@ -152,7 +164,7 @@ const useDatalistPicker = ({
       <input
         ref={input}
         onFocus={handleInputFocus}
-        onBlur={() => setIsInputFocused(false)}
+        onBlur={() => !multiple && setIsInputFocused(false)}
         className="learn-input md"
         value={searchTerm}
         onChange={handleSearchChange}

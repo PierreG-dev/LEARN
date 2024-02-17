@@ -1,4 +1,4 @@
-import { ChangeEvent, memo, useCallback, useState } from "react";
+import { ChangeEvent, memo, useCallback, useEffect, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import "./index.scss";
 
@@ -8,12 +8,19 @@ type IProps = {
   right?: number;
   bottom?: number;
   left?: number;
+  position?: "absolute" | "relative";
   fixedDifficulty?: IDifficulty;
 };
 
 function useDifficultySelector({ fixedDifficulty, ...props }: IProps) {
   const [difficulty, setDifficulty] = useState<IDifficulty>(
     fixedDifficulty || 3
+  );
+
+  // --- Permet de mettre à jour la difficultée en cas de changement du props
+  useEffect(
+    () => setDifficulty((fixedDifficulty as IDifficulty) || 3),
+    [fixedDifficulty]
   );
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {

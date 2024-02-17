@@ -42,23 +42,41 @@
       border-radius: 5px;
       box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
       width: 250px;
-      height: 300px;
+      height: 380px;
+      position: relative;
       background: $color-secondary;
       display: flex;
       flex-direction: column;
 
-      // Titre du cours
-      h3 {
-        color: $color-light !important;
-        padding: 15px;
-        border-radius: 5px 5px 0 0;
-        background: $color-main;
+      header {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-        height: 60px;
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        background: $color-main;
+        border-radius: 5px 5px 0 0;
+        height: 75px;
+        padding: 0 15px 0 0;
+
+        // Icône du cours
+        svg {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          width: 30%;
+          font-size: 2rem;
+          color: $color-light;
+        }
+        // Titre du cours
+        h3 {
+          color: $color-light !important;
+          align-items: center;
+          width: 70%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
       }
 
       // Conteneur description & liste
@@ -101,6 +119,62 @@
             user-select: none;
             color: $color-light;
             background: $color-main;
+            transition: 0.2s;
+            opacity: 0.8;
+
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      footer {
+        height: 60px;
+        margin: 5px;
+        display: flex;
+        gap: 5px;
+
+        // Bouton de lock
+        & > button.lock-button {
+          height: 100%;
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 10px;
+          background: $color-main;
+          color: $color-light;
+          font-size: 1.5rem;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          opacity: 0.8;
+          transition: 0.2s;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        // flèche lien
+        & > a {
+          height: 100%;
+          border-radius: 5px;
+          width: 70px;
+          background: $color-main;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0.8;
+          transition: 0.2s;
+
+          &:hover {
+            opacity: 1;
+          }
+          svg {
+            color: $color-light;
+            font-size: 1.5rem;
           }
         }
       }
