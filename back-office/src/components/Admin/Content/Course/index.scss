@@ -51,10 +51,10 @@ div#course_admin_page {
     div.difficulty-container {
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.1);
       padding: 5px;
       border-radius: 5px;
-      color: $color-main;
+      color: $color-light;
 
       em.learn-note {
         display: none;
@@ -62,7 +62,8 @@ div#course_admin_page {
     }
   }
 
-  section#languages_skills {
+  section#languages_skills,
+  section#exercices_exercices_sets {
     display: flex;
     justify-content: space-between;
     gap: 15px;
@@ -76,6 +77,33 @@ div#course_admin_page {
       flex: 1;
       display: flex;
       flex-direction: column;
+
+      &#exercices {
+      }
+
+      div.content {
+        position: relative;
+
+        a {
+          position: absolute;
+          bottom: 5px;
+          right: 5px;
+          border-radius: 5px;
+          padding: 5px 10px;
+          background: $color-main;
+          opacity: 0.7;
+          color: $color-light;
+          transition: 0.2s;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          svg {
+            font-size: 1.5rem;
+          }
+        }
+      }
     }
   }
 }

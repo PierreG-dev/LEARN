@@ -12,7 +12,18 @@ import technologies from "../../../utilities/technologies";
 import useDifficultySelector from "../../useDifficultySelector";
 import iconsList from "../../../utilities/iconsList";
 
-const categoriesData = ["Front-end", "Back-end", "Dev-ops", "Outils"];
+const categoriesData = [
+  "Front-end",
+  "Back-end",
+  "DevOps",
+  "Outils",
+  "Logique",
+  "Bases de données",
+  "UI/UX Design",
+  "Sécurité web",
+  "Accessibilité web",
+  "Performances web",
+];
 const iconsData = Object.keys(iconsList);
 
 const CourseCreation = () => {

@@ -87,6 +87,9 @@ ul#selected_tag_list {
   height: fit-content;
 
   li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     cursor: pointer;
     background: $color-main;
     color: $color-light;
@@ -95,6 +98,7 @@ ul#selected_tag_list {
     transition: 0.05s;
     animation: appearFromTop 0.75s 1;
     animation-fill-mode: both;
+    font-weight: bold;
 
     &:hover {
       background: orangered;

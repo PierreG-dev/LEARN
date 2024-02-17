@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { RootState } from "../../../../store/index.ts";
 import useDifficultySelector from "../../../../hooks/useDifficultySelector";
 import "./index.scss";
@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import useRequests from "../../../../hooks/useRequests.tsx";
 import useSkillManager from "../../../../hooks/modal/useSkillManager/index.tsx";
 import iconGenerator from "../../../../utilities/iconGenerator.tsx";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 const CoursePage = () => {
   const { courseId } = useParams();
@@ -18,7 +19,7 @@ const CoursePage = () => {
   const request = useRequests();
   const difficultySelector = useDifficultySelector({
     position: "relative",
-    fixedDifficulty: course?.difficulty,
+    defaultDifficulty: course?.difficulty,
   });
 
   const languagesSelector = useDatalistPicker({
@@ -43,6 +44,16 @@ const CoursePage = () => {
         }),
       });
   }, [languagesSelector.selectedData]);
+  useEffect(() => {
+    if (course && course.difficulty !== difficultySelector.difficulty)
+      request.fetchToAPI("/api/putCourse", "PUT", {
+        type: "application/json",
+        content: JSON.stringify({
+          courseId: course._id,
+          updatedData: { difficulty: difficultySelector.difficulty },
+        }),
+      });
+  }, [difficultySelector.difficulty]);
 
   return (
     <div id="course_admin_page">
@@ -64,16 +75,24 @@ const CoursePage = () => {
           <div className="content">{skillsManager.SkillsManager}</div>
         </article>
       </section>
-      <section id="exercices">
-        <h2>Exercices</h2>
-        <div className="content"></div>
+      <section id="exercices_exercices_sets">
+        <article id="exercices">
+          <h2>Exercices</h2>
+
+          <div className="content">
+            <Link to={`/admin/content/${course?._id}/exercices`}>
+              <FaLongArrowAltRight />
+            </Link>
+          </div>
+        </article>
+        <article id="exercices_sets">
+          <h2>Sets d'exercices</h2>
+          <div className="content"></div>
+        </article>
       </section>
+      <section id="exercices_sets"></section>
       <section id="chapters">
         <h2>Chapitres</h2>
-        <div className="content"></div>
-      </section>
-      <section id="exercices_sets">
-        <h2>Sets d'exercices</h2>
         <div className="content"></div>
       </section>
     </div>

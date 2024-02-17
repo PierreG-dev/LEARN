@@ -45,7 +45,7 @@ const useSkillManager = ({ courseId, defaultSet = [] }: IProps) => {
         type: "application/json",
         content: JSON.stringify({
           courseId: courseId,
-          skillName: input,
+          skillName: input.charAt(0).toUpperCase() + input.slice(1),
         }),
       });
       setInput("");

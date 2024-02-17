@@ -9,18 +9,23 @@ type IProps = {
   bottom?: number;
   left?: number;
   position?: "absolute" | "relative";
-  fixedDifficulty?: IDifficulty;
+  defaultDifficulty?: IDifficulty;
+  fixed?: boolean;
 };
 
-function useDifficultySelector({ fixedDifficulty, ...props }: IProps) {
+function useDifficultySelector({
+  defaultDifficulty,
+  fixed = false,
+  ...props
+}: IProps) {
   const [difficulty, setDifficulty] = useState<IDifficulty>(
-    fixedDifficulty || 3
+    defaultDifficulty || 3
   );
 
   // --- Permet de mettre à jour la difficultée en cas de changement du props
   useEffect(
-    () => setDifficulty((fixedDifficulty as IDifficulty) || 3),
-    [fixedDifficulty]
+    () => setDifficulty((defaultDifficulty as IDifficulty) || 3),
+    [defaultDifficulty]
   );
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +63,7 @@ function useDifficultySelector({ fixedDifficulty, ...props }: IProps) {
         step="1"
         className="difficulty-selector"
         value={difficulty}
-        disabled={fixedDifficulty ? true : false}
+        disabled={fixed ? true : false}
         onChange={handleChange}
       />
       <em className="learn-note">{difficultyToText(difficulty)}</em>

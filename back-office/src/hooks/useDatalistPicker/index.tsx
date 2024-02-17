@@ -60,8 +60,6 @@ const useDatalistPicker = ({
   /** Référence pour la tagList */
   const tagList = useRef<HTMLUListElement>(null);
 
-  console.log(defaultSet);
-
   /**
    * Effet pour filtrer les options en fonction du terme de recherche.
    */
@@ -202,6 +200,7 @@ const useDatalistPicker = ({
         <ul ref={tagList} id="selected_tag_list">
           {selectedData.map((item, key) => (
             <li key={key} onClick={() => handleDeleteItem(item)}>
+              {alt === "languages" && technologies.getIconFromName(item)}
               {item}
             </li>
           ))}
